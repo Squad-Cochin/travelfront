@@ -1,4 +1,9 @@
+// { This page is for reusing the checkbox input }
+
+//We installed react-bootstrap and used the form component from the library.
 import Form from "react-bootstrap/Form";
+
+//Css page 
 import Styles from "./Checkbox.module.scss";
 
 const CheckboxType = (props) => {

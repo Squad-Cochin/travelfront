@@ -1,8 +1,12 @@
+//{ On the component that displays the homepage, 
+// this component displays all destination images, along with descriptions, booking amounts, and more }
+
 import React,{useState} from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Link from "next/link";
 import Image from "next/image";
+// This component is designed for reusing buttons
 import ButtonType from "../../Button/Button";
 import ActivityImage1 from "../../../../public/images/acitivity-image1.jpg";
 import Styles from "./ListingProbox.module.scss";
@@ -11,6 +15,7 @@ const ListingProbox = (props) => {
   const [active, setActive] = useState(false);
   return (
     <>
+    {/* We are displaying the data here */}
     {props.boxData.map((item) => {
       return(
         <div className={Styles.list_probox} id={item.id} key={item.id}>
@@ -60,6 +65,7 @@ const ListingProbox = (props) => {
                   <div className="pb-2">
                     <span className="fw-bold">{item.rating}</span> ({item.ratingCount})
                   </div>
+                  {/* Click the 'Book' button to book your reservation*/}
                   <ButtonType className="btntype1" name={item.buttonText} />
                 </div>
               </div>

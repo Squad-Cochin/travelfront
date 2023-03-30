@@ -1,3 +1,6 @@
+// {On the component page that displays the homepage, the search bar allows the user to search for a location and select a start date. Additionally, 
+//the user can select an end date and the number of adults and thair functionalities  using this component}
+
 import React, { useState } from "react";
 import Select,{components} from 'react-select';
 import Container from "react-bootstrap/Container";
@@ -6,12 +9,13 @@ import Col from "react-bootstrap/Col";
 import Dropdown from "react-bootstrap/Dropdown";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+//We are displaying the location search input here , We have passed values into the input component so that it can be reused.
 import InputType from "../../Input/Input";
 import SelectType from "../Select/Select";
 import ButtonType from "../../Button/Button";
 import Styles from "./ListingSearchbar.module.scss";
 import Checkbox from "../../Checkbox/Checkbox";
-
+ 
 function ActivitySearchWidgetHome() {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -22,11 +26,13 @@ function ActivitySearchWidgetHome() {
     { value: "4", label: "4" ,key:"4"},
     { value: "5", label: "5" ,key:"5"}
   ];
+
   return (
     <>
       <div className={`${Styles.listingSearchbar}`}>
         <Row className="g-2">
           <Col lg={5} md={12} xs={12}>
+            {/*Search input*/}
             <InputType
               class={`search_formbox ${Styles.searchInput}`}
               label=""
@@ -37,6 +43,7 @@ function ActivitySearchWidgetHome() {
             <div className="position-relative">
               <div className={Styles.date_fromtext}>From</div>
               <label>
+                {/* From date */}
                 <DatePicker
                   dateFormat="MMM dd"
                   selected={startDate}
@@ -52,6 +59,7 @@ function ActivitySearchWidgetHome() {
             <div className="position-relative">
               <div className={Styles.date_fromtext}>To</div>
               <label>
+                {/* To date */}
                 <DatePicker
                   dateFormat="MMM dd"
                   selected={endDate}
@@ -71,6 +79,7 @@ function ActivitySearchWidgetHome() {
                 2 adults
               </Dropdown.Toggle>
               <Dropdown.Menu>
+                {/* We are displaying this data in a dropdown. */}
                 <Row className="g-3">
                   <Col xs={6}>
                     <span className={Styles.label}>Adult</span>
@@ -100,6 +109,7 @@ function ActivitySearchWidgetHome() {
             </Dropdown>
           </Col>
           <Col lg={1} md={3} xs={12}>
+            {/* Clicking the search button will submit the data */}
             <ButtonType className={`${Styles.searchButton} btntype1 w-100`} name="Search" />
           </Col>
         </Row>

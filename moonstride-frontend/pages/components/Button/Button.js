@@ -1,3 +1,4 @@
+// This component can be reused for buttons 
 import Button from "react-bootstrap/Button";
 import Styles from "./Button.module.scss";
 

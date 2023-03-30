@@ -1,3 +1,4 @@
+// { This component is used to reuse the label and input when we receive values through props }
 import Form from "react-bootstrap/Form";
 import Styles from "./Input.module.scss";
 
