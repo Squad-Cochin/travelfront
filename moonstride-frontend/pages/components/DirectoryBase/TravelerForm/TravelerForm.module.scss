@@ -1,0 +1,40 @@
+@import "../../../../styles/config";
+.sideBox{
+    border:1px solid #dfdfdf;
+}
+.accordianWrapper{
+    :global(.accordion-button){
+        font-size: 16px;
+        padding: 10px;
+        color: $primary-color;
+        font-weight: 500;
+        box-shadow: none !important;
+        background-color: rgba(65, 15, 78, 0.1);
+    }
+}
+.paymentTitle{
+        font-size: 16px;
+        padding: 10px;
+        color: $primary-color;
+        font-weight: 500;
+        box-shadow: none !important;
+        background-color: rgba(65, 15, 78, 0.1);
+        position: relative;
+        margin-top:30px;
+        border-radius: 5px;
+        &::after{
+            content: '';
+            position: absolute;
+            // background-image: var(--bs-accordion-btn-icon);
+            background-repeat: no-repeat;
+            right: 15px;
+            width: 14px;
+            height: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: url("../../../../public/images/faq-arrow.svg");
+            svg{
+                fill: black;
+            }
+        }
+}

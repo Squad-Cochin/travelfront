@@ -1,0 +1,128 @@
+@import '../../../../styles/config';
+// Flight Detail buttons data start
+.detailWrapper{
+    .outBoundDetail,.inBoundDetail{
+      border-top: 1px solid $primary-color;
+      border-bottom: 1px solid $primary-color;
+      padding: 10px 14px;
+      background: rgba(65, 15, 78, 0.1);
+      font-size: 14px;
+      .outBoundImage{
+        margin-right: 10px;
+      }
+    }
+    .locationWrapper{
+      margin: 10px 14px;
+      .location{
+        font-size: 20px;
+        line-height: 27px;
+        .location1{
+          &::before{
+            content: "";
+            border: 1px dashed rgba(151, 151, 151, 0.25);
+            width: 100px;
+            display: inline-block;
+            position: absolute;
+            top: 15px;
+            right: -127px;
+            @include devices(mobile){
+              right: -60px;
+              width: 50px;
+            }
+          }
+          &::after{
+            content: "";
+            background-image: url('../../../../public/images/plane.svg');
+            background-repeat: no-repeat;
+            background-size: contain;
+            position: absolute;
+            top: 7px;
+            right: -156px;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            @include devices(mobile){
+              right: -86px;
+            }
+          }
+        }
+        .location2{
+          padding-left: 200px;
+          @include devices(mobile){
+            padding-left: 88px;
+          }
+        }
+      }
+    }
+    .listWrapper{
+      .list{
+        margin-bottom: 10px;
+        padding-left: 0;
+        .listItem{
+          font-size: 13px;
+          line-height: 20px;
+          width: 14%;
+          list-style: none;
+          margin: 0 14px;
+          @include devices(mobile){
+            width: 24%;
+          }
+          .listImage{
+            border: 1px solid rgba(151, 151, 151, 0.25);
+            padding: 8px;
+          }
+          span{
+            font-size: 20px;
+            p{
+              font-size: 13px;
+              margin: 0;
+            }
+          }
+        }
+      }
+      .transitTime{
+        margin-bottom: 10px;
+        &::before{
+          content: '';
+          border: 1px solid $border-color;
+          width: 40%;
+          position: absolute;
+          top: 50%;
+          left: 0;
+          transform: translateY(-50%);
+          @include devices(mobile){
+            width: 26% !important;
+          }
+          @include devices(tablet){
+            width: 38%;
+          }
+        }
+        &::after{
+          content: '';
+          border: 1px solid $border-color;
+          width: 40%;
+          position: absolute;
+          top: 50%;
+          right: 0;
+          transform: translateY(-50%);
+          @include devices(mobile){
+            width: 26% !important;
+          }
+          @include devices(tablet){
+            width: 38%;
+          }
+        }
+        .customButton{
+          &:hover{
+            background-color: $primary-color;
+            color: $c-white;
+          }
+          &:focus{
+            &:hover{
+              color: $primary-color;
+            }
+          }
+        }
+      }
+    }
+  }

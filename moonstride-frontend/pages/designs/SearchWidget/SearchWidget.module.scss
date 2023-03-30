@@ -1,0 +1,38 @@
+@import "../../../styles/_config.scss";
+
+
+.searchWidgetTabsOuter {
+    margin: 110px 0 140px;
+    :global(.nav-tabs) {
+        justify-content: center;
+        margin: 0 !important;
+        border-bottom: none;
+        :global(.nav-item) {
+            &:not(:last-child) { margin-right: 10px; }
+            :global(.nav-link) {
+                font-size: 17px;
+                line-height: 35px;
+                color: $c-black;
+                font-weight: 600;
+                padding: 5px 20px;
+                min-width: 130px;
+                font-family: "LeagueSpartan-SemiBold";
+                &:not(:global(.active)) { border-color: $c-black; }
+                &:global(.active) { border-color: $c-black $c-black $c-white; color: $c-purple; }
+            }
+        }
+    }
+    :global(.tab-content) {
+        padding: 25px;
+        border: 1px solid $c-black;
+        border-radius: 4px;
+        :global(h2.widgetTitle) {
+            color: $c-black;
+            font-weight: 900;
+            font-size: 23px;
+            line-height: 48px;
+            vertical-align: baseline;
+            font-family: "LeagueSpartan-Bold";
+        }
+    }
+}

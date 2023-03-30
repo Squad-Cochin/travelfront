@@ -1,0 +1,164 @@
+@import '../../../../styles/mixins';
+.timelineSection{
+    padding: 50px 0;
+    .mapTitle{
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 1.22;
+        letter-spacing: 0.27px;
+        color: #410f4e;
+    }
+    .timelineMap{
+        iframe{
+            width: 100%;
+        }
+    }
+    .timelineFlex{
+        @include devices(mobile){
+            margin-bottom: 15px;
+        }
+    }
+    .arrivalBox{
+        box-shadow: 0 0 6px 0 rgb(0 0 0 / 33%);
+        padding-right: 15px;
+        .arrivalList{
+            padding: 15px;
+            height: 100%;
+            overflow-y: auto;
+            max-height: 450px;
+            @include devices(mobile){
+                max-height: 430px;
+            }
+            .arrivalHead{
+                font-size: 14px;
+                font-weight: normal;
+                line-height: 1.57;
+                color: #2b2b2b;
+                margin-bottom: 20px;
+            }
+            .cities{
+                padding-left: 15px;
+                list-style: none;
+                position: relative;
+                margin-bottom: 90px;
+                &::before{
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    background: #dcdddf;
+                    height: 90%;
+                    width: 3px;
+                    left: 18px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+                .parentCities{
+                    position: relative;
+                    padding-left: 20px;
+                    margin-bottom: 15px;
+                    font-size: 15px;
+                    font-weight: 600;
+                    line-height: 1.47;
+                    letter-spacing: 0.23px;
+                    color: #410f4e;
+                   
+                    &::before{
+                        content: '';
+                        display: block;
+                        width: 10px;
+                        height: 10px;
+                        background-color: #94979b;
+                        border: solid 3.6px rgba(148, 151, 155, 0.32);
+                        box-shadow: 0 0px 6px 1px rgb(148 151 155);
+                        border-radius: 50%;
+                        position: absolute;
+                        left: -1px;
+                        top: 6px;
+                    }
+                    .innerCities{
+                        padding: 0;
+                        list-style: none;
+                        margin-top: 15px;
+                        .childCities{
+                            position: relative;
+                            margin-left: -20px;
+                            padding-left: 20px;
+                            font-weight: 500;
+                            margin-bottom: 15px;
+                            &::before{
+                                content: '';
+                                display: block;
+                                width: 5px;
+                                height: 5px;
+                                background-color: #94979b;
+                                border-radius: 50%;
+                                position: absolute;
+                                left: 2px;
+                                top: 50%;
+                                transform: translateY(-50%);
+                            }
+                            &:last-child{
+                                margin-bottom: 0;
+                            }
+                        }
+                        :global(.activestatus){
+                            &::before{
+                                background-color: rgb(126 61 143);
+                                border: none;
+                                box-shadow: none;
+                            }
+                            &::after{
+                                content: '';
+                                display: block;
+                                //height: 26px;
+                                width: 3px;
+                                background: #7e3d8f;
+                                position: absolute;
+                                left: 3px;
+                                top: -80%;
+                                bottom: 35%;        
+                            }
+                        }
+                    }
+                }
+                :global(.activestatus){
+                    &::before{
+                        background-color: rgb(126 61 143);
+                        border: solid 3.6px rgb(126 61 143 / 0.32);
+                        box-shadow: 0 0px 6px 1px rgb(126 61 143);
+                    }
+                    &::after{
+                        content: '';
+                        display: block;
+                        //height: 25px;
+                        width: 3px;
+                        background: #7e3d8f;
+                        position: absolute;
+                        left: 3px;
+                        top: -100%;
+                        bottom: 95%;
+                    }
+                    &:first-child{
+                        &::after{
+                            content: none;
+                        }
+                    }
+                }
+            }
+            &::-webkit-scrollbar{
+                width: 6px;
+                position: absolute;
+            }
+            &::-webkit-scrollbar-track {
+                border-radius: 3.5px;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                background-color: #d8d8d8;
+            }
+            &::-webkit-scrollbar-thumb{
+                background: #747474;
+                border-radius: 3.5px;
+            }
+        }
+    }
+}

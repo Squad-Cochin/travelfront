@@ -1,0 +1,107 @@
+@import '../../../../styles/config';
+.cardTop{
+    padding:15px 0 20px;
+    border-bottom: 1px solid $border-color;
+    a{
+        text-decoration: none;
+        font-size: 15px;
+        line-height: 22px;
+        letter-spacing: 0.23px;
+        position: relative;
+        color:$primary-color;
+        padding-left: 20px;
+        display: inline-block;
+        &::before{
+            background-image: url('../../../../public/images/CarListing/arrowLeft.svg');
+            content: '';
+            position: absolute;
+            height: 15px;
+            width: 15px;
+            left:0;
+            top:50%;
+            transform: translateY(-50%);
+            background-repeat: no-repeat;
+            object-fit: cover;
+        }
+    }
+}
+.transferDetails{
+    border-bottom: 1px solid $border-color;
+    .subTitle{
+        color: $text-color;
+    }
+    .carInfo{
+        padding-top: 20px;
+        .carDetail{
+            font-size: 14px;
+            line-height: 18px;
+            display: block;
+            padding: 5px 0;
+        }
+    } 
+    .descriptionText{
+        color: $text-color;
+        line-height: 18px;
+        li{
+            list-style: none;
+        }
+    }
+}
+.transferRating{
+    border-bottom: 1px solid $border-color;
+    .ratingTxtBold{
+        line-height: 20px;
+        color: $text-color;
+    }
+    .ratingTxtNo{
+        line-height: 20px;
+        color: $text-color;
+    }
+    .carTxt{
+        line-height: 20px;
+        color: $text-color;
+    }
+    .ratingWrapper{
+        justify-content: end;
+        align-items: end;
+        @include devices(mobile){
+            justify-content: start;
+            align-items: start;
+        }
+        .ratingLink{
+            position: relative;
+            padding-right: 15px;
+            &::after{
+                content: "";
+                position: absolute;
+                background-image: url(/_next/static/media/arrowRightBlue.db98ed4a.svg);
+                height: 14px;
+                width: 8px;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                background-repeat: no-repeat;
+            }
+        }    
+    }
+}
+.cancellationWrapper{
+    border-bottom: 1px solid $border-color;
+    @include devices (tablet){
+        border-bottom: none;
+    }
+    .cancellation{
+        padding-left: 53px;
+        &::before{
+            content: "";
+            background: url(/_next/static/media/freeCancel.6a7739bf.png) no-repeat;
+            height: 36px;
+            width: 36px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-size: contain;
+            left: 0;
+        }
+    }
+}

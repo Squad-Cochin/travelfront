@@ -1,0 +1,146 @@
+@import "../../../../styles/config";
+.listBox {
+  border-top: 1px solid $border-color;
+  padding: 20px 0 0;
+  .imagebox {
+    width: 195px;
+    height: 195px;
+    @include devices(mobile) {
+      width: 100%;
+      height: 100%;
+      margin: 0 auto;
+    }
+    span {
+      @include devices(mobile) {
+        width: 100% !important;
+      }
+    }
+    .image {
+      object-fit: cover;
+    }
+    .text {
+      .imageText {
+        color: $header-bgcolor;
+        font-size: 13px;
+        width: 100%;
+        padding: 8px 0px;
+        background-color: $secondry-color;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+      }
+    }
+  }
+  .rating {
+    padding-bottom: 10px;
+  }
+  .descriptionLink {
+    color: $link-color;
+    font-weight: $f-bold;
+  }
+  .modelWrapper{
+    .map{
+      width: 100%;
+    }
+  }
+  .priceWrapper {
+    @include devices(mobile) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid $border-color;
+      padding-top: 10px;
+    }
+    .priceTitle {
+      font-size: 15px;
+      color: $primary-color;
+      @include devices(mobile) {
+        margin-bottom: 5px;
+      }
+    }
+    .priceDescription {
+      padding-bottom: 10px;
+      font-size: 15px;
+      line-height: 20px;
+      @include devices(mobile) {
+        padding-bottom: 5px;
+      }
+    }
+    .price {
+      color: $secondry-color;
+      font-size: 23px;
+      line-height: 22px;
+      padding-bottom: 10px;
+      @include devices(mobile) {
+        padding-bottom: 5px;
+      }
+    }
+    .totalPrice {
+      padding-bottom: 10px;
+      font-size: 12px;
+      line-height: 17px;
+      @include devices(mobile) {
+        padding-bottom: 5px;
+      }
+    }
+    .priceLink {
+      font-size: 13px;
+      line-height: 20px;
+      color: $link-color;
+      text-decoration: underline;
+    }
+    .buttonWrapper {
+      margin-top: 20px;
+      @include devices(mobile) {
+        margin-top: 0;
+      }
+      .customButton {
+        min-width: 100% !important;
+        @include devices(mobile) {
+          padding: 10px;
+        }
+      }
+    }
+  }
+  .wishlist {
+    top: 25px;
+    right: 5px;
+    .activeFavouritelist{
+      path{
+        fill: $secondry-color;
+        stroke: $secondry-color;
+      }
+    }
+    svg{
+      stroke: $primary-color;
+      stroke-width: 25px;
+    }
+  }
+  .accordiontype {
+    margin-top: 20px;
+    @include devices(mobile) {
+      margin-top: 10px;
+    }
+    :global(.accordion-button) {
+      font-size: 16px;
+      padding: 10px;
+      color: $primary-color;
+      font-weight: 500;
+      box-shadow: none !important;
+      background-color: rgba(65, 15, 78, 0.1);
+    }
+    :global(.accordion-button.collapsed) {
+      border-radius: 6px;
+    }
+    :global(.accordion-body) {
+      border: 1px solid rgba(151, 151, 151, 0.25);
+      border-top: none;
+      padding: unset;
+      .accordianTitle {
+        font-size: 15px;
+        letter-spacing: 1px;
+        padding: 10px 15px 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,182 @@
+@import "../../../../styles/config";
+.flightData{
+    border: solid 2px $primary-color;
+    border-radius: 6px;
+    margin-top: 15px;
+    @include devices(mobile){
+      margin-top: 0;
+    }
+    .totalCostWrapper{
+      padding: 14px 20px;
+      @include devices(mobile){
+        display: block !important;
+        padding: 14px 15px;
+      }
+      .price{
+        font-size: 23px;
+        color: $link-color;
+        line-height: 22px;
+        padding-bottom: 5px;
+      }
+      .priceDescription{
+        font-size: 13px;
+      }
+    }
+    .tabWrapper{
+      border-bottom: 1px solid #ececec;
+      margin-bottom: 15px;
+      .tabActive{
+        color: $primary-color;
+        border: 1px solid #ececec;
+        border-bottom: none;
+        padding: 10px 15px;
+        margin: 0 0 0 20px;
+        font-weight: 600;
+        color: $primary-color;
+      }
+      .tabs{
+        cursor: pointer;
+        margin: 0 0 0 20px;
+        padding: 10px 15px;
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+    }
+    :global(.nav-tabs){
+      margin: 0 14px;
+    }
+    :global(.nav-link){
+      margin-right: 14px;
+      padding: 10px;
+      color: unset;
+    }
+    .flightInformation{
+      margin: 0;
+      @include devices(mobile){
+        display: block !important;
+      }
+      .outBound,.inBound{
+        @include devices(mobile){
+          width: 100% !important;
+        }
+        .outBoundText,.inBoundText{
+          border-left: none !important;
+          border: 1px solid $border-color;
+          border-right: none;
+          padding: 10px 14px;
+          background: rgba(65, 15, 78, 0.1);
+          font-size: 14px;
+          .outBoundImage,.inBoundImage{
+            margin-right: 10px;
+          }
+        }
+        .timeWrapper{
+          padding: 14px;
+          .outBoundTime,.inBoundTime{
+            @include devices(mobile){
+              width: 50% !important;
+            }
+            .time1{
+              font-size: 25px;
+            }
+            .time{
+              font-size: 25px;
+              &::before{
+                content: '';
+                border: 1px dashed $border-color;
+                width: 60px;
+                display: inline-block;
+                position: absolute;
+                top: 15px;
+                right: 27px;
+                @include devices(mobile){
+                  content: unset;
+                }
+                @include devices(tablet){
+                  content: unset;
+                }
+              }
+              &::after{
+                content: '';
+                background-image: url('../../../../public/images/plane.svg');
+                background-repeat: no-repeat;
+                background-size: contain;
+                position: absolute;
+                top: 7px;
+                right: 0;
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+              }
+            }
+            .location,.date{
+              font-size: 13px;
+            }
+          }
+          .details{
+            margin-top: 14px;
+            @include devices (mobile){
+              margin-top: 4px;
+              margin-bottom: 0;
+            }
+            .listItems{
+              list-style: none;
+              padding: 0 10px;
+              line-height: 18px;
+              margin-top: 10px;
+              @include devices(mobile){
+                padding: 0 3px;
+              }
+              &:first-child{
+                border: 1px solid $border-color;
+                padding: 4px;
+              }
+            }
+          }
+        }
+      }
+      .inBound{
+        border-left: 1px solid $border-color;
+        @include devices(mobile){
+          border-left: none;
+        }
+        .inBoundText{
+          border-bottom: 1px solid $border-color;
+          border-top: 1px solid $border-color;
+          padding: 9px 14px;
+          background: rgba(65, 15, 78, 0.1);
+          font-size: 14px;
+          .inBoundImage{
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+  // Buttons section start
+  .buttonWrapper{
+    margin: 14px;
+    .custom{
+      padding: 10px;
+      margin-right: 10px;
+      border-width: 1px;
+      border-radius: 6px;
+      @include devices (mobile){
+        padding: 0 5px;
+        margin-bottom: 10px;
+        font-size: 10px;
+        min-width: 90px !important;
+      }
+      &:hover{
+        background-color: $primary-color;
+        color: $c-white;
+      }
+      &:focus{
+        color: $primary-color;
+      }
+    }
+    .image{
+      width: 30px;
+      height: 30px;
+    }
+  }
