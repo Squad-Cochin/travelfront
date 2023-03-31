@@ -31,26 +31,30 @@ function ActivitySearchWidgetHome(props) {
 
   const handleClick = async (e) => {
 
-    const data = await fetch('https://fortnite-api.com/v2/news');
-    const items = await data.json();
     const dataTours = await tourPackages();
     console.log(dataTours);
-    
-    props.setSearchData([
-      ...props.searchData,
-      {
-        id: 1,
-        title: "Barcelona Sailing Experience - Sunset",
-        type: "Cruises and water sports",
-        time: "3 hours",
-        text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, Lorem ipsum dolor sit amet, consectetur adipisicing elit..",
-        linkText: "More details",
-        price: "$21.00",
-        rating: "4.5/5",
-        ratingCount: "68 ratings",
-        buttonText: "Book"
-      }
-    ])
+    let finalData = [];
+    let objectData = {};
+    let attractions = dataTours.data.Result.attractions.results
+    let destinations = dataTours.data.Result.destinations.results
+    let products = dataTours.data.Result.products.results
+  
+    products.forEach((element, index) => {
+      objectData.title = element.title;
+      objectData.type = "Cruises and water sports";
+      objectData.time = "3 hours";
+      objectData.text = element.description;
+      objectData.linkText = "More details";
+      objectData.price = "$21.00";
+      objectData.rating =  "4.5/5";
+      objectData.ratingCount = "68 ratings";
+      objectData.buttonText = "Book";
+
+      finalData.push(objectData);
+    }); 
+    props.setSearchData(
+      finalData
+    )
   }
 
   return (

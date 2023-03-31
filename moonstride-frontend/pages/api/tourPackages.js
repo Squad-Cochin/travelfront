@@ -10,28 +10,27 @@
  import {useState} from 'react'
 
 const tourPackages = async () => {
-	// const data = {
-	// 	searchTerm: 'big',
-	// 	from_date: '01/04/2023',
-	// 	to_date: '01/04/2023',
-	// 	number_of_person: '5'
-	// };
-	const data = await fetch('https://fortnite-api.com/v2/news');
-	const items = await data.json();	
-	
-	console.log(items);
-	
-  	axios.post('http://192.168.200.81:4000/tours/search-destination', data)
-    .then(response => {
-      console.log(response.data);
-      console.log(data);
-      // res.status(200).json(response.data);
-    })
-    .catch(error => {
-      console.error(error);
-     });
+	const data = {
+        searchTerm: 'big',
+        start_date: '2023-04-01',
+        end_date: '2023-04-01',
+        number_of_person: '5'
+        };
+        // const items = await fetch("http://192.168.200.81:4000/tours/search-destination", {
+        //     // Adding method type
+        //     method: "POST",
+        //     // Adding body or contents to send
+        //     body: JSON.stringify(data),
+        //     // Adding headers to the request
+        //     headers: {
+        //     "Content-type": "application/json; charset=UTF-8",
+        //     "Access-Control-Allow-Origin": "*"  
+        //     }
+        // });
+        const items = await axios.post('http://192.168.200.81:4000/tours/search-destination', data)
 
-	 return items;
+        
+        return items;
  }
 
 export {tourPackages}
