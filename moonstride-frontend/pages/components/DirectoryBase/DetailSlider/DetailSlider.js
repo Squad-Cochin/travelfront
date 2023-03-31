@@ -11,9 +11,10 @@ import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import Image from "next/image";
 
-export default function DetailSlider() {
+export default function DetailSlider(props) {
   const [nav1, setNav1] = useState();
   const [nav2, setNav2] = useState();
+  console.log(props.images)
   const settings = {
     dots: false,
     infinite: false,
@@ -49,16 +50,13 @@ export default function DetailSlider() {
               arrows={false}
               swipeToSlide={false}
               fade={true}
-            >
-              <div className={Styles.bannerslide}>
-                <Image className={Styles.bannerimg} src={banner1} alt=""/>
-              </div>
-              <div className={Styles.bannerslide}>
-                <Image className={Styles.bannerimg} src={banner2} alt=""/>
-              </div>
-              <div className={Styles.bannerslide}>
-                <Image className={Styles.bannerimg} src={banner3} alt=""/>
-              </div>
+            > 
+              {props.images.map((item) => (
+                  <div className={Styles.bannerslide}>
+                    <Image  className={Styles.bannerimg} src={banner3} alt={item.caption}/>
+                  </div>  
+              ))}
+              
             </Slider>
           </Col>
           <Col className={Styles.cmnCol} md={4}>
@@ -68,21 +66,14 @@ export default function DetailSlider() {
               ref={(slider2) => setNav2(slider2)}
               {...settings}
             >
-              <div className={Styles.bannerslide}>
-                <div>
-                  <Image className={Styles.bannersideimg} src={banner1} alt=""/>
-                </div>
-              </div>
-              <div className={Styles.bannerslide}>
-                <div>
-                  <Image className={Styles.bannersideimg} src={banner2} alt="" />
-                </div>
-              </div>
-              <div className={Styles.bannerslide}>
-                <div>
-                <Image className={Styles.bannersideimg} src={banner3} alt=""/>
-                </div>
-              </div>
+              {props.images.map((item) => (
+                  <div className={Styles.bannerslide}>
+                    <div>
+                      <Image  className={Styles.bannerimg} src={banner3} alt={item.caption}/>
+                    </div>
+                  </div>  
+              ))}
+              
             </Slider>
           </Col>
         </Row>
