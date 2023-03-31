@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Styles from "./Button.module.scss";
 
 const ButtonType = (props) => {
+
   return (
     <>
       <Button

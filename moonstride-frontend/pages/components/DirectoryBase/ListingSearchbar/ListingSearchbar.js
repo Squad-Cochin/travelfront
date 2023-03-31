@@ -15,8 +15,10 @@ import SelectType from "../Select/Select";
 import ButtonType from "../../Button/Button";
 import Styles from "./ListingSearchbar.module.scss";
 import Checkbox from "../../Checkbox/Checkbox";
- 
-function ActivitySearchWidgetHome() {
+import { tourPackages } from "../../../api/tourPackages";
+
+function ActivitySearchWidgetHome(props) {
+
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const sortByOptions = [
@@ -26,6 +28,30 @@ function ActivitySearchWidgetHome() {
     { value: "4", label: "4" ,key:"4"},
     { value: "5", label: "5" ,key:"5"}
   ];
+
+  const handleClick = async (e) => {
+
+    const data = await fetch('https://fortnite-api.com/v2/news');
+    const items = await data.json();
+    const dataTours = await tourPackages();
+    console.log(dataTours);
+    
+    props.setSearchData([
+      ...props.searchData,
+      {
+        id: 1,
+        title: "Barcelona Sailing Experience - Sunset",
+        type: "Cruises and water sports",
+        time: "3 hours",
+        text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, Lorem ipsum dolor sit amet, consectetur adipisicing elit..",
+        linkText: "More details",
+        price: "$21.00",
+        rating: "4.5/5",
+        ratingCount: "68 ratings",
+        buttonText: "Book"
+      }
+    ])
+  }
 
   return (
     <>
@@ -110,7 +136,7 @@ function ActivitySearchWidgetHome() {
           </Col>
           <Col lg={1} md={3} xs={12}>
             {/* Clicking the search button will submit the data */}
-            <ButtonType className={`${Styles.searchButton} btntype1 w-100`} name="Search" />
+            <ButtonType onClick={handleClick} className={`${Styles.searchButton} btntype1 w-100`} name="Search" />
           </Col>
         </Row>
       </div>
@@ -201,7 +227,9 @@ function listingSearchbar(props) {
   const [endDate, setEndDate] = useState(new Date());*/
 
   const widgetTemplate = props.template;
-  return widgetTemplate === "home" && <ActivitySearchWidgetHome />;
+
+  return widgetTemplate === "home" && <ActivitySearchWidgetHome searchData={props.searchData} setSearchData={props.setSearchData} />;
+
 }
 
 function ListingCarSearchbar() {

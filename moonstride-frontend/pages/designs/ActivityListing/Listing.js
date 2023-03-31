@@ -9,18 +9,23 @@ import ListingProbox from "../../components/DirectoryBase/ListingProbox/ListingP
 import Sidebar from "../../components/DirectoryBase/Sidebar/Sidebar";
 import ButtonType from "../../components/Button/Button";
 import Styles from "./Listing.module.scss";
+import React, { useState, useEffect } from "react";
 
 const ListingPage = () => {
+
+  const [searchData, setSearchData] = useState([]);
+  
+  
   return (
     <>
       <Header />
       <div className={Styles.listingpage}>
         <Container>
-          <ListingSearchbar template="home" />
+          <ListingSearchbar template="home" searchData={searchData} setSearchData={setSearchData} />
         </Container>
       </div>
       <Container>
-        <ActivityFilter />
+        
       </Container>
       <Container>
         <Row>
@@ -30,7 +35,7 @@ const ListingPage = () => {
           </div>
           </Col>
           <Col xl={9} lg={8}>
-            <ListingProbox boxData = {boxData}/>
+            <ListingProbox boxData = {searchData}/>
             <div className="text-center">
               <ButtonType className="btntype2" name="Show More" />
             </div>
