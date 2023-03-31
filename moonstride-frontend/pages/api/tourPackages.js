@@ -14,27 +14,13 @@ const tourPackages = async () => {
         searchTerm: 'big',
         start_date: '2023-04-01',
         end_date: '2023-04-01',
-        number_of_person: '5'
+        number_of_person: '2'
         };
-        // const items = await fetch("http://192.168.200.81:4000/tours/search-destination", {
-        //     // Adding method type
-        //     method: "POST",
-        //     // Adding body or contents to send
-        //     body: JSON.stringify(data),
-        //     // Adding headers to the request
-        //     headers: {
-        //     "Content-type": "application/json; charset=UTF-8",
-        //     "Access-Control-Allow-Origin": "*"  
-        //     }
-        // });
-        const items = await axios.post('http://192.168.200.81:4000/tours/search-destination', data)
-
-        
+        const items = await axios.post('http://192.168.200.81:4000/tours/search-destination', data)     
         return items;
  }
 
 export {tourPackages}
-
 
 
 

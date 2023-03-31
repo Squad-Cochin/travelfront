@@ -30,26 +30,32 @@ function ActivitySearchWidgetHome(props) {
   ];
 
   const handleClick = async (e) => {
-
     const dataTours = await tourPackages();
-    console.log(dataTours);
-    let finalData = [];
-    let objectData = {};
+    var finalData = [];
+    
     let attractions = dataTours.data.Result.attractions.results
     let destinations = dataTours.data.Result.destinations.results
     let products = dataTours.data.Result.products.results
-  
+    let count = 0;
     products.forEach((element, index) => {
+      count = count + 1
+      let objectData = {};
+      objectData.id = count;
       objectData.title = element.title;
-      objectData.type = "Cruises and water sports";
-      objectData.time = "3 hours";
+      objectData.type = element.confirmationType;
+      // console.log(element.duration.variableDurationFromMinutes)
+      // let time = element.duration.fixedDurationInMinutes / 60; 
+      objectData.time = "time";
       objectData.text = element.description;
       objectData.linkText = "More details";
-      objectData.price = "$21.00";
-      objectData.rating =  "4.5/5";
-      objectData.ratingCount = "68 ratings";
+      objectData.price = element.pricing.summary.fromPriceBeforeDiscount;
+      if("reviews" in element){
+        let rating = element.reviews.combinedAverageRating + '/5';
+        let ratingCount = element.reviews.sources.totalCount + ' ratings';
+        objectData.rating = rating;
+        objectData.ratingCount = ratingCount;
+      }
       objectData.buttonText = "Book";
-
       finalData.push(objectData);
     }); 
     props.setSearchData(
