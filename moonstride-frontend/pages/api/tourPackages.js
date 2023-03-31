@@ -20,7 +20,17 @@ const tourPackages = async () => {
         return items;
  }
 
-export {tourPackages}
+ const tourPackageDetail = async () => {
+		const data = {
+        	dest_code: '5010SYDNEY'
+        };
+        const items = await axios.post('http://192.168.200.81:4000/tours/view-destinattion-details', data)
+		console.log(items);
+        return items.data.destination_details;
+		
+ }
 
+export {tourPackages}
+export {tourPackageDetail}
 
 
