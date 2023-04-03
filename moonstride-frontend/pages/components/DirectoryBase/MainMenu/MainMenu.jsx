@@ -16,11 +16,16 @@ function Menu(props) {
     </li>
   );
 }
-export const MainMenu = () => {
+export const MainMenu = (props) => {
   const menuitems = ["About", "Important information", "Itenerary", "Reviews"];
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  let price = '';
+  if(props.price){
+    price = props.price
+  }
+
   /*const a = useContext(CanvasPopup);*/
   return (
     <>
@@ -33,7 +38,9 @@ export const MainMenu = () => {
               ))}
             </ul>
             <div className={Styles.rightMenu}>
-              <div className={Styles.headerPrice}>From $85.60</div>
+              <div className={Styles.headerPrice}>
+                From ${price} 
+               </div>
               <ButtonType
                 variant="primary"
                 onClick={handleShow}

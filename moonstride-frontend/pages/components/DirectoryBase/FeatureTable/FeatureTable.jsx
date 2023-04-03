@@ -25,13 +25,29 @@ function Tableitem(props) {
     </>
   );
 }
-export const FeatureTable = () => {
+export const FeatureTable = (props) => {
+
+  let duration = '-';
+  if(props.productData.itinerary.duration){
+    let durationObject = props.productData.itinerary.duration
+    if(durationObject.variableDurationToMinutes){
+        duration = durationObject.variableDurationToMinutes / 60;
+    }
+    if(durationObject.fixedDurationInMinutes){
+      duration = durationObject.fixedDurationInMinutes / 60;
+    }
+  }
+  //Start or End location 
+  const startLocation = props.productData.logistics.start['0'].description;
+  const endLocation =  props.productData.logistics.end['0'].description;
+
+  console.log(props);
   const tablevalues = [
-    { id: 1, label: "Duration", value: "4-6 hours", icon: Ftime },
-    { id: 2, label: "Age range", value: "5 to 80 years old" },
-    { id: 3, label: "Activity Type", value: "City Tour", icon: Activity },
-    { id: 4, label: "Max Group Size", value: "Max of 15 per group" },
-    { id: 5, label: "Start / Finish", value: "Melbourne / Melbourne" },
+    { id: 1, label: "Duration", value: duration + " hours", icon: Ftime },
+    { id: 2, label: "Age range", value: `${props.productData.pricingInfo.ageBands[0].startAge} to ${props.productData.pricingInfo.ageBands[0].endAge} years old` },
+    { id: 3, label: "Activity Type", value: props.productData.itinerary.itineraryType, icon: Activity },
+    { id: 4, label: "Max Group Size", value: `Max of ${props.productData.pricingInfo.ageBands[0].maxTravelersPerBooking} per group` },
+    { id: 5, label: "Start / Finish", value: `${startLocation} / ${endLocation}` },
     {
       id: 6,
       label: "Cities / Destinations",

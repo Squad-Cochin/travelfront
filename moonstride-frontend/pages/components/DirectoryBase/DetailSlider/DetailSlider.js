@@ -14,8 +14,6 @@ import Image from "next/image";
 export default function DetailSlider(props) {
   const [nav1, setNav1] = useState();
   const [nav2, setNav2] = useState();
-  console.log(props.images)
-
   // Requird images with the size
 const images = props.images.filter((item) => {
     if(item.variants.length > 0){
@@ -61,7 +59,8 @@ const images = props.images.filter((item) => {
             > 
               {props.images.map((item) => item.variants.filter(variant => variant.height == 480).map((item) => 
                   <div className={Styles.bannerslide}>
-                    <Image  height={item.height} width={item.width} className={Styles.bannerimg} src={banner2} alt={item.caption}/>
+                    
+                    <img height={item.height} width={item.width} className={Styles.bannerim} src={item.url} />
                   </div>  
               ))}
               
@@ -76,7 +75,7 @@ const images = props.images.filter((item) => {
             >
               {props.images.map((item) => item.variants.filter(variant => variant.height == 480).map((item) => 
                   <div className={Styles.bannerslide}>
-                    <Image  height={item.height} width={item.width} className={Styles.bannerimg} src={banner2} alt={item.caption}/>
+                    <img height={item.height} width={item.width} className={Styles.bannerim} src={item.url} />
                   </div>  
               ))}
               

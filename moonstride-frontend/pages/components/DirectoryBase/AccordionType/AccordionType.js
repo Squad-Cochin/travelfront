@@ -13,7 +13,7 @@ function AccordionType(props) {
   if(props.productData.exclusions){
     const exclusions = props.productData.exclusions
     exclusions.forEach(async (element) => {
-      inclusionsHtml += `<li class="exclusiveitem">${element.description}</li>`
+      inclusionsHtml += `<li class="exclusiveitem">${element.otherDescription}</li>`
     });
   }
   

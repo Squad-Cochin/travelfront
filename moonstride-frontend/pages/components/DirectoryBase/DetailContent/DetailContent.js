@@ -1,6 +1,6 @@
 import Styles from './DetailContent.module.scss';
 function DetailContent(props){
-    console.log(props)
+    
     let duration = '-';
     if(props.productData.itinerary.duration){
       let durationObject = props.productData.itinerary.duration
@@ -11,7 +11,6 @@ function DetailContent(props){
         duration = durationObject.fixedDurationInMinutes / 60;
       }
 
-      
     }
 
     return(
@@ -32,9 +31,9 @@ function DetailContent(props){
             <p className="base-text">Duration: {duration} Hours</p>
             <h2 className="header-type1">Guide options</h2>
             <p className="base-text">
-              Guide type: Guide
+              Guide type: {props.productData.languageGuides[0].type}
               <br />
-              Group size: 12 People
+              Group size: {props.productData.languageGuides.length} People
             </p>
             <h2 className="header-type1">Requirements</h2>
             <p className="base-text mb-5">

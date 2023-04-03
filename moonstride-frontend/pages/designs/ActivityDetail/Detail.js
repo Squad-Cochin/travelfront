@@ -33,10 +33,8 @@ const DetailPage = () => {
   
   useEffect(() => {
     setDivHeight(ref.current.offsetHeight);
-    
     const getPageData = async () => {
       const productId  = router.query
-      console.log(productId.productId)
       const details = await tourPackageDetail(productId.productId);
       if(details == undefined){
         setproductData([])
@@ -49,14 +47,7 @@ const DetailPage = () => {
     getPageData();
   }, [router.query]);
 
-  // const getDetailedData = async () => {
-    
-  // }
-  
-  //const productDetails = productData.destination_details; 
-  console.log(productData);
   if (productData.length == 0) {
-
     return <div>Loading...</div>;
   }
   else{
@@ -65,7 +56,7 @@ const DetailPage = () => {
         <div id="header" className={Styles.mainHeader} ref={ref} >
           <Header />
           <BackTopage label="See all Activities" href="/" />
-          <MainMenu />
+          <MainMenu  price={param1.price}/>
         </div>
         <div className={Styles.detailpage}>
           <BreadcrumbType wishlist={false} />
@@ -92,14 +83,14 @@ const DetailPage = () => {
               </Col>
               <Col lg={4} md={5}>
                 <div className={Styles.priceSection}>
-                  <h2 className="header-type2">From $85.60 per adult</h2>
+                  <h2 className="header-type2">From ${param1.price}</h2>
                   <div className={Styles.duration}>
-                    Offer ID: 98292{" "}
+                    Offer ID: {param1.productId}{" "}
                     <span className={Styles.durationSeparator}></span> Exp:
                     1/31/2022
                   </div>
                   <div className={`${Styles.freeText} mt-2`}>
-                    Free cancellation available
+                    {productData.cancellationPolicy.description}
                   </div>
                   <ButtonType
                     variant="primary"
@@ -110,7 +101,7 @@ const DetailPage = () => {
                 </div>
               </Col>
             </Row>
-            <FeatureTable />
+            <FeatureTable productData={productData}/>
             <DetailContent productData={productData}/>
             <MeetingSection></MeetingSection>
             <TimelineMap />
