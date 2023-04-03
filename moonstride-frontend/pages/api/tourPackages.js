@@ -5,9 +5,10 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
  import axios from 'axios'
  import {useState} from 'react'
+ 
+ 
 
 const tourPackages = async () => {
 	const data = {
@@ -16,18 +17,19 @@ const tourPackages = async () => {
         end_date: '2023-04-01',
         number_of_person: '2'
         };
-        const items = await axios.post('http://192.168.200.81:4000/tours/search-destination', data)     
+        const items = await axios.post('http://192.168.200.80:4000/tours/search-destination', data)     
         return items;
  }
 
- const tourPackageDetail = async () => {
+  async function tourPackageDetail(productId) {
+        console.log(productId)
 		const data = {
-        	dest_code: '5010SYDNEY'
+        	dest_code: productId
         };
-        const items = await axios.post('http://192.168.200.81:4000/tours/view-destinattion-details', data)
-		console.log(items);
+        console.log(data);
+        const items = await axios.post('http://192.168.200.80:4000/tours/view-destinattion-details', data)
         return items.data.destination_details;
-		
+	
  }
 
 export {tourPackages}

@@ -37,6 +37,7 @@ function ActivitySearchWidgetHome(props) {
     let destinations = dataTours.data.Result.destinations.results
     let products = dataTours.data.Result.products.results
     let count = 0;
+    
     products.forEach((element, index) => {
       count = count + 1
       let objectData = {};
@@ -49,6 +50,7 @@ function ActivitySearchWidgetHome(props) {
       objectData.text = element.description;
       objectData.linkText = "More details";
       objectData.price = element.pricing.summary.fromPriceBeforeDiscount;
+      objectData.productCode = element.productCode;
       if("reviews" in element){
         let rating = element.reviews.combinedAverageRating + '/5';
         let ratingCount = element.reviews.sources.totalCount + ' ratings';

@@ -15,6 +15,14 @@ export default function DetailSlider(props) {
   const [nav1, setNav1] = useState();
   const [nav2, setNav2] = useState();
   console.log(props.images)
+
+  // Requird images with the size
+const images = props.images.filter((item) => {
+    if(item.variants.length > 0){
+
+    }
+});
+
   const settings = {
     dots: false,
     infinite: false,
@@ -51,9 +59,9 @@ export default function DetailSlider(props) {
               swipeToSlide={false}
               fade={true}
             > 
-              {props.images.map((item) => (
+              {props.images.map((item) => item.variants.filter(variant => variant.height == 480).map((item) => 
                   <div className={Styles.bannerslide}>
-                    <Image  className={Styles.bannerimg} src={banner3} alt={item.caption}/>
+                    <Image  height={item.height} width={item.width} className={Styles.bannerimg} src={banner2} alt={item.caption}/>
                   </div>  
               ))}
               
@@ -66,11 +74,9 @@ export default function DetailSlider(props) {
               ref={(slider2) => setNav2(slider2)}
               {...settings}
             >
-              {props.images.map((item) => (
+              {props.images.map((item) => item.variants.filter(variant => variant.height == 480).map((item) => 
                   <div className={Styles.bannerslide}>
-                    <div>
-                      <Image  className={Styles.bannerimg} src={banner3} alt={item.caption}/>
-                    </div>
+                    <Image  height={item.height} width={item.width} className={Styles.bannerimg} src={banner2} alt={item.caption}/>
                   </div>  
               ))}
               

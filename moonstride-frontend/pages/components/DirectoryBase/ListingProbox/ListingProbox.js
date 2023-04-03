@@ -13,6 +13,7 @@ import Styles from "./ListingProbox.module.scss";
 
 const ListingProbox = (props) => {
   const [active, setActive] = useState(false);
+  console.log(props);
   return (
     <>
     {/* We are displaying the data here */}
@@ -45,7 +46,12 @@ const ListingProbox = (props) => {
               <div className={Styles.probox_text}>
                 {item.text}
               </div>
-              <Link href="/activitydetail">
+              <Link href={
+                {
+                  pathname: '/activitydetail',
+                  query: { productId: item.productCode },
+                }}
+              >
                 <a className="link-type1">{item.linkText}</a>
               </Link>
             </Col>

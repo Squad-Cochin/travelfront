@@ -16,10 +16,11 @@ import DetailContent from "../../components/DirectoryBase/DetailContent/DetailCo
 import { TimelineMap } from "../../components/DirectoryBase/TimelineMap/TimelineMap";
 
 import { tourPackageDetail } from "../../api/tourPackages";
-
+import { useRouter } from 'next/router'
 import Styles from "./Detail.module.scss";
 import React, { useState ,useEffect, useRef} from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
+
 const DetailPage = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -27,15 +28,26 @@ const DetailPage = () => {
   const [divHeight, setDivHeight] = useState(0);
   const ref = useRef(divHeight);
   const [productData, setproductData] = useState([]);
-
+  const router = useRouter();
+  const param1  = router.query
+  
   useEffect(() => {
     setDivHeight(ref.current.offsetHeight);
+    
     const getPageData = async () => {
-      const details = await tourPackageDetail();
-      setproductData(details)
+      const productId  = router.query
+      console.log(productId.productId)
+      const details = await tourPackageDetail(productId.productId);
+      if(details == undefined){
+        setproductData([])
+      }
+      else{
+        setproductData(details)
+      }
+      
     }
     getPageData();
-  }, []);
+  }, [router.query]);
 
   // const getDetailedData = async () => {
     
@@ -44,6 +56,7 @@ const DetailPage = () => {
   //const productDetails = productData.destination_details; 
   console.log(productData);
   if (productData.length == 0) {
+
     return <div>Loading...</div>;
   }
   else{
@@ -101,7 +114,7 @@ const DetailPage = () => {
             <DetailContent productData={productData}/>
             <MeetingSection></MeetingSection>
             <TimelineMap />
-            <AccordionType className="plusicon" />
+            <AccordionType className="plusicon" productData={productData}/>
             <div className={Styles.faqssection}>
               <h2 className="header-type2">
                 Frequently Asked Questions about Barcelona Sailing Experience -

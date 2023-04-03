@@ -1,6 +1,19 @@
 import Styles from './DetailContent.module.scss';
 function DetailContent(props){
     console.log(props)
+    let duration = '-';
+    if(props.productData.itinerary.duration){
+      let durationObject = props.productData.itinerary.duration
+      if(durationObject.variableDurationToMinutes){
+          duration = durationObject.variableDurationToMinutes / 60;
+      }
+      if(durationObject.fixedDurationInMinutes){
+        duration = durationObject.fixedDurationInMinutes / 60;
+      }
+
+      
+    }
+
     return(
         <div className={Styles.cmssection}>
             <h2 className="header-type1">About the activity / Overview</h2>
@@ -11,15 +24,12 @@ function DetailContent(props){
             <p className="base-text">Bilingual Tour - English/Spanish</p>
             <h2 className="header-type1">Location</h2>
             <p className="base-text">
-              <strong>Start point:</strong> Port Olímpic: Moll de Mestral 2841
+              <strong>Start point:</strong> {props.productData.logistics.start[0].description}
               <br />
-              Please ensure you arrive at the meeting point at least 15 minutes
-              prior to the Tour start time.
-              <br />
-              <strong>End point:</strong> Same as the starting point
+              <strong>End point:</strong> {props.productData.logistics.end[0].description}
             </p>
             <h2 className="header-type1">Schedule</h2>
-            <p className="base-text">Duration: 1,5 Hours</p>
+            <p className="base-text">Duration: {duration} Hours</p>
             <h2 className="header-type1">Guide options</h2>
             <p className="base-text">
               Guide type: Guide
