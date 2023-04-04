@@ -31,6 +31,8 @@ const DetailPage = () => {
   const [productData, setproductData] = useState([]);
   const router = useRouter();
   const param1  = router.query
+  console.log("check this:")
+  console.log(productData)
   
   useEffect(() => {
     setDivHeight(ref.current.offsetHeight);
@@ -41,15 +43,16 @@ const DetailPage = () => {
         setproductData([])
       }
       else{
+        console.log("test:")
+        console.log(details)
         setproductData(details)
       }
       
     }
     getPageData();
   }, [router.query]);
-  console.log(productData);
   if (productData.length == 0) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>; 
   }
   else{
     return (
@@ -77,7 +80,7 @@ const DetailPage = () => {
                   </div>
                   <div className="mt-1">
                     <a  className="link-type1 experience-review">
-                      <AccordionTypeReview />
+                      <AccordionTypeReview review = {productData.reviews.combinedAverageRating}/> 
                     </a>
                   </div>
                 </div>

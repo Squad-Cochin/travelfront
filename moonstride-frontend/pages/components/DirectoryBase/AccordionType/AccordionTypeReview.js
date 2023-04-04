@@ -18,7 +18,7 @@ function AccordionType(props) {
         // eslint-disable-next-line react/jsx-key
         <Accordion.Item eventKey={faqlist.Key}>
             <Accordion.Header>{faqlist.header}</Accordion.Header>
-            <Accordion.Body>{faqlist.bodycon}</Accordion.Body>
+            <Accordion.Body>{props.review}</Accordion.Body>
         </Accordion.Item>
 
 

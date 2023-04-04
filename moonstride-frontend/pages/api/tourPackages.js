@@ -18,7 +18,7 @@
        //  number_of_person: '2'
        //  };
         console.log(data);
-        const items = await axios.post('http://192.168.200.80:4000/tours/search-destination', data)     
+        const items = await axios.post('http://192.168.200.81:4000/tours/search-destination', data)     
         return items;
  }
 
@@ -28,7 +28,7 @@ async function tourPackageDetail(productId) {
         	dest_code: productId
         };
         console.log(data);
-        const items = await axios.post('http://192.168.200.80:4000/tours/view-destinattion-details', data)
+        const items = await axios.post('http://192.168.200.81:4000/tours/view-destinattion-details', data)
         return items.data.destination_details;
 	
  }
