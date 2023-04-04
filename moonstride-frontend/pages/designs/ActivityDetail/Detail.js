@@ -5,6 +5,7 @@ import Header from "../../components/DirectoryBase/Header/Header";
 import DetailSlider from "../../components/DirectoryBase/DetailSlider/DetailSlider";
 import AccordionType from "../../components/DirectoryBase/AccordionType/AccordionType";
 import AccordionType1 from "../../components/DirectoryBase/AccordionType/AccordionType1";
+import AccordionTypeReview from "../../components/DirectoryBase/AccordionType/AccordionTypeReview";
 import { MainMenu } from "../../components/DirectoryBase/MainMenu/MainMenu";
 import BreadcrumbType from "../../components/DirectoryBase/BreadcrumbType/BreadcrumbType";
 import BackTopage from "../../components/DirectoryBase/BackTopage/BackTopage";
@@ -75,8 +76,8 @@ const DetailPage = () => {
                     <b>{productData.reviews.combinedAverageRating.toFixed()}/5</b> ({productData.reviews.totalReviews} ratings)
                   </div>
                   <div className="mt-1">
-                    <a href="#" className="link-type1">
-                      See all reviews
+                    <a  className="link-type1 experience-review">
+                      <AccordionTypeReview />
                     </a>
                   </div>
                 </div>
