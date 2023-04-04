@@ -48,23 +48,41 @@ function ActivitySearchWidgetHome(props) {
     let destinations = dataTours.data.Result.destinations.results
     let products = dataTours.data.Result.products.results
     let count = 0;
-    
+     
     products.forEach((element, index) => {
       count = count + 1
       let objectData = {};
       objectData.id = count;
       objectData.title = element.title;
-      objectData.type = element.confirmationType;
+      let itineraryType = element.itineraryType.toLowerCase();
+      let duration = '';
+      let dutaionValue = '';
+      if(element.duration){
+        if(element.duration.fixedDurationInMinutes){
+          duration = element.duration.fixedDurationInMinutes/60 
+          duration = duration.toFixed()
+          dutaionValue = duration;
+          duration = duration + ' hours'
+          
+        }
+        else if(element.duration.unstructuredDuration){
+          duration = element.duration.unstructuredDuration
+        }
+      }
+      
+
+      objectData.type = itineraryType.charAt(0).toUpperCase() + itineraryType.slice(1);
       // console.log(element.duration.variableDurationFromMinutes)
       // let time = element.duration.fixedDurationInMinutes / 60; 
-      objectData.time = "time";
+      objectData.time = duration;
       objectData.text = element.description;
       objectData.linkText = "More details";
       objectData.price = element.pricing.summary.fromPriceBeforeDiscount;
       objectData.productCode = element.productCode;
+      objectData.durationValue = dutaionValue;
       if("reviews" in element){
-        let rating = element.reviews.combinedAverageRating + '/5';
-        let ratingCount = element.reviews.sources.totalCount + ' ratings';
+        let rating = element.reviews.combinedAverageRating.toFixed(1) + '/5';
+        let ratingCount = element.reviews.totalReviews + ' ratings';
         objectData.rating = rating;
         objectData.ratingCount = ratingCount;
       }

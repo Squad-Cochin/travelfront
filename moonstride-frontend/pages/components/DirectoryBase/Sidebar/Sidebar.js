@@ -23,6 +23,23 @@ const Sidebar = (props) => {
   const closeIcon = () => {
     document.body.classList.toggle("sidebarActive");
   };
+
+  const filterResult = (e) => {
+    let valuesArray = [];
+    let checkBoxArray = document.querySelectorAll(".checkbox-filter input[type='checkbox']");
+    let filteredArray = Array.from(checkBoxArray).filter((value) => {
+      return value.checked  === true
+    });
+    //props.setFilterData(filteredArray);
+
+    filteredArray.forEach((item) => {
+      valuesArray.push(item.value);
+    })
+
+    props.setFilterData(valuesArray);
+
+  }
+
   return (
     <aside>
       <div className={Styles.sidebar_section}>
@@ -109,7 +126,10 @@ const Sidebar = (props) => {
                         key={sublink.id}
                         label={sublink.checkboxData}
                         type= {sublink.checkboxType}
+                        value={sublink.value}
                         group={sublink.group}
+                        onClick={filterResult}
+                        className='checkbox-filter'
                       />
                     ))}
                   </Accordion.Body>
@@ -129,21 +149,21 @@ Sidebar.defaultProps = {
       id: 1,
       title: "Type",
       sublinks: [
-        { id: 11, checkboxData: "Cruise and water sports (9)" },
-        { id: 12, checkboxData: "Culture (311)" },
-        { id: 13, checkboxData: "Sightseeing, tours & museums (43)" },
-        { id: 14, checkboxData: "Tours, Sightseeing & Cruises  (59)" },
+        { id: 11, value: "T:Activity", checkboxData: "Cruise and water sports(A) (9)" },
+        { id: 12, value: "T:Standard",checkboxData: "Culture(S) (311)" },
+        { id: 13, value: "T:Unstructured", checkboxData: "Sightseeing, tours & museums(U) (43)" },
+        { id: 14, value: "T:Z",checkboxData: "Tours, Sightseeing & Cruises(A)  (59)" },
       ],
     },
     {
       id: 2,
       title: "Your Budget",
       sublinks: [
-        { id: 21, checkboxData: "Less than $25" },
-        { id: 22, checkboxData: "$25 to $50" },
-        { id: 23, checkboxData: "$50 to $75" },
-        { id: 24, checkboxData: "$75 to $100" },
-        { id: 25, checkboxData: "Greater than $100" },
+        { id: 21, value: "B:L25", checkboxData: "Less than $25" },
+        { id: 22, value: "B:L50", checkboxData: "$25 to $50" },
+        { id: 23, value: "B:L75", checkboxData: "$50 to $75" },
+        { id: 24, value: "B:L100", checkboxData: "$75 to $100" },
+        { id: 25, value: "B:G100", checkboxData: "Greater than $100" },
       ],
     },
     {
@@ -160,10 +180,10 @@ Sidebar.defaultProps = {
       id: 4,
       title: "Duration",
       sublinks: [
-        { id: 41, checkboxData: "Less than 1 hour" },
-        { id: 42, checkboxData: "1 to 4 hours" },
-        { id: 43, checkboxData: "4 hours to 1 day" },
-        { id: 44, checkboxData: "More than 1 day" },
+        { id: 41, value: "D:L1", checkboxData: "Less than 1 hour" },
+        { id: 42, value: "D:L4", checkboxData: "1 to 4 hours" },
+        { id: 43, value: "D:L24", checkboxData: "4 hours to 1 day" },
+        { id: 44, value: "D:G24",checkboxData: "More than 1 day" },
       ],
     },
   ],

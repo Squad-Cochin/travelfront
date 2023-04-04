@@ -13,13 +13,40 @@ const ActivityFilter = (props) => {
     document.body.classList.toggle("sidebarActive");
   };
 
+  const handleSort = (e) => {
+    let value = e.value
+    let data = props.searchData;
+    switch (value) {
+      case 'PLH':
+        let sortedData = data.sort((a,b) => a.price - b.price);
+        console.log(sortedData);
+        props.setSearchData(
+          sortedData
+        );
+        break;
+      case 'PHL':
+        let sortedDataDesc =  data.sort((a,b) => b.price - a.price);
+        console.log(sortedDataDesc);
+        props.setSearchData(sortedDataDesc);
+        break;
+      case 'CRT':
+        let sortedDataCust =  data.sort((a,b) => b.price - a.price);
+        console.log(sortedDataCust);
+        props.setSearchData(sortedDataCust);
+        console.log("Wednesday");
+        break;
+      default:
+        console.log("Invalid day");
+    }
+  }
+
   const sortByOptions = [
-    { value: "Price (low to high)", label: "Price (low to high)" ,key:"1"},
-    { value: "Price (high to low)", label: "Price (high to low)" ,key:"2"},
+    { value: "PLH", label: "Price (low to high)" ,key:"1"},
+    { value: "PHL", label: "Price (high to low)" ,key:"2"},
     { value: "Date (New to Old)", label: "Date (New to Old)" ,key:"3"},
     { value: "Date (Old to New)", label: "Date (Old to New)" ,key:"4"},
     { value: "Discount", label: "Discount" ,key:"5"},
-    { value: "Customer Rating", label: "Customer Rating" ,key:"6"},
+    { value: "CRT", label: "Customer Rating" ,key:"6"},
   ];
   let productCount = '0';
   if(props.searchData){
@@ -44,7 +71,7 @@ const ActivityFilter = (props) => {
             <div>
               <span className="d-inline-block align-middle me-2">Sort by</span>
               {/* We will show the select dropdown here */}
-              <Select class="d-inline-block sort-select" label="Sort by" defaultValue={sortByOptions[2]} options={sortByOptions}/>
+              <Select class="d-inline-block sort-select" label="Sort by" defaultValue={sortByOptions[2]} options={sortByOptions} onChange={handleSort}/>
             </div>
           </div>
         </Col>

@@ -10,7 +10,7 @@ const CheckboxType = (props) => {
   return (
     <div key={props.id} className= "mb-3">
       <label>
-        <Form.Check className={props.className} type={props.type} label={props.label} name={props.group}/>
+        <Form.Check className={props.className} value={props.value} type={props.type} label={props.label} name={props.group} onClick={props.onClick}/>
       </label>
     </div>
   );
@@ -36,6 +36,8 @@ CheckboxType.defaultprops = {
   active: false,
   class: "checkbox",
   group:"",
+  value:"",
+  onClick:"",
   className: ""
 };
 

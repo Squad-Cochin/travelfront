@@ -14,7 +14,87 @@ import React, { useState, useEffect } from "react";
 const ListingPage = () => {
 
   const [searchData, setSearchData] = useState([]);
-  
+  const [filterValues, setFilterData] = useState([]);
+  // Function to update the filter state
+  const updateFilter = (value) => {
+    setSearchData(value);
+  };
+  let filterdedData = [];
+  if(filterValues.length > 0){
+     filterdedData = searchData.filter((item) => {
+      let returnFlag = false
+      for(let count = 0; count < filterValues.length ; count++){
+         let conditionvalue = filterValues[count].split(":")
+         if(conditionvalue[0] == 'T'){
+            
+            if(item.type == conditionvalue[1]){
+              returnFlag = true
+            }
+         }
+         else if(conditionvalue[0] == 'B'){
+            switch(conditionvalue[1]){
+              case 'L25':
+                if(item.price < 25){
+                  returnFlag = true
+                }
+                break;
+              case 'L50':
+                if(item.price > 25 && item.price < 50){
+                  returnFlag = true
+                }
+                break;
+              case 'L75':
+                if(item.price > 50 && item.price < 75){
+                  returnFlag = true
+                }
+                break;
+              case 'L100':
+                if(item.price > 75 && item.price < 100){
+                  returnFlag = true
+                }
+                break;
+              case 'G100':
+                if(item.price > 100){
+                  returnFlag = true
+                }
+                break;       
+            }  
+            
+         }
+         else if(conditionvalue[0] == 'D'){
+          switch(conditionvalue[1]){
+            case 'L1':
+              if(item.durationValue < 1){
+                returnFlag = true
+              }
+              break;
+            case 'L4':
+              if(item.durationValue > 1 && item.durationValue < 4){
+                returnFlag = true
+              }
+              break;
+            case 'L24':
+              if(item.price > 4 && item.durationValue < 24){
+                returnFlag = true
+              }
+              break;
+            case 'G24':
+              if(item.durationValue > 24){
+                returnFlag = true
+              }
+              break;     
+          }  
+        }
+      }
+      return returnFlag;
+    });
+    console.log(filterdedData);
+  }
+  else{
+    filterdedData = searchData;
+  }
+
+  console.log(filterValues);
   return (
     <>
       <Header />
@@ -24,17 +104,17 @@ const ListingPage = () => {
         </Container>
       </div>
       <Container>
-       <ActivityFilter searchData={searchData}/>   
+       <ActivityFilter searchData={filterdedData} setSearchData={setSearchData}/>   
       </Container>
       <Container>
         <Row>
           <Col xl={3} lg={4}>
           <div className={`pageSidebar`}>
-              <Sidebar />
+              <Sidebar searchData={searchData} setFilterData={setFilterData}/>
           </div>
           </Col>
           <Col xl={9} lg={8}>
-            <ListingProbox boxData = {searchData}/>
+            <ListingProbox boxData = {filterdedData}/>
             <div className="text-center">
               <ButtonType className="btntype2" name="Show More" />
             </div>

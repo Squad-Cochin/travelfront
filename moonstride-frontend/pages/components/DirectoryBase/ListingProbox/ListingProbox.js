@@ -18,6 +18,11 @@ const ListingProbox = (props) => {
     <>
     {/* We are displaying the data here */}
     {props.boxData.map((item) => {
+
+      // To limit the description count
+      const maxLength = 120; // Maximum length of the content
+      const limitedContent = item.text.substring(0, maxLength) + (item.text.length > maxLength ? "..." : "");
+      
       return(
         <div className={Styles.list_probox} id={item.id} key={item.id}>
           <Row className="g-3">
@@ -44,7 +49,7 @@ const ListingProbox = (props) => {
               <div className={Styles.probox_type}>{item.type}</div>
               <div className={Styles.probox_time}>{item.time}</div>
               <div className={Styles.probox_text}>
-                {item.text}
+                {limitedContent}
               </div>
               <Link href={
                 {
