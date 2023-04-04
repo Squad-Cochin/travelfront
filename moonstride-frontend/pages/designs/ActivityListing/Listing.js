@@ -15,7 +15,6 @@ const ListingPage = () => {
 
   const [searchData, setSearchData] = useState([]);
   
-  
   return (
     <>
       <Header />
@@ -25,7 +24,7 @@ const ListingPage = () => {
         </Container>
       </div>
       <Container>
-        
+       <ActivityFilter searchData={searchData}/>   
       </Container>
       <Container>
         <Row>

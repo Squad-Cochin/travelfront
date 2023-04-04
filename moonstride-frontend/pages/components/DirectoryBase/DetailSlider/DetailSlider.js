@@ -75,7 +75,7 @@ const images = props.images.filter((item) => {
             >
               {props.images.map((item) => item.variants.filter(variant => variant.height == 480).map((item) => 
                   <div className={Styles.bannerslide}>
-                    <img height={item.height} width={item.width} className={Styles.bannerim} src={item.url} />
+                    <img height='220.06' width='362' className={Styles.bannerim} src={item.url} />
                   </div>  
               ))}
               

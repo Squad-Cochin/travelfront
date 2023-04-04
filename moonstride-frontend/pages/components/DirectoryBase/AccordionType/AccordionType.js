@@ -8,12 +8,23 @@ function AccordionType(props) {
   var inclusionsHtml = `<ul class="aminities">`;
   var additionalInfoHtml = `<ul class="aminities">`;
   inclusions.forEach(async (element) => {
-    inclusionsHtml += `<li class="inclusiveitem">${element.otherDescription}</li>`
+    if(element.otherDescription){
+      inclusionsHtml += `<li class="inclusiveitem">${element.otherDescription}</li>`
+    }
+    else if(element.description){
+      inclusionsHtml += `<li class="inclusiveitem">${element.description}</li>`
+    }
+    
   });
   if(props.productData.exclusions){
     const exclusions = props.productData.exclusions
     exclusions.forEach(async (element) => {
-      inclusionsHtml += `<li class="exclusiveitem">${element.otherDescription}</li>`
+      if(element.otherDescription){
+        inclusionsHtml += `<li class="exclusiveitem">${element.otherDescription}</li>`
+      }
+      else if(element.description){
+        inclusionsHtml += `<li class="exclusiveitem">${element.description}</li>`
+      }
     });
   }
   

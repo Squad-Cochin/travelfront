@@ -21,6 +21,7 @@ function ActivitySearchWidgetHome(props) {
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [searchTerm, setSearchTerm] = useState('');
   const sortByOptions = [
     { value: "1", label: "1" ,key:"1"},
     { value: "2", label: "2" ,key:"2"},
@@ -28,9 +29,19 @@ function ActivitySearchWidgetHome(props) {
     { value: "4", label: "4" ,key:"4"},
     { value: "5", label: "5" ,key:"5"}
   ];
+  
+  const inputTextHandler = (e) => {
+    setSearchTerm(e.target.value);
+  }
 
   const handleClick = async (e) => {
-    const dataTours = await tourPackages();
+
+    let searchData = {};
+    searchData.searchTerm = searchTerm;
+    searchData.start_date = startDate.toISOString().slice(0, 10);
+    searchData.end_date = endDate.toISOString().slice(0, 10);
+    searchData.number_of_person = '2';
+    const dataTours = await tourPackages(searchData);
     var finalData = [];
     
     let attractions = dataTours.data.Result.attractions.results
@@ -75,6 +86,8 @@ function ActivitySearchWidgetHome(props) {
               class={`search_formbox ${Styles.searchInput}`}
               label=""
               placeholder= "Search..."
+              value={searchTerm}
+              onChange={inputTextHandler}
             />
           </Col>
           <Col lg={2} md={3} xs={6}>

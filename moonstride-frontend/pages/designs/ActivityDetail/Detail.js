@@ -46,7 +46,7 @@ const DetailPage = () => {
     }
     getPageData();
   }, [router.query]);
-
+  console.log(productData);
   if (productData.length == 0) {
     return <div>Loading...</div>;
   }

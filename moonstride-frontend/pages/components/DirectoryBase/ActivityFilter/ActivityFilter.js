@@ -21,12 +21,16 @@ const ActivityFilter = (props) => {
     { value: "Discount", label: "Discount" ,key:"5"},
     { value: "Customer Rating", label: "Customer Rating" ,key:"6"},
   ];
+  let productCount = '0';
+  if(props.searchData){
+    productCount = props.searchData.length     
+  }
   return (
     <div className={Styles.filterbox}>
       <Row className="align-items-center">
         <Col md={6}>
-
-          <span className={Styles.filterpoint}>123 Total Search Results</span>
+          
+          <span className={Styles.filterpoint}>{productCount} Total Search Results</span>
           {/* <span className={Styles.filterpoint}>
             Total includes taxes and fees
           </span> */}

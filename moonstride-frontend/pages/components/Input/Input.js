@@ -7,7 +7,7 @@ const InputType = (props) => {
     <Form.Group className={`mb-3 ${props.class}`}>
       {props.label != "" && <Form.Label>{props.label}{props.mandatory}</Form.Label>}
 
-      <Form.Control type={props.type} placeholder={props.placeholder} />
+      <Form.Control type={props.type} placeholder={props.placeholder} value={props.value} onChange={props.onChange}/>
     </Form.Group>
   );
 };
@@ -17,6 +17,8 @@ InputType.defaultProps = {
   label: "Label",
   placeholder: "input",
   mandatory: "",
+  value: "",
+  onChange: "", 
   active: false,
   class: "formbox",
 };

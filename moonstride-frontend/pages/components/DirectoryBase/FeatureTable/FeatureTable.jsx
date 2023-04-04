@@ -38,10 +38,15 @@ export const FeatureTable = (props) => {
     }
   }
   //Start or End location 
-  const startLocation = props.productData.logistics.start['0'].description;
-  const endLocation =  props.productData.logistics.end['0'].description;
+  let startLocation = '-'
+  if(props.productData.logistics.start){
+    startLocation = props.productData.logistics.start['0'].description;
+  } 
+  let endLocation = "-";
+  if( props.productData.logistics.end){
+    endLocation = props.productData.logistics.end['0'].description;
+  } 
 
-  console.log(props);
   const tablevalues = [
     { id: 1, label: "Duration", value: duration + " hours", icon: Ftime },
     { id: 2, label: "Age range", value: `${props.productData.pricingInfo.ageBands[0].startAge} to ${props.productData.pricingInfo.ageBands[0].endAge} years old` },

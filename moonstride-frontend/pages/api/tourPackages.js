@@ -10,18 +10,19 @@
  
  
 
-const tourPackages = async () => {
-	const data = {
-        searchTerm: 'big',
-        start_date: '2023-04-01',
-        end_date: '2023-04-01',
-        number_of_person: '2'
-        };
+ async function tourPackages(data){
+	// const data = {
+       //  searchTerm: 'big',
+       //  start_date: '2023-04-01',
+       //  end_date: '2023-04-01',
+       //  number_of_person: '2'
+       //  };
+        console.log(data);
         const items = await axios.post('http://192.168.200.80:4000/tours/search-destination', data)     
         return items;
  }
 
-  async function tourPackageDetail(productId) {
+async function tourPackageDetail(productId) {
         console.log(productId)
 		const data = {
         	dest_code: productId

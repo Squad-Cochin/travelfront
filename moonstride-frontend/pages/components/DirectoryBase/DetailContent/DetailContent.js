@@ -12,6 +12,22 @@ function DetailContent(props){
       }
 
     }
+    let guideType = '-';
+    let guideCount = '0';
+    if(props.productData.languageGuides){
+       guideType = props.productData.languageGuides[0].type;
+       guideCount = props.productData.languageGuides.length;
+    }
+    
+    //Start or End location 
+    let startLocation = '-'
+    if(props.productData.logistics.start){
+      startLocation = props.productData.logistics.start['0'].description;
+    } 
+    let endLocation = "-";
+    if( props.productData.logistics.end){
+      endLocation = props.productData.logistics.end['0'].description;
+    } 
 
     return(
         <div className={Styles.cmssection}>
@@ -23,17 +39,17 @@ function DetailContent(props){
             <p className="base-text">Bilingual Tour - English/Spanish</p>
             <h2 className="header-type1">Location</h2>
             <p className="base-text">
-              <strong>Start point:</strong> {props.productData.logistics.start[0].description}
+              <strong>Start point:</strong> {startLocation}
               <br />
-              <strong>End point:</strong> {props.productData.logistics.end[0].description}
+              <strong>End point:</strong> {endLocation}
             </p>
             <h2 className="header-type1">Schedule</h2>
             <p className="base-text">Duration: {duration} Hours</p>
             <h2 className="header-type1">Guide options</h2>
             <p className="base-text">
-              Guide type: {props.productData.languageGuides[0].type}
+              Guide type: {guideType}
               <br />
-              Group size: {props.productData.languageGuides.length} People
+              Group size: {guideCount} People
             </p>
             <h2 className="header-type1">Requirements</h2>
             <p className="base-text mb-5">
