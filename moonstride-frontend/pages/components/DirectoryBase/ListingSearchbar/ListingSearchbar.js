@@ -43,8 +43,8 @@ function ActivitySearchWidgetHome(props) {
     searchData.number_of_person = '2';
     const dataTours = await tourPackages(searchData);
     var finalData = [];
-    
-    if(dataTours.data.Result == 'No data found'){
+    console.log(dataTours.data)
+    if(dataTours.data.Result.Code == '400'){
       console.log("no data")
     }else{
       let products = dataTours.data.Result.products.results
