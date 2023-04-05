@@ -23,9 +23,9 @@ const Sidebar = (props) => {
   const closeIcon = () => {
     document.body.classList.toggle("sidebarActive");
   };
-
+  const [namevalue, setNamevalue] = useState(''); 
+  let valuesArray = [];
   const filterResult = (e) => {
-    let valuesArray = [];
     let checkBoxArray = document.querySelectorAll(".checkbox-filter input[type='checkbox']");
     let filteredArray = Array.from(checkBoxArray).filter((value) => {
       return value.checked  === true
@@ -42,6 +42,15 @@ const Sidebar = (props) => {
 
   const changeFilterSlide = (e) => {
       console.log(e);
+  }
+
+  const changeName = (e) => {
+      if(e.target.value != ""){
+        valuesArray.push('NA:' + e.target.value);
+      }
+      
+      setNamevalue(e.target.value);
+      props.setFilterData(valuesArray);
   }
 
   return (
@@ -110,6 +119,8 @@ const Sidebar = (props) => {
             label="Name"
             placeholder="Filter by name"
             class={Styles.sidebarinput}
+            value={namevalue}
+            onChange={changeName}
           />
 
           {props.sidebarconfig.map((nav) => {

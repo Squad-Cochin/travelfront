@@ -85,6 +85,11 @@ const ListingPage = () => {
               break;     
           }  
         }
+        else if(conditionvalue[0] == 'NA'){
+          if (item.title.includes(conditionvalue[1])) {
+            returnFlag = true;
+          }
+        }
       }
       return returnFlag;
     });
