@@ -32,7 +32,8 @@ const DetailPage = () => {
   const router = useRouter();
   const param1  = router.query
   console.log("check this:")
-  console.log(productData)
+  console.log(productData.destination_details)
+  console.log(productData.user_reviews)
   
   useEffect(() => {
     setDivHeight(ref.current.offsetHeight);
@@ -43,15 +44,13 @@ const DetailPage = () => {
         setproductData([])
       }
       else{
-        console.log("test:")
-        console.log(details)
         setproductData(details)
       }
       
     }
     getPageData();
   }, [router.query]);
-  if (productData.length == 0) {
+  if (productData.destination_details.length == 0) {
     return <div>Loading...</div>; 
   }
   else{
@@ -65,22 +64,22 @@ const DetailPage = () => {
         <div className={Styles.detailpage}>
           <BreadcrumbType wishlist={false} />
           <Container>
-            <DetailSlider images={productData.images}/>
+            <DetailSlider images={productData.destination_details.images}/>
             <Row className="mt-5">
               <Col lg={8} md={7}>
               <div className={Styles.productDesc}>
                   <h2 className="header-type2">
-                  {productData.title}
+                  {productData.destination_details.title}
                   </h2>
                   <div className={Styles.byTravelText}>
-                    <u>By {productData.supplier.name}</u>
+                    <u>By {productData.destination_details.supplier.name}</u>
                   </div>
                   <div className="mt-4">
-                    {productData.reviews.totalReviews > 0 ? (<div><b>{productData.reviews.combinedAverageRating.toFixed(1)}/5</b>({productData.reviews.totalReviews} ratings)</div>):<h1></h1>} 
+                    {productData.destination_details.reviews.totalReviews > 0 ? (<div><b>{productData.destination_details.reviews.combinedAverageRating.toFixed(1)}/5</b>({productData.destination_details.reviews.totalReviews} ratings)</div>):<h1></h1>} 
                   </div>
                   <div className="mt-1">
                     <a  className="link-type1 experience-review">
-                      <AccordionTypeReview review = "There is No content now."/> 
+                      <AccordionTypeReview review = {productData.user_reviews.reviews[0].text}/> 
                     </a>
                   </div>
                 </div>
@@ -94,7 +93,7 @@ const DetailPage = () => {
                     1/31/2022
                   </div>
                   <div className={`${Styles.freeText} mt-2`}>
-                    {productData.cancellationPolicy.description}
+                    {productData.destination_details.cancellationPolicy.description}
                   </div>
                   <ButtonType
                     variant="primary"
@@ -105,11 +104,11 @@ const DetailPage = () => {
                 </div>
               </Col>
             </Row>
-            <FeatureTable productData={productData}/>
-            <DetailContent productData={productData}/>
+            <FeatureTable productData={productData.destination_details}/>
+            <DetailContent productData={productData.destination_details}/>
             <MeetingSection></MeetingSection>
             <TimelineMap />
-            <AccordionType className="plusicon" productData={productData}/>
+            <AccordionType className="plusicon" productData={productData.destination_details}/>
             <div className={Styles.faqssection}>
               <h2 className="header-type2">
                 Frequently Asked Questions about Barcelona Sailing Experience -

@@ -29,7 +29,7 @@ async function tourPackageDetail(productId) {
         };
         console.log(data);
         const items = await axios.post('http://192.168.200.81:4000/tours/view-destination-details', data)
-        return items.data.destination_details;
+        return items.data;
 	
  }
 
