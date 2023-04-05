@@ -55,8 +55,6 @@ const DetailPage = () => {
     return <div>Loading...</div>; 
   }
   else{
-    console.log("imp")
-    console.log(productData)
     return (
       <>
         <div id="header" className={Styles.mainHeader} ref={ref} >
@@ -70,7 +68,7 @@ const DetailPage = () => {
             <DetailSlider images={productData.images}/>
             <Row className="mt-5">
               <Col lg={8} md={7}>
-                <div className={Styles.productDesc}>
+              <div className={Styles.productDesc}>
                   <h2 className="header-type2">
                   {productData.title}
                   </h2>
