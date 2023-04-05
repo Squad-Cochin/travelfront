@@ -55,6 +55,8 @@ const DetailPage = () => {
     return <div>Loading...</div>; 
   }
   else{
+    console.log("imp")
+    console.log(productData)
     return (
       <>
         <div id="header" className={Styles.mainHeader} ref={ref} >
@@ -76,11 +78,11 @@ const DetailPage = () => {
                     <u>By {productData.supplier.name}</u>
                   </div>
                   <div className="mt-4">
-                    <b>{productData.reviews.combinedAverageRating.toFixed(1)}/5</b> ({productData.reviews.totalReviews} ratings)
+                    {productData.reviews.totalReviews > 0 ? (<div><b>{productData.reviews.combinedAverageRating.toFixed(1)}/5</b>({productData.reviews.totalReviews} ratings)</div>):<h1></h1>} 
                   </div>
                   <div className="mt-1">
                     <a  className="link-type1 experience-review">
-                      <AccordionTypeReview review = {productData.reviews.combinedAverageRating}/> 
+                      <AccordionTypeReview review = "There is No content now."/> 
                     </a>
                   </div>
                 </div>

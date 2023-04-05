@@ -86,6 +86,8 @@ function ActivitySearchWidgetHome(props) {
           let ratingCount = element.reviews.totalReviews + ' ratings';
           objectData.rating = rating;
           objectData.ratingCount = ratingCount;
+        }else{
+          objectData.rating = "No ratings";
         }
         objectData.buttonText = "Book";
         finalData.push(objectData);
