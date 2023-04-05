@@ -43,52 +43,54 @@ function ActivitySearchWidgetHome(props) {
     searchData.number_of_person = '2';
     const dataTours = await tourPackages(searchData);
     var finalData = [];
-    
-    let attractions = dataTours.data.Result.attractions.results
-    let destinations = dataTours.data.Result.destinations.results
-    let products = dataTours.data.Result.products.results
-    let count = 0;
+    console.log(dataTours.data)
+    if(dataTours.data.Result.Code == '400'){
+      console.log("no data")
+    }else{
+      let products = dataTours.data.Result.products.results
+      let count = 0;
      
-    products.forEach((element, index) => {
-      count = count + 1
-      let objectData = {};
-      objectData.id = count;
-      objectData.title = element.title;
-      let itineraryType = element.itineraryType.toLowerCase();
-      let duration = '';
-      let dutaionValue = '';
-      if(element.duration){
-        if(element.duration.fixedDurationInMinutes){
-          duration = element.duration.fixedDurationInMinutes/60 
-          duration = duration.toFixed()
-          dutaionValue = duration;
-          duration = duration + ' hours'
-          
+      products.forEach((element, index) => {
+        count = count + 1
+        let objectData = {};
+        objectData.id = count;
+        objectData.title = element.title;
+        let itineraryType = element.itineraryType.toLowerCase();
+        let duration = '';
+        let dutaionValue = '';
+        if(element.duration){
+          if(element.duration.fixedDurationInMinutes){
+            duration = element.duration.fixedDurationInMinutes/60 
+            duration = duration.toFixed()
+            dutaionValue = duration;
+            duration = duration + ' hours'
+            
+          }
+          else if(element.duration.unstructuredDuration){
+            duration = element.duration.unstructuredDuration
+          }
         }
-        else if(element.duration.unstructuredDuration){
-          duration = element.duration.unstructuredDuration
-        }
-      }
-      
+        
 
-      objectData.type = itineraryType.charAt(0).toUpperCase() + itineraryType.slice(1);
-      // console.log(element.duration.variableDurationFromMinutes)
-      // let time = element.duration.fixedDurationInMinutes / 60; 
-      objectData.time = duration;
-      objectData.text = element.description;
-      objectData.linkText = "More details";
-      objectData.price = element.pricing.summary.fromPriceBeforeDiscount;
-      objectData.productCode = element.productCode;
-      objectData.durationValue = dutaionValue;
-      if("reviews" in element){
-        let rating = element.reviews.combinedAverageRating.toFixed(1) + '/5';
-        let ratingCount = element.reviews.totalReviews + ' ratings';
-        objectData.rating = rating;
-        objectData.ratingCount = ratingCount;
-      }
-      objectData.buttonText = "Book";
-      finalData.push(objectData);
-    }); 
+        objectData.type = itineraryType.charAt(0).toUpperCase() + itineraryType.slice(1);
+        // console.log(element.duration.variableDurationFromMinutes)
+        // let time = element.duration.fixedDurationInMinutes / 60; 
+        objectData.time = duration;
+        objectData.text = element.description;
+        objectData.linkText = "More details";
+        objectData.price = element.pricing.summary.fromPriceBeforeDiscount;
+        objectData.productCode = element.productCode;
+        objectData.durationValue = dutaionValue;
+        if("reviews" in element){
+          let rating = element.reviews.combinedAverageRating.toFixed(1) + '/5';
+          let ratingCount = element.reviews.totalReviews + ' ratings';
+          objectData.rating = rating;
+          objectData.ratingCount = ratingCount;
+        }
+        objectData.buttonText = "Book";
+        finalData.push(objectData);
+      }); 
+    }
     props.setSearchData(
       finalData
     )
