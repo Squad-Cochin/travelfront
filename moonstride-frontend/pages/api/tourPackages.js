@@ -28,7 +28,7 @@ async function tourPackageDetail(productId) {
         	dest_code: productId
         };
         console.log(data);
-        const items = await axios.post('http://192.168.200.81:4000/tours/view-destinattion-details', data)
+        const items = await axios.post('http://192.168.200.81:4000/tours/view-destination-details', data)
         return items.data.destination_details;
 	
  }

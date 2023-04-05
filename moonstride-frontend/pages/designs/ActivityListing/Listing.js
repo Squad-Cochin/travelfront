@@ -113,7 +113,7 @@ const ListingPage = () => {
           </div>
           </Col>
           <Col xl={9} lg={8}>
-            <ListingProbox boxData = {filterdedData}/>
+            {filterdedData.length == 0 ? <h1>Please search for a valide data.</h1> : <ListingProbox boxData = {filterdedData}/>}
             <div className="text-center">
               <ButtonType className="btntype2" name="Show More" />
             </div>
