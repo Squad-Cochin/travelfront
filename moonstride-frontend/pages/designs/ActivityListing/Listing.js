@@ -88,7 +88,6 @@ const ListingPage = () => {
       }
       return returnFlag;
     });
-    console.log(filterdedData);
   }
   else{
     filterdedData = searchData;

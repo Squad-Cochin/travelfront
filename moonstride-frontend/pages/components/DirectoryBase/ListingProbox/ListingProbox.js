@@ -69,7 +69,7 @@ const ListingProbox = (props) => {
             >
               <div className={Styles.price_section}>
                 <span>From</span>
-                <div className={Styles.price}>{item.price}</div>
+                <div className={Styles.price}>${item.price}</div>
                 <span>per adult</span>
                 <div className={Styles.probox_canceltext}>
                   Free Cancellation available

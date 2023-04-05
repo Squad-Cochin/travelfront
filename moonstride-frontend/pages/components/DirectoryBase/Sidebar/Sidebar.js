@@ -40,6 +40,10 @@ const Sidebar = (props) => {
 
   }
 
+  const changeFilterSlide = (e) => {
+      console.log(e);
+  }
+
   return (
     <aside>
       <div className={Styles.sidebar_section}>
@@ -95,6 +99,7 @@ const Sidebar = (props) => {
                     max= '2000'
                     defaultValue={[0, 1000]}
                     tooltip={true}
+                    onChange={changeFilterSlide}
                   />
                 </label>
               </Form.Group>

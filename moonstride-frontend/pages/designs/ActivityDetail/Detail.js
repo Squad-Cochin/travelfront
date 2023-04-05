@@ -76,7 +76,7 @@ const DetailPage = () => {
                     <u>By {productData.supplier.name}</u>
                   </div>
                   <div className="mt-4">
-                    <b>{productData.reviews.combinedAverageRating.toFixed()}/5</b> ({productData.reviews.totalReviews} ratings)
+                    <b>{productData.reviews.combinedAverageRating.toFixed(1)}/5</b> ({productData.reviews.totalReviews} ratings)
                   </div>
                   <div className="mt-1">
                     <a  className="link-type1 experience-review">
