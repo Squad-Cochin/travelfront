@@ -31,9 +31,6 @@ const DetailPage = () => {
   const [productData, setproductData] = useState([]);
   const router = useRouter();
   const param1  = router.query
-  console.log("check this:")
-  console.log(productData.destination_details)
-  console.log(productData.user_reviews)
   
   useEffect(() => {
     setDivHeight(ref.current.offsetHeight);
@@ -50,7 +47,7 @@ const DetailPage = () => {
     }
     getPageData();
   }, [router.query]);
-  if (productData.destination_details.length == 0) {
+  if (productData.length == 0) {
     return <div>Loading...</div>; 
   }
   else{
@@ -79,7 +76,7 @@ const DetailPage = () => {
                   </div>
                   <div className="mt-1">
                     <a  className="link-type1 experience-review">
-                      <AccordionTypeReview review = {productData.user_reviews.reviews[0].text}/> 
+                      {productData.user_reviews.reviews.length > 0 ? <AccordionTypeReview review = {productData.user_reviews.reviews[0].text}/> :<AccordionTypeReview review = "There is no reviews over here."/>}    
                     </a>
                   </div>
                 </div>
