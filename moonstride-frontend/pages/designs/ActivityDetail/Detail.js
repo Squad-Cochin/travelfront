@@ -75,7 +75,7 @@ const DetailPage = () => {
                     {productData.destination_details.reviews.totalReviews > 0 ? (<div><b>{productData.destination_details.reviews.combinedAverageRating.toFixed(1)}/5</b>({productData.destination_details.reviews.totalReviews} ratings)</div>):<h1></h1>} 
                   </div>
                   <div className="mt-3">
-                      <ExpandReview />
+                    {productData.user_reviews.reviews.length > 0 ? <ExpandReview review={productData.user_reviews.reviews[0].text}/> :<h1></h1>} 
                   </div>
                 </div>
               </Col>
