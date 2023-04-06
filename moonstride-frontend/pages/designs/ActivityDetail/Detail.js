@@ -5,7 +5,7 @@ import Header from "../../components/DirectoryBase/Header/Header";
 import DetailSlider from "../../components/DirectoryBase/DetailSlider/DetailSlider";
 import AccordionType from "../../components/DirectoryBase/AccordionType/AccordionType";
 import AccordionType1 from "../../components/DirectoryBase/AccordionType/AccordionType1";
-import AccordionTypeReview from "../../components/DirectoryBase/AccordionType/AccordionTypeReview";
+import ExpandReview from "../../components/expand/ExpandReview";
 import { MainMenu } from "../../components/DirectoryBase/MainMenu/MainMenu";
 import BreadcrumbType from "../../components/DirectoryBase/BreadcrumbType/BreadcrumbType";
 import BackTopage from "../../components/DirectoryBase/BackTopage/BackTopage";
@@ -74,10 +74,8 @@ const DetailPage = () => {
                   <div className="mt-4">
                     {productData.destination_details.reviews.totalReviews > 0 ? (<div><b>{productData.destination_details.reviews.combinedAverageRating.toFixed(1)}/5</b>({productData.destination_details.reviews.totalReviews} ratings)</div>):<h1></h1>} 
                   </div>
-                  <div className="mt-1">
-                    <a  className="link-type1 experience-review">
-                      {productData.user_reviews.reviews.length > 0 ? <AccordionTypeReview review = {productData.user_reviews.reviews[0].text}/> :<AccordionTypeReview review = "There is no reviews over here."/>}    
-                    </a>
+                  <div className="mt-3">
+                    {productData.user_reviews.reviews.length > 0 ? <ExpandReview review={productData.user_reviews.reviews[0].text}/> :<h1></h1>} 
                   </div>
                 </div>
               </Col>
