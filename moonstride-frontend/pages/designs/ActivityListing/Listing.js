@@ -15,6 +15,14 @@ const ListingPage = () => {
 
   const [searchData, setSearchData] = useState([]);
   const [filterValues, setFilterData] = useState([]);
+  const [limit, setLimit] = useState(5);
+
+  const setnewLimit = () => {
+    let newlimit = limit + 5;
+    setLimit(newlimit)
+  }
+
+  console.log(limit);
   // Function to update the filter state
   const updateFilter = (value) => {
     setSearchData(value);
@@ -100,11 +108,13 @@ const ListingPage = () => {
       }
       return returnFlag;
     });
+   
   }
   else{
     filterdedData = searchData;
+    
   }
-
+  let limitedArray = filterdedData.slice(0, limit);
   return (
     <>
       <Header />
@@ -124,9 +134,9 @@ const ListingPage = () => {
           </div>
           </Col>
           <Col xl={9} lg={8}>
-            {filterdedData.length == 0 ? <h1></h1> : <ListingProbox boxData = {filterdedData}/>}
+            {limitedArray.length == 0 ? <h1></h1> : <ListingProbox boxData = {limitedArray}/>}
             <div className="text-center">
-              <ButtonType className="btntype2" name="Show More" />
+              <ButtonType className="btntype2" onClick={setnewLimit} name="Show More" />
             </div>
           </Col>
         </Row>
