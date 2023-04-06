@@ -114,7 +114,7 @@ const ListingPage = () => {
         <Row>
           <Col xl={3} lg={4}>
           <div className={`pageSidebar`}>
-              <Sidebar searchData={searchData} setFilterData={setFilterData}/>
+              <Sidebar searchData={searchData} filterData={filterdedData} setFilterData={setFilterData}/>
           </div>
           </Col>
           <Col xl={9} lg={8}>

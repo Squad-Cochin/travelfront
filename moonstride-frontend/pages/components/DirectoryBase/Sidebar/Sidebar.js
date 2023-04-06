@@ -24,18 +24,24 @@ const Sidebar = (props) => {
     document.body.classList.toggle("sidebarActive");
   };
   const [namevalue, setNamevalue] = useState(''); 
+  const [rangeValue, setrangeValue] = useState(100);
+  const [appliedFilters, setappliedFilters] = useState([]);
   let valuesArray = [];
+  let filtersArray = [];
   const filterResult = (e) => {
     let checkBoxArray = document.querySelectorAll(".checkbox-filter input[type='checkbox']");
     let filteredArray = Array.from(checkBoxArray).filter((value) => {
+      console.log(value.nextElementSibling.innerHTML);
       return value.checked  === true
     });
     //props.setFilterData(filteredArray);
 
     filteredArray.forEach((item) => {
       valuesArray.push(item.value);
+      filtersArray.push(item.nextElementSibling.innerHTML)
     })
-
+    
+    setappliedFilters(filtersArray);
     props.setFilterData(valuesArray);
 
   }
@@ -48,11 +54,17 @@ const Sidebar = (props) => {
       if(e.target.value != ""){
         valuesArray.push('NA:' + e.target.value);
       }
-      
       setNamevalue(e.target.value);
       props.setFilterData(valuesArray);
   }
 
+  const removefilter = (index) => {
+    console.log(index.target.value);
+    filtersArray.splice(index.target.value, 1);
+    valuesArray.splice(index.target.value, 1);
+    setappliedFilters(filtersArray);
+    props.setFilterData(valuesArray);
+  }
   return (
     <aside>
       <div className={Styles.sidebar_section}>
@@ -69,30 +81,35 @@ const Sidebar = (props) => {
   
         <div className={Styles.sidebar_box}>
           <div className={Styles.sidebar_result}>
-            123 Results
+            {props.filterData.length} Results
             {/* We will show the selected checkbox values here */}
             <div className={Styles.sidebar_selected_options}>
-              <span className={Styles.tag}>
-                Culture
-                <a href="#" className={Styles.cancel} aria-label="culture">
-                  <svg
-                    width="11"
-                    height="12"
-                    viewBox="0 0 11 12"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g
-                      stroke="#410F4E"
-                      strokeWidth="1.5"
-                      fill="none"
-                      fillRule="evenodd"
+              {appliedFilters.map((item, index) => (
+                  <span className={Styles.tag}>
+                  {item}
+                  <a href="javascript:;" onClick={removefilter} style={{ zIndex: 12 }}className={Styles.cancel} value={index} aria-label="culture">
+                    <svg
+                      width="11"
+                      height="12"
+                      value={index}
+                      viewBox="0 0 11 12"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <path d="m.668 10.478 9.325-9.325M9.994 10.478.669 1.153" />
-                    </g>
-                  </svg>
-                </a>
-              </span>
+                      <g
+                        stroke="#410F4E"
+                        strokeWidth="1.5"
+                        fill="none"
+                        fillRule="evenodd"
+                      >
+                        <path d="m.668 10.478 9.325-9.325M9.994 10.478.669 1.153" />
+                      </g>
+                    </svg>
+                  </a>
+                </span>
+              ))}
+              
             </div>
+            
           </div>
           <div className="mb-3">
             <Form>
@@ -106,9 +123,10 @@ const Sidebar = (props) => {
                     aria-label= "Choose a value"
                     min= '0'
                     max= '2000'
-                    defaultValue={[0, 1000]}
+                    defaultValue={[0, rangeValue]}
                     tooltip={true}
                     onChange={changeFilterSlide}
+                    step={10}
                   />
                 </label>
               </Form.Group>
@@ -168,7 +186,7 @@ Sidebar.defaultProps = {
         { id: 11, value: "T:Activity", checkboxData: "Cruise and water sports(A) (9)" },
         { id: 12, value: "T:Standard",checkboxData: "Culture(S) (311)" },
         { id: 13, value: "T:Unstructured", checkboxData: "Sightseeing, tours & museums(U) (43)" },
-        { id: 14, value: "T:Z",checkboxData: "Tours, Sightseeing & Cruises(A)  (59)" },
+        { id: 14, value: "T:Z",checkboxData: "Tours, Sightseeing & Cruises(A) (59)" },
       ],
     },
     {
