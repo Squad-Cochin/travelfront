@@ -74,7 +74,7 @@ const ListingPage = () => {
               }
               break;
             case 'L24':
-              if(item.price > 4 && item.durationValue < 24){
+              if(item.durationValue > 4 && item.durationValue < 24){
                 returnFlag = true
               }
               break;
@@ -87,6 +87,13 @@ const ListingPage = () => {
         }
         else if(conditionvalue[0] == 'NA'){
           if (item.title.includes(conditionvalue[1])) {
+            returnFlag = true;
+          }
+        }
+        else if(conditionvalue[0] == 'PF'){
+          
+          let rangeValue = conditionvalue[1].split("&")
+          if(item.price > rangeValue[0] && item.price < rangeValue[1]){
             returnFlag = true;
           }
         }

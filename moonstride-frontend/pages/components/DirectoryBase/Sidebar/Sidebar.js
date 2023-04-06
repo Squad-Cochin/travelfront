@@ -26,6 +26,18 @@ const Sidebar = (props) => {
   const [namevalue, setNamevalue] = useState(''); 
   const [rangeValue, setrangeValue] = useState(100);
   const [appliedFilters, setappliedFilters] = useState([]);
+
+  //fetching highest vaue of price 
+  // Get the value of the highest element in the filtered array
+  let highestValue = 20; 
+  let lowestValue = 0; 
+  if(props.searchData.length > 0){
+    //const highestValue = props.searchData.reduce((acc, curr) => (acc.price > curr.price ? acc.price : curr.price));
+    highestValue = Math.max(...props.searchData.map(obj => obj.price));
+    lowestValue = Math.min(...props.searchData.map(obj => obj.price));
+    
+  }
+  
   var valuesArray = [];
   var filtersArray = [];
   const filterResult = (e) => {
@@ -46,7 +58,8 @@ const Sidebar = (props) => {
   }
 
   const changeFilterSlide = (e) => {
-      console.log(e);
+      valuesArray.push('PF:' + e[0] + '&' + e[1]);
+      props.setFilterData(valuesArray);
   }
 
   const changeName = (e) => {
@@ -58,13 +71,12 @@ const Sidebar = (props) => {
   }
 
   const removefilter = (index) => {
-    console.log(filtersArray);
-    console.log(valuesArray);
     filtersArray.splice(index.target.attributes.value['value'], 1);
     valuesArray.splice(index.target.attributes.value['value'], 1);
     setappliedFilters(filtersArray);
     props.setFilterData(valuesArray);
   }
+
   return (
     <aside>
       <div className={Styles.sidebar_section}>
@@ -121,11 +133,11 @@ const Sidebar = (props) => {
                   {/* The price range bar will be displayed here */}
                   <RangeSlider 
                     aria-label= "Choose a value"
-                    min= '0'
-                    max= '2000'
-                    defaultValue={[0, rangeValue]}
+                    min= {lowestValue}
+                    max= {highestValue}
+                    defaultValue={[0, highestValue]}
                     tooltip={true}
-                    onChange={changeFilterSlide}
+                    onInput={changeFilterSlide}
                     step={10}
                   />
                 </label>
