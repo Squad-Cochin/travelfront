@@ -31,7 +31,21 @@ async function tourPackageDetail(productId) {
         const items = await axios.post('http://192.168.200.81:4000/tours/view-destination-details', data)
         return items.data;
 	
- }
+}
+
+async function checkAvailability() {
+       
+       const data = {
+              prod_code: "205000P1",
+              travel_date: "2023-06-06",
+              ageBand:"ADULT",
+              number_of_person:2
+       };
+       console.log(data);
+       const items = await axios.post('http://192.168.200.81:4000/tours/view-destination-details/check-availability', data)
+       return items;
+      
+}
 
 export {tourPackages}
 export {tourPackageDetail}
