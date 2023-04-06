@@ -26,12 +26,11 @@ const Sidebar = (props) => {
   const [namevalue, setNamevalue] = useState(''); 
   const [rangeValue, setrangeValue] = useState(100);
   const [appliedFilters, setappliedFilters] = useState([]);
-  let valuesArray = [];
-  let filtersArray = [];
+  var valuesArray = [];
+  var filtersArray = [];
   const filterResult = (e) => {
     let checkBoxArray = document.querySelectorAll(".checkbox-filter input[type='checkbox']");
     let filteredArray = Array.from(checkBoxArray).filter((value) => {
-      console.log(value.nextElementSibling.innerHTML);
       return value.checked  === true
     });
     //props.setFilterData(filteredArray);
@@ -59,9 +58,10 @@ const Sidebar = (props) => {
   }
 
   const removefilter = (index) => {
-    console.log(index.target.value);
-    filtersArray.splice(index.target.value, 1);
-    valuesArray.splice(index.target.value, 1);
+    console.log(filtersArray);
+    console.log(valuesArray);
+    filtersArray.splice(index.target.attributes.value['value'], 1);
+    valuesArray.splice(index.target.attributes.value['value'], 1);
     setappliedFilters(filtersArray);
     props.setFilterData(valuesArray);
   }
@@ -85,9 +85,9 @@ const Sidebar = (props) => {
             {/* We will show the selected checkbox values here */}
             <div className={Styles.sidebar_selected_options}>
               {appliedFilters.map((item, index) => (
-                  <span className={Styles.tag}>
+                  <span className={Styles.tag} onClick={removefilter} style={{ zIndex: 99 }} value={index}>
                   {item}
-                  <a href="javascript:;" onClick={removefilter} style={{ zIndex: 12 }}className={Styles.cancel} value={index} aria-label="culture">
+                  <a href="#" className={Styles.cancel} value={index} aria-label="culture">
                     <svg
                       width="11"
                       height="12"
