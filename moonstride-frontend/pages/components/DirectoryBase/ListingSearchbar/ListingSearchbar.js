@@ -49,12 +49,14 @@ function ActivitySearchWidgetHome(props) {
     }else{
       let products = dataTours.data.Result.products.results
       let count = 0;
-     
+      console.log("imp:")
+      console.log(products[1].images[0].variants[7].url)
       products.forEach((element, index) => {
         count = count + 1
         let objectData = {};
         objectData.id = count;
         objectData.title = element.title;
+        objectData.image = element.images[0].variants[7].url
         let itineraryType = element.itineraryType.toLowerCase();
         let duration = '';
         let dutaionValue = '';
@@ -71,7 +73,7 @@ function ActivitySearchWidgetHome(props) {
           }
         }
         
-
+        
         objectData.type = itineraryType.charAt(0).toUpperCase() + itineraryType.slice(1);
         // console.log(element.duration.variableDurationFromMinutes)
         // let time = element.duration.fixedDurationInMinutes / 60; 

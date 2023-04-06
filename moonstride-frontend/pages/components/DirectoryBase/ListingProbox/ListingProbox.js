@@ -28,7 +28,13 @@ const ListingProbox = (props) => {
           <Row className="g-3">
             <Col className="d-flex align-items-center" lg={{ span: 3, order: 1 }} xs={{ span: 5, order: 1 }}>
               <div className={`position-relative ${Styles.imagebox}`}>
-                <Image src={ActivityImage1} alt="Activity Image" />
+
+
+
+                <img src={item.image} width="200" height="164" alt="Activity Image" />
+
+
+                
                 <span className={`${Styles.favourite_list} ${active == (true && item.id) ? Styles.activeFavouritelist : ""}`} onClick={()=>setActive(!active && item.id)}>
                   <svg
                     height="20px"
