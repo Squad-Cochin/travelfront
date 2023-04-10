@@ -22,16 +22,41 @@ function ActivitySearchWidgetHome(props) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [searchTerm, setSearchTerm] = useState('');
+  const [childCount, setchildCount] = useState([]);
   const sortByOptions = [
     { value: "1", label: "1" ,key:"1"},
     { value: "2", label: "2" ,key:"2"},
     { value: "3", label: "3" ,key:"3"},
     { value: "4", label: "4" ,key:"4"},
-    { value: "5", label: "5" ,key:"5"}
+    { value: "5", label: "5" ,key:"5"},
+    { value: "6", label: "6" ,key:"6"}
   ];
-  
+  const childageOptions = [
+    { value: "10", label: "10" ,key:"10"},
+    { value: "11", label: "11" ,key:"11"},
+    { value: "12", label: "12" ,key:"12"},
+    { value: "13", label: "13" ,key:"13"},
+    { value: "14", label: "14" ,key:"14"},
+    { value: "15", label: "15" ,key:"15"},
+    { value: "16", label: "16" ,key:"16"},
+    { value: "17", label: "17" ,key:"17"}
+
+  ]
   const inputTextHandler = (e) => {
     setSearchTerm(e.target.value);
+  }
+
+  const handleCountChild = (e) => {
+    const elements = Array.from({ length: e.value }, (_, index) => {
+      return index;
+    });
+    setchildCount(elements)
+  }
+  console.log(childCount);
+  const setChildAge = () => {
+    for (let i = 0; i < childCount; i++) {
+      listItems.push(<li key={i}>{items[i]}</li>);
+    }
   }
 
   const handleClick = async (e) => {
@@ -163,19 +188,21 @@ function ActivitySearchWidgetHome(props) {
                   </Col>
                   <Col xs={6}>
                     <span className={Styles.label}>Children</span>
-                    <Select class="d-inline-block sort-select" defaultValue={sortByOptions[0]} options={sortByOptions}/>
+                    <Select class="d-inline-block sort-select" onChange={handleCountChild} defaultValue={sortByOptions[0]} options={sortByOptions}/>
                     {/* <SelectType label="Children" /> */}
                   </Col>
+                  {childCount.map((item) => {
+                    return(
+                 
                   <Col xs={6} className="mt-3">
                     <span className={Styles.label}>Child age </span>
-                    <Select class="d-inline-block sort-select" defaultValue={sortByOptions[0]} options={sortByOptions}/>
+                    <Select class="d-inline-block sort-select" defaultValue={sortByOptions[0]} options={childageOptions}/>
                     {/* <SelectType label="child's age on the date of travel" /> */}
                   </Col>
-                  <Col xs={6} className="mt-3">
-                    <span className={Styles.label}>Child age</span>
-                    <Select class="d-inline-block sort-select" defaultValue={sortByOptions[0]} options={sortByOptions}/>
-                    {/* <SelectType label="child's age on the date of travel" /> */}
-                  </Col>
+                 )
+                })}
+
+
                 </Row>
                 <div className="mt-3">
                   <ButtonType className={`${Styles.applyButton} btntype2`} name="Apply" />
