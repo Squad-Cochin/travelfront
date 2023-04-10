@@ -1,6 +1,5 @@
 import Accordion from 'react-bootstrap/Accordion';
 import Styles from "./AccordionType.module.scss";
-var inclusionsHtml = `<ul class="aminities">`;
 const faqsList = [
   {
     Key: 0, 
