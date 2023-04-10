@@ -37,20 +37,21 @@ const DetailPage = () => {
     const getPageData = async () => {
       const productId  = router.query
       const details = await tourPackageDetail(productId.productId);
+      console.log(details);
       if(details == undefined){
         setproductData([])
       }
       else{
         setproductData(details)
       }
-      
     }
     getPageData();
   }, [router.query]);
-  if (productData.length == 0) {
+  if (productData.length == 0 || productData.Message) {
     return <div>Loading...</div>; 
   }
   else{
+    console.log(productData);
     return (
       <>
         <div id="header" className={Styles.mainHeader} ref={ref} >

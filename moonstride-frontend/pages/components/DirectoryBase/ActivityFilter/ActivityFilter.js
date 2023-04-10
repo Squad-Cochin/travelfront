@@ -36,7 +36,7 @@ const ActivityFilter = (props) => {
         console.log(sortedDataCust);
         props.setSearchData(sortedDataCust);
         props.setSortOrder(value);
-        console.log("Wednesday");
+
         break;
       default:
         console.log("Invalid day");

@@ -1,7 +1,7 @@
 // {On the component page that displays the homepage, the search bar allows the user to search for a location and select a start date. Additionally, 
 //the user can select an end date and the number of adults and thair functionalities  using this component}
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select,{components} from 'react-select';
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -23,6 +23,10 @@ function ActivitySearchWidgetHome(props) {
   const [endDate, setEndDate] = useState(new Date());
   const [searchTerm, setSearchTerm] = useState('');
   const [childCount, setchildCount] = useState([]);
+  const [childAges, setchildAges] = useState([]);
+  const [children, setchildren] = useState(0);
+  const [adult, setAdult] = useState(0);
+  const [searchDetails, setsearchDetails] = useState({});
   const sortByOptions = [
     { value: "1", label: "1" ,key:"1"},
     { value: "2", label: "2" ,key:"2"},
@@ -46,17 +50,39 @@ function ActivitySearchWidgetHome(props) {
     setSearchTerm(e.target.value);
   }
 
+  useEffect(() => {
+    let searchCount = JSON.parse(localStorage.getItem("searchdata")) || [];
+    
+  }, []);
+
   const handleCountChild = (e) => {
+    setchildren(e.value);
     const elements = Array.from({ length: e.value }, (_, index) => {
       return index;
     });
     setchildCount(elements)
   }
-  console.log(childCount);
-  const setChildAge = () => {
-    for (let i = 0; i < childCount; i++) {
-      listItems.push(<li key={i}>{items[i]}</li>);
-    }
+  
+  const handleCountChildAges = (e) => {
+    
+  }
+
+  const handleAdultCount = (e) => {
+    setAdult(e.value);
+  }
+
+  const setChildAge = (e) => {
+    let detailPersons = {};
+    detailPersons.adult = adult;
+    detailPersons.children = children;
+    detailPersons.childAge = [];
+    let ages = document.querySelectorAll(".select-age");
+    ages.forEach((item) => {
+      detailPersons.childAge.push(item.innerText)
+    })
+
+    document.getElementById('dropdown-basic').innerText = `${adult} adults`;
+    setsearchDetails(detailPersons);
   }
 
   const handleClick = async (e) => {
@@ -65,7 +91,9 @@ function ActivitySearchWidgetHome(props) {
     searchData.searchTerm = searchTerm;
     searchData.start_date = startDate.toISOString().slice(0, 10);
     searchData.end_date = endDate.toISOString().slice(0, 10);
-    searchData.number_of_person = '2';
+    searchData.number_of_person = parseInt(searchDetails.adult) + parseInt(searchDetails.children);
+    searchData.details = searchDetails;
+    localStorage.setItem("searchdata", JSON.stringify(searchData));
     const dataTours = await tourPackages(searchData);
     var finalData = [];
     console.log(dataTours.data)
@@ -183,7 +211,7 @@ function ActivitySearchWidgetHome(props) {
                 <Row className="g-3">
                   <Col xs={6}>
                     <span className={Styles.label}>Adult</span>
-                    <Select class="d-inline-block sort-select" defaultValue={sortByOptions[1]} options={sortByOptions}/>
+                    <Select class="d-inline-block sort-select" defaultValue={sortByOptions[1]} onChange={handleAdultCount} options={sortByOptions}/>
                     {/* <SelectType label="Adult" /> */}
                   </Col>
                   <Col xs={6}>
@@ -196,7 +224,7 @@ function ActivitySearchWidgetHome(props) {
                  
                   <Col xs={6} className="mt-3">
                     <span className={Styles.label}>Child age </span>
-                    <Select class="d-inline-block sort-select" defaultValue={sortByOptions[0]} options={childageOptions}/>
+                    <Select className="d-inline-block sort-select select-age" onChange={handleCountChildAges} options={childageOptions}/>
                     {/* <SelectType label="child's age on the date of travel" /> */}
                   </Col>
                  )
@@ -205,7 +233,7 @@ function ActivitySearchWidgetHome(props) {
 
                 </Row>
                 <div className="mt-3">
-                  <ButtonType className={`${Styles.applyButton} btntype2`} name="Apply" />
+                  <ButtonType className={`${Styles.applyButton} btntype2`} onClick={setChildAge} name="Apply" />
                 </div>
               </Dropdown.Menu>
             </Dropdown>
