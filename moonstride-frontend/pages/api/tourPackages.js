@@ -49,5 +49,6 @@ async function checkAvailability() {
 
 export {tourPackages}
 export {tourPackageDetail}
+export {checkAvailability}
 
 

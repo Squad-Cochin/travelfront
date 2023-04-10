@@ -15,10 +15,10 @@ const ListingPage = () => {
 
   const [searchData, setSearchData] = useState([]);
   const [filterValues, setFilterData] = useState([]);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(10);
 
   const setnewLimit = () => {
-    let newlimit = limit + 5;
+    let newlimit = limit + 10;
     setLimit(newlimit)
   }
 
