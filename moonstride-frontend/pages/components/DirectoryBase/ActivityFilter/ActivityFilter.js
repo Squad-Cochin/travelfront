@@ -23,16 +23,19 @@ const ActivityFilter = (props) => {
         props.setSearchData(
           sortedData
         );
+        props.setSortOrder(value);
         break;
       case 'PHL':
         let sortedDataDesc =  data.sort((a,b) => b.price - a.price);
         console.log(sortedDataDesc);
         props.setSearchData(sortedDataDesc);
+        props.setSortOrder(value);
         break;
       case 'CRT':
         let sortedDataCust =  data.sort((a,b) => b.price - a.price);
         console.log(sortedDataCust);
         props.setSearchData(sortedDataCust);
+        props.setSortOrder(value);
         console.log("Wednesday");
         break;
       default:

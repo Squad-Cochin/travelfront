@@ -15,6 +15,7 @@ const ListingPage = () => {
 
   const [searchData, setSearchData] = useState([]);
   const [filterValues, setFilterData] = useState([]);
+  const [sortOrder, setSortOrder] = useState("");
   const [limit, setLimit] = useState(10);
 
   const setnewLimit = () => {
@@ -124,7 +125,7 @@ const ListingPage = () => {
         </Container>
       </div>
       <Container>
-       <ActivityFilter searchData={filterdedData} setSearchData={setSearchData}/>   
+       <ActivityFilter searchData={filterdedData} setSortOrder={setSortOrder} setSearchData={setSearchData}/>   
       </Container>
       <Container>
         <Row>
