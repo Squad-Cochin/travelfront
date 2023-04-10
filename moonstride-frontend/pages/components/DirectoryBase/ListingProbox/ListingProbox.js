@@ -1,7 +1,7 @@
 //{ On the component that displays the homepage, 
 // this component displays all destination images, along with descriptions, booking amounts, and more }
 
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Link from "next/link";
@@ -13,7 +13,31 @@ import Styles from "./ListingProbox.module.scss";
 
 const ListingProbox = (props) => {
   const [active, setActive] = useState(false);
-  console.log(props);
+  //new
+  const [store, setStore] = useState([]);
+
+  useEffect(() => {
+    let existingArray = JSON.parse(localStorage.getItem("whishlisted")) || [];
+    setStore(existingArray);
+  }, []);
+
+  const handleClick = (item) => {
+
+      var existingArray = JSON.parse(localStorage.getItem("whishlisted")) || [];
+      let index = existingArray.indexOf(item.id); 
+      setStore(existingArray);
+
+  if (existingArray[index]) {
+      existingArray.splice(index, 1);
+      localStorage.setItem("whishlisted", JSON.stringify(existingArray));
+  // console.log(inWishlist);
+  } else {
+      existingArray.push(item.id);
+      localStorage.setItem("whishlisted", JSON.stringify(existingArray));
+  }
+
+  };
+
   return (
     <>
     {/* We are displaying the data here */}
@@ -35,7 +59,10 @@ const ListingProbox = (props) => {
 
 
                 
-                <span className={`${Styles.favourite_list} ${active == (true && item.id) ? Styles.activeFavouritelist : ""}`} onClick={()=>setActive(!active && item.id)}>
+                <span className={`${Styles.favourite_list} ${active == (true && item.id) ? Styles.activeFavouritelist : ""}`} onClick={() => {
+                      setActive(!active && item.id);
+                      handleClick(item);
+                    }}>
                   <svg
                     height="20px"
                     version="1.1"
@@ -43,7 +70,7 @@ const ListingProbox = (props) => {
                     width="20px"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                    <path d="M340.8,83C307,83,276,98.8,256,124.8c-20-26-51-41.8-84.8-41.8C112.1,83,64,131.3,64,190.7c0,27.9,10.6,54.4,29.9,74.6  L245.1,418l10.9,11l10.9-11l148.3-149.8c21-20.3,32.8-47.9,32.8-77.5C448,131.3,399.9,83,340.8,83L340.8,83z" />
+                    <path d="M340.8,83C307,83,276,98.8,256,124.8c-20-26-51-41.8-84.8-41.8C112.1,83,64,131.3,64,190.7c0,27.9,10.6,54.4,29.9,74.6  L245.1,418l10.9,11l10.9-11l148.3-149.8c21-20.3,32.8-47.9,32.8-77.5C448,131.3,399.9,83,340.8,83L340.8,83z" fill={store.includes(item.id) ? "red" : "black"} />
                   </svg>
                 </span>
               </div>
