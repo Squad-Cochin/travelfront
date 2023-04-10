@@ -91,6 +91,10 @@ function ActivitySearchWidgetHome(props) {
     searchData.searchTerm = searchTerm;
     searchData.start_date = startDate.toISOString().slice(0, 10);
     searchData.end_date = endDate.toISOString().slice(0, 10);
+    if(!searchDetails.adult){
+      const dropdown = document.getElementById('dropdown-basic');
+      dropdown.style.color = 'red';
+    }
     searchData.number_of_person = parseInt(searchDetails.adult) + parseInt(searchDetails.children);
     searchData.details = searchDetails;
     localStorage.setItem("searchdata", JSON.stringify(searchData));
@@ -204,7 +208,7 @@ function ActivitySearchWidgetHome(props) {
           <Col lg={2} md={3} xs={12}>
             <Dropdown className={Styles.selecttraveller_box}>
               <Dropdown.Toggle variant="success" id="dropdown-basic">
-                2 adults
+                0 adults
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 {/* We are displaying this data in a dropdown. */}
