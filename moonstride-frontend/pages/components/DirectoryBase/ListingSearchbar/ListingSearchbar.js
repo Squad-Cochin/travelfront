@@ -35,15 +35,27 @@ function ActivitySearchWidgetHome(props) {
     { value: "5", label: "5" ,key:"5"},
     { value: "6", label: "6" ,key:"6"}
   ];
+  const childcountOptions = [
+    { value: "0", label: "0" ,key:"0"},
+    { value: "1", label: "1" ,key:"1"},
+    { value: "2", label: "2" ,key:"2"},
+    { value: "3", label: "3" ,key:"3"},
+    { value: "4", label: "4" ,key:"4"},
+
+  ];
   const childageOptions = [
+    { value: "1", label: "1" ,key:"1"},
+    { value: "2", label: "2" ,key:"2"},
+    { value: "3", label: "3" ,key:"3"},
+    { value: "4", label: "4" ,key:"4"},
+    { value: "5", label: "5" ,key:"5"},
+    { value: "6", label: "6" ,key:"6"},
+    { value: "7", label: "7" ,key:"7"},
+    { value: "8", label: "8" ,key:"8"},
+    { value: "9", label: "9" ,key:"9"},
     { value: "10", label: "10" ,key:"10"},
     { value: "11", label: "11" ,key:"11"},
-    { value: "12", label: "12" ,key:"12"},
-    { value: "13", label: "13" ,key:"13"},
-    { value: "14", label: "14" ,key:"14"},
-    { value: "15", label: "15" ,key:"15"},
-    { value: "16", label: "16" ,key:"16"},
-    { value: "17", label: "17" ,key:"17"}
+    { value: "12", label: "12" ,key:"12"}
 
   ]
   const inputTextHandler = (e) => {
@@ -215,12 +227,12 @@ function ActivitySearchWidgetHome(props) {
                 <Row className="g-3">
                   <Col xs={6}>
                     <span className={Styles.label}>Adult</span>
-                    <Select class="d-inline-block sort-select" defaultValue={sortByOptions[1]} onChange={handleAdultCount} options={sortByOptions}/>
+                    <Select class="d-inline-block sort-select" defaultValue={sortByOptions[0]} onChange={handleAdultCount} options={sortByOptions}/>
                     {/* <SelectType label="Adult" /> */}
                   </Col>
                   <Col xs={6}>
                     <span className={Styles.label}>Children</span>
-                    <Select class="d-inline-block sort-select" onChange={handleCountChild} defaultValue={sortByOptions[0]} options={sortByOptions}/>
+                    <Select class="d-inline-block sort-select" onChange={handleCountChild} defaultValue={childcountOptions[0]} options={childcountOptions}/>
                     {/* <SelectType label="Children" /> */}
                   </Col>
                   {childCount.map((item) => {
