@@ -102,18 +102,18 @@ const DetailPage = () => {
                 </div>
               </Col>
             </Row>
-            <FeatureTable productData={productData.destination_details}/>
+            <FeatureTable productData={productData.destination_details} contactDetails={productData.contact_details}/>
             <DetailContent productData={productData.destination_details}/>
             <MeetingSection></MeetingSection>
             <TimelineMap />
             <AccordionType className="plusicon" productData={productData.destination_details}/>
-            <div className={Styles.faqssection}>
+            {/* <div className={Styles.faqssection}>
               <h2 className="header-type2">
                 Frequently Asked Questions about Barcelona Sailing Experience -
                 Sunset
               </h2>
               <AccordionType1 />
-            </div>
+            </div> */}
           </Container>
           <Offcanvas className={Styles.offcanvasBox} show={show} onHide={handleClose} placement="end" >
             <Offcanvas.Header className={Styles.offcanvasHead} closeButton>

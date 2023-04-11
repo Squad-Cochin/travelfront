@@ -34,6 +34,7 @@ const AvailabilityPopup = (props) => {
   }, []);
 
   console.log(productData);
+  
   if (productData.length == 0 || productData.Message) {
     return <div>Loading...</div>; 
   }else if('Result' in productData.data){
@@ -65,6 +66,7 @@ const AvailabilityPopup = (props) => {
 
       product.subtitle = "Total $" + item.totalPrice.price.recommendedRetailPrice  + " ,$" + perAdult + " per adult"
       product.subdesc = noAdult + " Adults x $" + perAdult + " + " + noChild + " child x $" + perChild;
+      product.buttonoptions= "1";
       radiobox.push(product)
     });
   }
@@ -177,13 +179,20 @@ const AvailabilityPopup = (props) => {
                       {radiolist.subdesc}
                     </div>
                   ) : null}
+                   {radiolist.buttonoptions ? (
+                    <div className={Styles.radiobuttonOptions}>
+                        <button className={Styles.btn} onClick={() => this.setState({isActive: !this.state.isActive})} data-variant-index="1"> Type 01</button>
+                        <button className={Styles.btn} data-variant-index="2"> Type 02</button>
+                        <button className={Styles.btn} data-variant-index="3"> Type 03</button>
+                        <button className={Styles.btn} data-variant-index="4"> Type 04</button>
+                    </div>
+                  ) : null}
                 </div>
               </label>
             </>
           );
         })}
-        <ButtonType
-          class={`btntype1 mt-4 ${Styles.offcanvasBtn}`}
+        <ButtonType class={`mb-3 btntype1 mt-4 ${Styles.offcanvasBtn}`}
           name="Book Now"
         />
       </Form>

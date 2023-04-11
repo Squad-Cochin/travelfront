@@ -148,7 +148,7 @@ const ListingPage = (props) => {
           </Col>
           <Col xl={9} lg={8}>
               {limitedArray.length == 0 ? <></> : <ListingProbox boxData = {limitedArray}/>}
-            <div className="text-center">
+            <div className="text-center mb-3">
               {limitedArray.length == 0 ? <></> : <ButtonType className="btntype2" onClick={setnewLimit} name="Show More" />}
             </div>
           </Col>

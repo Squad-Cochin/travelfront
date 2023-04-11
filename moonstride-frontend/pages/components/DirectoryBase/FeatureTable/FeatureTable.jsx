@@ -26,7 +26,7 @@ function Tableitem(props) {
   );
 }
 export const FeatureTable = (props) => {
-
+  
   let duration = '-';
   if(props.productData.itinerary.duration){
     let durationObject = props.productData.itinerary.duration
@@ -85,22 +85,22 @@ export const FeatureTable = (props) => {
               <span className={Styles.label}>Contact</span>
               <span className={Styles.value}>
                 <Image className={Styles.icon} src={Contact} alt="" />
-                Address comes here Postcode City
+                  {props.contactDetails.suppliers[0].contact.address}
               </span>
             </li>
             <li className={`socialMedia ${Styles.tableItem}`}>
               <span className={Styles.phone}>
                 <Image className={Styles.icon} src={Phone} alt="" />
-                <a href="phone">+000 123 456 789</a>
+                <a href="phone">{props.contactDetails.suppliers[0].contact.phone}</a>
               </span>
               <span className={Styles.mail}>
                 <Image className={Styles.icon} src={Mail} alt="" />
-                <a href="mail">info@company.com</a>
+                <a href="mail">{props.contactDetails.suppliers[0].contact.email}</a>
               </span>
-              <span className={Styles.site}>
+              {/* <span className={Styles.site}>
                 <Image className={Styles.icon} src={Site} alt="" />
                 <a href="site">www.yourwebsite.com</a>
-              </span>
+              </span> */}
             </li>
           </ul>
         </div>
