@@ -97,7 +97,7 @@ const Sidebar = (props) => {
             {/* We will show the selected checkbox values here */}
             <div className={Styles.sidebar_selected_options}>
               {appliedFilters.map((item, index) => (
-                  <span className={Styles.tag} onClick={removefilter} style={{ zIndex: 99 }} value={index}>
+                  <span key={index} className={Styles.tag} onClick={removefilter} style={{ zIndex: 99 }} value={index}>
                   {item}
                   <a href="#" className={Styles.cancel} value={index} aria-label="culture">
                     <svg
