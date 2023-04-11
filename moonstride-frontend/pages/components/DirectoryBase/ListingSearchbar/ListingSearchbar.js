@@ -25,7 +25,7 @@ function ActivitySearchWidgetHome(props) {
   const [childCount, setchildCount] = useState([]);
   const [childAges, setchildAges] = useState([]);
   const [children, setchildren] = useState(0);
-  const [adult, setAdult] = useState(0);
+  const [adult, setAdult] = useState(1);
   const [searchDetails, setsearchDetails] = useState({});
   const sortByOptions = [
     { value: "1", label: "1" ,key:"1"},
@@ -62,6 +62,8 @@ function ActivitySearchWidgetHome(props) {
     setSearchTerm(e.target.value);
   }
 
+  
+
   useEffect(() => {
     let searchCount = JSON.parse(localStorage.getItem("searchdata")) || [];
     
@@ -92,6 +94,9 @@ function ActivitySearchWidgetHome(props) {
     ages.forEach((item) => {
       detailPersons.childAge.push(item.innerText)
     })
+
+    var parent = document.querySelector(".dropdown-menu");
+    parent.classList.remove("show");
 
     document.getElementById('dropdown-basic').innerText = `${adult} adults`;
     setsearchDetails(detailPersons);
@@ -167,6 +172,8 @@ function ActivitySearchWidgetHome(props) {
     props.setSearchData(
       finalData
     )
+    
+
   }
 
   return (
