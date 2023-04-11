@@ -202,6 +202,7 @@ function ActivitySearchWidgetHome(props) {
                   selectsStart
                   startDate={startDate}
                   endDate={endDate}
+                  minDate={startDate}
                 />
               </label>
             </div>
@@ -213,7 +214,7 @@ function ActivitySearchWidgetHome(props) {
                 {/* To date */}
                 <DatePicker
                   dateFormat="MMM dd"
-                  selected={endDate}
+                  selected={startDate}
                   onChange={(date) => setEndDate(date)}
                   selectsEnd
                   startDate={startDate}
@@ -245,7 +246,7 @@ function ActivitySearchWidgetHome(props) {
                   {childCount.map((item) => {
                     return(
                  
-                  <Col xs={6} className="mt-3">
+                  <Col xs={6} className="mt-3 custom">
                     <span className={Styles.label}>Child age </span>
                     <Select className="d-inline-block sort-select select-age" onChange={handleCountChildAges} options={childageOptions}/>
                     {/* <SelectType label="child's age on the date of travel" /> */}
