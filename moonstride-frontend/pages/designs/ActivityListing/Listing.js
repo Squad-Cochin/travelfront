@@ -11,12 +11,23 @@ import ButtonType from "../../components/Button/Button";
 import Styles from "./Listing.module.scss";
 import React, { useState, useEffect } from "react";
 
-const ListingPage = () => {
+const ListingPage = (props) => {
 
   const [searchData, setSearchData] = useState([]);
   const [filterValues, setFilterData] = useState([]);
   const [sortOrder, setSortOrder] = useState("");
   const [limit, setLimit] = useState(10);
+
+  if(searchData.length > 0){
+    let searchedData = JSON.parse(localStorage.getItem("searchdata")) || [];
+    if(searchedData.searchTerm){
+      let headerValue = `Moonstride: ${searchedData.searchTerm} Tours`;
+      props.setheaderValue(headerValue)
+    }
+  }
+  else{
+    props.setheaderValue('Moonstride');
+  }  
 
   const setnewLimit = () => {
     let newlimit = limit + 10;

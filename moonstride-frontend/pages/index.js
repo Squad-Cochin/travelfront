@@ -1,11 +1,10 @@
 import ListingPage from "./designs/ActivityListing/Listing";
 import Head from "next/head";
-
+import { useState } from "react";
 const Home = () => {
 
+  const [headerValue, setheaderValue] = useState('Moonstride');
   //let searchData = JSON.parse(localStorage.getItem("searchdata")) || [];
-  let headerValue = 'Moonstride';
- 
   return (
     <>
       <Head>
@@ -16,7 +15,7 @@ const Home = () => {
         key="desc"
         />
       </Head>
-      <ListingPage />
+      <ListingPage setheaderValue={setheaderValue}/>
     </>
   );
 };
