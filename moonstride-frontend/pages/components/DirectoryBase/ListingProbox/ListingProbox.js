@@ -31,9 +31,10 @@ const ListingProbox = (props) => {
       existingArray.splice(index, 1);
       localStorage.setItem("whishlisted", JSON.stringify(existingArray));
   // console.log(inWishlist);
-  } else {
+  } 
+  else {
       existingArray.push(item.id);
-      localStorage.setItem("whishlisted", JSON.stringify(existingArray));
+      //localStorage.setItem("whishlisted", JSON.stringify(existingArray));
   }
 
   };
@@ -41,14 +42,14 @@ const ListingProbox = (props) => {
   return (
     <>
     {/* We are displaying the data here */}
-    {props.boxData.map((item) => {
+    {props.boxData.map((item, index) => {
 
       // To limit the description count
       const maxLength = 120; // Maximum length of the content
       const limitedContent = item.text.substring(0, maxLength) + (item.text.length > maxLength ? "..." : "");
       
       return(
-        <div className={Styles.list_probox} id={item.id} key={item.id}>
+        <div className={Styles.list_probox} id={item.id} key={index}>
           <Row className="g-3">
             <Col className="d-flex align-items-center" lg={{ span: 3, order: 1 }} xs={{ span: 5, order: 1 }}>
               <div className={`position-relative ${Styles.imagebox}`}>
@@ -60,8 +61,8 @@ const ListingProbox = (props) => {
 
                 
                 <span className={`${Styles.favourite_list} ${active == (true && item.id) ? Styles.activeFavouritelist : ""}`} onClick={() => {
-                      setActive(!active && item.id);
                       handleClick(item);
+                      setActive(!active && item.id);
                     }}>
                   <svg
                     height="20px"

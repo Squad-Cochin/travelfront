@@ -22,12 +22,10 @@ const ListingPage = (props) => {
     let searchedData = JSON.parse(localStorage.getItem("searchdata")) || [];
     if(searchedData.searchTerm){
       let headerValue = `Moonstride: ${searchedData.searchTerm} Tours`;
-      props.setheaderValue(headerValue)
+      props.setheaderValue(headerValue);
     }
   }
-  else{
-    props.setheaderValue('Moonstride');
-  }  
+   
 
   const setnewLimit = () => {
     let newlimit = limit + 10;
@@ -35,9 +33,9 @@ const ListingPage = (props) => {
   }
 
   // Function to update the filter state
-  const updateFilter = (value) => {
-    setSearchData(value);
-  };
+  // const updateFilter = (value) => {
+  //   setSearchData(value);
+  // };
   let filterdedData = [];
   if(filterValues.length > 0){
      filterdedData = searchData.filter((item) => {
@@ -142,7 +140,7 @@ const ListingPage = (props) => {
         <Row>
           <Col xl={3} lg={4}>
           <div className={`pageSidebar`}>
-            {limitedArray.length == 0 ? <>No Results Found</> : <Sidebar searchData={searchData} filterData={filterdedData} setFilterData={setFilterData}/>}  
+            {searchData.length == 0 ? <>No Results Found</> : <Sidebar searchData={searchData} filterData={filterdedData} setFilterData={setFilterData}/>}  
               
           </div>
           </Col>
