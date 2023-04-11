@@ -123,6 +123,7 @@ const ListingPage = () => {
           <ListingSearchbar template="home" searchData={searchData} setSearchData={setSearchData} />
         </Container>
       </div>
+
       <Container>
        <ActivityFilter searchData={filterdedData} setSortOrder={setSortOrder} setSearchData={setSearchData}/>   
       </Container>
@@ -130,11 +131,12 @@ const ListingPage = () => {
         <Row>
           <Col xl={3} lg={4}>
           <div className={`pageSidebar`}>
-              <Sidebar searchData={searchData} filterData={filterdedData} setFilterData={setFilterData}/>
+            {limitedArray.length == 0 ? <>No Results Found</> : <Sidebar searchData={searchData} filterData={filterdedData} setFilterData={setFilterData}/>}  
+              
           </div>
           </Col>
           <Col xl={9} lg={8}>
-              {limitedArray.length == 0 ? <>No Results Found</> : <ListingProbox boxData = {limitedArray}/>}
+              {limitedArray.length == 0 ? <></> : <ListingProbox boxData = {limitedArray}/>}
             <div className="text-center">
               {limitedArray.length == 0 ? <></> : <ButtonType className="btntype2" onClick={setnewLimit} name="Show More" />}
             </div>

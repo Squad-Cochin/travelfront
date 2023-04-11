@@ -45,7 +45,7 @@ export const MainMenu = (props) => {
                 variant="primary"
                 onClick={handleShow}
                 className={`btntype1 mt-4 ${Styles.headerBtn}`}
-                name= "Check availability"
+                name= "Check Availability"
               />
               <Offcanvas
                 className={Styles.offcanvasBox}

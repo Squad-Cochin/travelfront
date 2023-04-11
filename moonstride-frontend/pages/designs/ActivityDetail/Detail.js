@@ -95,7 +95,7 @@ const DetailPage = () => {
                     variant="primary"
                     onClick={handleShow}
                     className="btntype1 mt-4"
-                    name= "Check availability"
+                    name= "Check Availability"
                   />
                 </div>
               </Col>

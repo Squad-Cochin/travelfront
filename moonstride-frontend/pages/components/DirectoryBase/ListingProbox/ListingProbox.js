@@ -112,7 +112,16 @@ const ListingProbox = (props) => {
                     <span className="fw-bold">{item.rating}</span> ({item.ratingCount})
                   </div>
                   {/* Click the 'Book' button to book your reservation*/}
+                  <Link href={
+                    {
+                      pathname: '/activitydetail',
+                      query: { productId: item.productCode,
+                              price: item.price
+                            },
+                    }}
+                  >
                   <ButtonType className="btntype1" name={item.buttonText} />
+                </Link>
                 </div>
               </div>
             </Col>
