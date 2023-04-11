@@ -1,44 +1,13 @@
-import React, { useState ,useEffect } from "react";
+import React, { useState } from "react";
 import Styles from "./AvailabilityPopup.module.scss";
 import Form from "react-bootstrap/Form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ButtonType from "../../Button/Button";
 import SelectType from "../Select/Select";
-
-
-
-import { checkAvailability } from "../../../api/tourPackages";
 const AvailabilityPopup = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  
-  const [productData, setproductData] = useState([]);
-  useEffect(() => {
-    const getPageData = async () => {
-      const details = await checkAvailability();
-      console.log(details);
-      if(details == undefined){
-        setproductData([])
-      }
-      else{
-        setproductData(details)
-      }
-    }
-    getPageData();
-  }, []);
-
-  if (productData.length == 0 || productData.Message) {
-    return <div>Loading...</div>; 
-  }
-  else{
-    console.log(productData);
-  }
-
-  alert("hi")
-
-
- 
   const sortByOptions = [
     {name: "Adult", id:"1"},
     {name: "Child" ,id:"2"}
