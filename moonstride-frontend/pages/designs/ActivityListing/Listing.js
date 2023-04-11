@@ -23,7 +23,6 @@ const ListingPage = () => {
     setLimit(newlimit)
   }
 
-  console.log(limit);
   // Function to update the filter state
   const updateFilter = (value) => {
     setSearchData(value);
@@ -135,9 +134,9 @@ const ListingPage = () => {
           </div>
           </Col>
           <Col xl={9} lg={8}>
-            {limitedArray.length == 0 ? <h1></h1> : <ListingProbox boxData = {limitedArray}/>}
+              {limitedArray.length == 0 ? <>No Results Found</> : <ListingProbox boxData = {limitedArray}/>}
             <div className="text-center">
-              <ButtonType className="btntype2" onClick={setnewLimit} name="Show More" />
+              {limitedArray.length == 0 ? <></> : <ButtonType className="btntype2" onClick={setnewLimit} name="Show More" />}
             </div>
           </Col>
         </Row>

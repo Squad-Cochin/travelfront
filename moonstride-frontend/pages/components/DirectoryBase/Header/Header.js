@@ -10,7 +10,7 @@ const Header = () => {
     <header className={Styles.topbar}>
     
       <Container>
-        <Link href="/listing">
+        <Link href="/">
           <a className={Styles.logo}>
             {/* The logo image will be displayed here */}
             <Image src={Logo} alt="Moonstride Logo" />
