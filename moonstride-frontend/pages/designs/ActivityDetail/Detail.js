@@ -119,7 +119,7 @@ const DetailPage = () => {
             <Offcanvas.Header className={Styles.offcanvasHead} closeButton>
             </Offcanvas.Header>
             <Offcanvas.Body className={Styles.offcanvasinnerBox}>
-              <AvailabilityPopupContent productid={param1.productId} />
+              <AvailabilityPopupContent productid={param1.productId} price={param1.price}/>
             </Offcanvas.Body>
           </Offcanvas>
         </div>

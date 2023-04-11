@@ -14,6 +14,7 @@ const AvailabilityPopup = (props) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   let radiobox = [];
+  console.log("test")
   console.log(props)
   const router = useRouter();
   const param1  = router.query
@@ -43,31 +44,37 @@ const AvailabilityPopup = (props) => {
   else{
     let items = productData.data.availability_status.bookableItems
     items.forEach(item => {
-      count ++;
-      let product = {}
-      product.id = count;
-      product.title = item.item_details.title;
-      product.content = item.item_details.description;
-      product.linklabel = "Read more";
-      product.url = "";
-      let perAdult = 0;
-      let noAdult = 0;
-      let perChild = 0;
-      let noChild = 0;
-      item.lineItems.forEach(ageBand => {
-        if(ageBand.ageBand == 'ADULT'){
-          perAdult = ageBand.subtotalPrice.price.recommendedRetailPrice
-          noAdult = ageBand.numberOfTravelers
-        }else if(ageBand.ageBand == 'CHILD'){
-          perChild = ageBand.subtotalPrice.price.recommendedRetailPrice
-          noChild = ageBand.numberOfTravelers
-        }
-      })
+      try{
+        count ++;
+        let product = {}
+        product.id = count;
+        product.title = item.item_details.title;
+        product.content = item.item_details.description;
+        product.linklabel = "Read more";
+        product.url = "";
+        let perAdult = 0;
+        let noAdult = 0;
+        let perChild = 0;
+        let noChild = 0;
+        item.lineItems.forEach(ageBand => {
+          if(ageBand.ageBand == 'ADULT'){
+            perAdult = ageBand.subtotalPrice.price.recommendedRetailPrice
+            noAdult = ageBand.numberOfTravelers
+          }else if(ageBand.ageBand == 'CHILD'){
+            perChild = ageBand.subtotalPrice.price.recommendedRetailPrice
+            noChild = ageBand.numberOfTravelers
+          }
+        })
 
-      product.subtitle = "Total $" + item.totalPrice.price.recommendedRetailPrice  + " ,$" + perAdult + " per adult"
-      product.subdesc = noAdult + " Adults x $" + perAdult + " + " + noChild + " child x $" + perChild;
-      product.buttonoptions= "1";
-      radiobox.push(product)
+        product.subtitle = "Total $" + item.totalPrice.price.recommendedRetailPrice  + " ,$" + perAdult + " per adult"
+        product.subdesc = noAdult + " Adults x $" + perAdult + " + " + noChild + " child x $" + perChild;
+        product.buttonoptions= "1";
+        radiobox.push(product);
+      }
+      catch{
+        console.log("next")
+      }
+        
     });
   }
     
@@ -126,7 +133,7 @@ const AvailabilityPopup = (props) => {
   return (
     <div className={Styles.AvailabilityPopup}>
       <div className={Styles.priceSection}>
-        <h2 className="header-type2">From $85.60 per adult</h2>
+        <h2 className="header-type2">From ${param1.price} per adult</h2>
         <div className={Styles.duration}>
           Offer ID: 98292 <span className={Styles.durationSeparator}></span>{" "}
           Exp: 1/31/2022
