@@ -29,6 +29,7 @@ const DetailPage = () => {
   const [divHeight, setDivHeight] = useState(0);
   const ref = useRef(divHeight);
   const [productData, setproductData] = useState([]);
+  //const [productId, setProductId] = useState('');
   const router = useRouter();
   const param1  = router.query
   
@@ -36,6 +37,7 @@ const DetailPage = () => {
     setDivHeight(ref.current.offsetHeight);
     const getPageData = async () => {
       const productId  = router.query
+      //setProductId(productId.productId);
       const details = await tourPackageDetail(productId.productId);
       console.log(details);
       if(details == undefined){
@@ -47,11 +49,11 @@ const DetailPage = () => {
     }
     getPageData();
   }, [router.query]);
-  if (productData.length == 0 || productData.Message) {
+    console.log(productData);
+  if (productData.length == 0 ||  productData.Result) {
     return <div>Loading...</div>; 
   }
   else{
-    console.log(productData);
     return (
       <>
         <div id="header" className={Styles.mainHeader} ref={ref} >
@@ -117,7 +119,7 @@ const DetailPage = () => {
             <Offcanvas.Header className={Styles.offcanvasHead} closeButton>
             </Offcanvas.Header>
             <Offcanvas.Body className={Styles.offcanvasinnerBox}>
-              <AvailabilityPopupContent />
+              <AvailabilityPopupContent productid={param1.productId} />
             </Offcanvas.Body>
           </Offcanvas>
         </div>

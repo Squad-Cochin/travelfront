@@ -36,18 +36,16 @@ async function tourPackageDetail(productId) {
 	
 }
 
-async function checkAvailability() {
-       alert("3")
+async function checkAvailability(searchData, productId) {
        const data = {
-              prod_code: "205000P1",
-              travel_date: "2023-06-06",
-              ageBand:"ADULT",
-              number_of_person:2
+              prod_code: productId,
+              travel_date: searchData.start_date,
+              adult: searchData.details.adult,
+              child: searchData.details.children
        };
-       console.log(data);
-       const items = await axios.post(`${API_BASE_URL}/tours/view-destination-details/check-availability`, data)
-       console.log("items");
-       console.log(items);
+       const items = await axios.post(`${API_BASE_URL}/tours/view-destination-details/check-availability`, data);
+       console.log("data")
+       console.log(items)
        return items;
       
 }

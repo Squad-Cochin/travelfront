@@ -1,13 +1,110 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect } from "react";
 import Styles from "./AvailabilityPopup.module.scss";
 import Form from "react-bootstrap/Form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ButtonType from "../../Button/Button";
 import SelectType from "../Select/Select";
-const AvailabilityPopup = () => {
+import { useRouter } from 'next/router'
+
+
+import { checkAvailability } from "../../../api/tourPackages";
+const AvailabilityPopup = (props) => {
+  let count = 0
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  let radiobox = [];
+  console.log(props)
+  const router = useRouter();
+  const param1  = router.query
+
+  const [productData, setproductData] = useState([]);
+  useEffect(() => {
+    const getPageData = async () => {
+      let dataFromLocalStorage = JSON.parse(localStorage.getItem("searchdata")) || [];
+      const details = await checkAvailability(dataFromLocalStorage, param1.productId);
+      if(details == undefined){
+        setproductData([])
+      }
+      else{
+        setproductData(details)
+      }
+    }
+    getPageData();
+  }, []);
+
+  console.log(productData);
+  if (productData.length == 0 || productData.Message) {
+    return <div>Loading...</div>; 
+  }else if('Result' in productData.data){
+    radiobox = [];
+  }
+  else{
+    let items = productData.data.availability_status.bookableItems
+    items.forEach(item => {
+      count ++;
+      let product = {}
+      product.id = count;
+      product.title = item.item_details.title;
+      product.content = item.item_details.description;
+      product.linklabel = "Read more";
+      product.url = "";
+      let perAdult = 0;
+      let noAdult = 0;
+      let perChild = 0;
+      let noChild = 0;
+      item.lineItems.forEach(ageBand => {
+        if(ageBand.ageBand == 'ADULT'){
+          perAdult = ageBand.subtotalPrice.price.recommendedRetailPrice
+          noAdult = ageBand.numberOfTravelers
+        }else if(ageBand.ageBand == 'CHILD'){
+          perChild = ageBand.subtotalPrice.price.recommendedRetailPrice
+          noChild = ageBand.numberOfTravelers
+        }
+      })
+
+      product.subtitle = "Total $" + item.totalPrice.price.recommendedRetailPrice  + " ,$" + perAdult + " per adult"
+      product.subdesc = noAdult + " Adults x $" + perAdult + " + " + noChild + " child x $" + perChild;
+      radiobox.push(product)
+    });
+  }
+    
+
+    // radiobox = [
+    //   {
+    //     id: 1,
+    //     title: "Sagrada Familia Regular Entry",
+    //     content:
+    //       "What is included on this option description. Loren ipsum all the facts dolor maer sit consecuteur adisciplining.",
+    //     linklabel: "Read more",
+    //     url: "#",
+    //     subtitle: "Total $171,20 per adult",
+    //     subdesc: "2 Adults x $85.60",
+    //   },
+    //   {
+    //     id: 2,
+    //     title: "Sagrada Familia Regular Entry + Museum",
+    //     content:
+    //       "What is included on this option description. Loren ipsum all the facts dolor maer sit consecuteur adisciplining.",
+    //     linklabel: "Read more",
+    //     url: "#",
+    //     subtitle: "Total $171,20 per adult",
+    //     subdesc: "2 Adults x $85.60",
+    //   },
+    //   {
+    //     id: 3,
+    //     title: "Sagrada Familia Regular Entry + Tower",
+    //     content:
+    //       "What is included on this option description. Loren ipsum all the facts dolor maer sit consecuteur adisciplining.",
+    //     linklabel: "Read more",
+    //     url: "#",
+    //     subtitle: "Total $171,20 per adult",
+    //     subdesc: "2 Adults x $85.60",
+    //   },
+    // ];
+  
+
+
   const sortByOptions = [
     {name: "Adult", id:"1"},
     {name: "Child" ,id:"2"}
@@ -22,38 +119,7 @@ const AvailabilityPopup = () => {
     {name: "08:00am" ,id:"3"},
     {name: "05:00am" ,id:"4"}
   ];
-  const radiobox = [
-    {
-      id: 1,
-      title: "Sagrada Familia Regular Entry",
-      content:
-        "What is included on this option description. Loren ipsum all the facts dolor maer sit consecuteur adisciplining.",
-      linklabel: "Read more",
-      url: "#",
-      subtitle: "Total $171,20 per adult",
-      subdesc: "2 Adults x $85.60",
-    },
-    {
-      id: 2,
-      title: "Sagrada Familia Regular Entry + Museum",
-      content:
-        "What is included on this option description. Loren ipsum all the facts dolor maer sit consecuteur adisciplining.",
-      linklabel: "Read more",
-      url: "#",
-      subtitle: "Total $171,20 per adult",
-      subdesc: "2 Adults x $85.60",
-    },
-    {
-      id: 3,
-      title: "Sagrada Familia Regular Entry + Tower",
-      content:
-        "What is included on this option description. Loren ipsum all the facts dolor maer sit consecuteur adisciplining.",
-      linklabel: "Read more",
-      url: "#",
-      subtitle: "Total $171,20 per adult",
-      subdesc: "2 Adults x $85.60",
-    },
-  ];
+  
 
   return (
     <div className={Styles.AvailabilityPopup}>
@@ -82,7 +148,7 @@ const AvailabilityPopup = () => {
           />
         </div>
         <SelectType selectarr={timeOption} label="Time" />
-        <div className="form-label">3 options available</div>
+        <div className="form-label">{count} options available</div>
 
         {radiobox.map((radiolist) => {
           return (
@@ -123,5 +189,6 @@ const AvailabilityPopup = () => {
       </Form>
     </div>
   );
+  
 };
 export default AvailabilityPopup;
