@@ -18,11 +18,26 @@
        //  end_date: '2023-04-01',
        //  number_of_person: '2'
        //  };
-        console.log(data);
-        const items = await axios.post(`${API_BASE_URL}/tours/search-destination`, data)    
-        console.log("tourPkg");
-        console.log(items); 
-        return items;
+        try{
+              const items = await axios.post(`${API_BASE_URL}/tours/search-destination`, data)    
+              console.log("tourPkg");
+              console.log(items); 
+              return items;   
+        }
+        catch{
+              let errorItems = {
+                     "data": {
+                            "Result": {
+                                   "Code": 400,
+                                   "Error": {
+                                          "Message": "No Data Found."
+                                   }
+                            }
+                     }
+              }
+              return errorItems; 
+        }
+        
  }
 
 async function tourPackageDetail(productId) {

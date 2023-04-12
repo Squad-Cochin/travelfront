@@ -103,7 +103,8 @@ function ActivitySearchWidgetHome(props) {
   }
 
   const handleClick = async (e) => {
-
+    console.log(props)
+    props.setIsLoading(true);
     let searchData = {};
     searchData.searchTerm = searchTerm;
     searchData.start_date = startDate.toISOString().slice(0, 10);
@@ -120,6 +121,7 @@ function ActivitySearchWidgetHome(props) {
     console.log(dataTours.data)
     if(dataTours.data.Result.Code == '400'){
       console.log("no data")
+      props.setIsLoading(false);
     }else{
       let products = dataTours.data.Result.products.results
       let count = 0;
@@ -169,6 +171,7 @@ function ActivitySearchWidgetHome(props) {
         finalData.push(objectData);
       }); 
     }
+    props.setIsLoading(false);
     props.setSearchData(
       finalData
     )
@@ -243,10 +246,10 @@ function ActivitySearchWidgetHome(props) {
                     <Select class="d-inline-block sort-select" onChange={handleCountChild} defaultValue={childcountOptions[0]} options={childcountOptions}/>
                     {/* <SelectType label="Children" /> */}
                   </Col>
-                  {childCount.map((item) => {
+                  {childCount.map((item, index) => {
                     return(
                  
-                  <Col xs={6} className="mt-3 custom">
+                  <Col xs={6} className="mt-3 custom" key={index}>
                     <span className={Styles.label}>Child age </span>
                     <Select className="d-inline-block sort-select select-age" onChange={handleCountChildAges} options={childageOptions}/>
                     {/* <SelectType label="child's age on the date of travel" /> */}
@@ -356,7 +359,7 @@ function listingSearchbar(props) {
 
   const widgetTemplate = props.template;
 
-  return widgetTemplate === "home" && <ActivitySearchWidgetHome searchData={props.searchData} setSearchData={props.setSearchData} />;
+  return widgetTemplate === "home" && <ActivitySearchWidgetHome searchData={props.searchData} setSearchData={props.setSearchData} setIsLoading={props.setIsLoading}/>;
 
 }
 

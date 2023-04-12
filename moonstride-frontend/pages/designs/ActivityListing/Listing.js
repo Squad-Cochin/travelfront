@@ -10,12 +10,16 @@ import Sidebar from "../../components/DirectoryBase/Sidebar/Sidebar";
 import ButtonType from "../../components/Button/Button";
 import Styles from "./Listing.module.scss";
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import loadingimage from "../../../public/images/circle-loader.gif"
 
 const ListingPage = (props) => {
 
   const [searchData, setSearchData] = useState([]);
   const [filterValues, setFilterData] = useState([]);
   const [sortOrder, setSortOrder] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const [limit, setLimit] = useState(10);
 
   if(searchData.length > 0){
@@ -26,11 +30,6 @@ const ListingPage = (props) => {
     }
   }
    
-
-  const setnewLimit = () => {
-    let newlimit = limit + 10;
-    setLimit(newlimit)
-  }
 
   // Function to update the filter state
   // const updateFilter = (value) => {
@@ -129,34 +128,60 @@ const ListingPage = (props) => {
       <Header />
       <div className={Styles.listingpage}>
         <Container>
-          <ListingSearchbar template="home" searchData={searchData} setSearchData={setSearchData} />
+          <ListingSearchbar template="home" searchData={searchData} setSearchData={setSearchData} setIsLoading={setIsLoading}/>
         </Container>
       </div>
-
       <Container>
-       <ActivityFilter searchData={filterdedData} setSortOrder={setSortOrder} setSearchData={setSearchData}/>   
+      {searchData.length == 0 ? <></> : <ActivityFilter searchData={filterdedData} setSortOrder={setSortOrder} setSearchData={setSearchData}/>}
       </Container>
-      <Container>
-        <Row>
-          <Col xl={3} lg={4}>
-          <div className={`pageSidebar`}>
-            {searchData.length == 0 ? <>No Results Found</> : <Sidebar searchData={searchData} filterData={filterdedData} setFilterData={setFilterData}/>}  
-              
-          </div>
-          </Col>
-          <Col xl={9} lg={8}>
-              {limitedArray.length == 0 ? <></> : <ListingProbox boxData = {limitedArray}/>}
-            <div className="text-center mb-3">
-              {limitedArray.length == 0 ? <></> : <ButtonType className="btntype2" onClick={setnewLimit} name="Show More" />}
-            </div>
-          </Col>
-        </Row>
-      </Container>
+      {isLoading ? <Loader /> : <ListingComponent searchData={searchData} filterData={filterdedData} setFilterData={setFilterData} limitedArray={limitedArray} limit={limit} setLimit={setLimit}/> }
+        
     </>
   );
 };
 
 export default ListingPage;
+
+function Loader(){
+    return( 
+      <Container>
+        <Row >
+          <Col className="text-center">
+            <Image src={loadingimage} width="250" height="250"/>
+          </Col>
+        </Row>
+      </Container>
+    )
+}
+
+function ListingComponent(props){
+ 
+  const setnewLimit = () => {
+    let newlimit = props.limit + 10;
+    props.setLimit(newlimit)
+  }
+
+  console.log(props);
+
+  return (
+    <Container> 
+        <Row>
+          <Col xl={3} lg={4}>
+          <div className={`pageSidebar`}>
+            {props.searchData.length == 0 ? <><br/><br/>No Results Found</> : <Sidebar searchData={props.searchData} filterData={props.filterData} setFilterData={props.setFilterData}/>}  
+              
+          </div>
+          </Col>
+          <Col xl={9} lg={8}>
+              {props.limitedArray.length == 0 ? <></> : <ListingProbox boxData = {props.limitedArray}/>}
+            <div className="text-center mb-3">
+              {props.limitedArray.length < 10 || props.limitedArray.length == props.searchData.length  ? <></> : <ButtonType className="btntype2" onClick={setnewLimit} name="Show More" />}
+            </div>
+          </Col>
+        </Row>
+      </Container>
+  )
+}
 
 const boxData = [
   {
