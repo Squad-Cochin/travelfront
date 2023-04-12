@@ -14,7 +14,6 @@ const AvailabilityPopup = (props) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   let radiobox = [];
-  console.log("test")
   console.log(props)
   const router = useRouter();
   const param1  = router.query
@@ -33,7 +32,8 @@ const AvailabilityPopup = (props) => {
     }
     getPageData();
   }, []);
-
+  
+  console.log("test")
   console.log(productData);
   
   if (productData.length == 0 || productData.Message) {
@@ -68,7 +68,7 @@ const AvailabilityPopup = (props) => {
 
         product.subtitle = "Total $" + item.totalPrice.price.recommendedRetailPrice  + " ,$" + perAdult + " per adult"
         product.subdesc = noAdult + " Adults x $" + perAdult + " + " + noChild + " child x $" + perChild;
-        product.buttonoptions= "1";
+        product.buttonoptions= item.startTime;
         radiobox.push(product);
       }
       catch{
@@ -188,10 +188,7 @@ const AvailabilityPopup = (props) => {
                   ) : null}
                    {radiolist.buttonoptions ? (
                     <div className={Styles.radiobuttonOptions}>
-                        <button className={Styles.btn} onClick={() => this.setState({isActive: !this.state.isActive})} data-variant-index="1"> Type 01</button>
-                        <button className={Styles.btn} data-variant-index="2"> Type 02</button>
-                        <button className={Styles.btn} data-variant-index="3"> Type 03</button>
-                        <button className={Styles.btn} data-variant-index="4"> Type 04</button>
+                        <button className={Styles.btn} onClick={() => this.setState({isActive: !this.state.isActive})} data-variant-index="1">{radiolist.buttonoptions}</button>
                     </div>
                   ) : null}
                 </div>
