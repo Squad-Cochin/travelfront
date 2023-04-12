@@ -49,7 +49,7 @@ const AvailabilityPopup = (props) => {
         let product = {}
         product.id = count;
         product.title = item.item_details.title;
-        product.content = item.item_details.description;
+        product.content = item.item_details.description.replace(/<\/?[^>]+(>|$)|&[^\s]*;/g, "");
         product.linklabel = "Read more";
         product.url = "";
         let perAdult = 0;
@@ -157,7 +157,7 @@ const AvailabilityPopup = (props) => {
           />
         </div>
         <SelectType selectarr={timeOption} label="Time" />
-        <div className="form-label">{count} options available</div>
+        {/* <div className="form-label">{count} options available</div> */}
 
         {radiobox.map((radiolist) => {
           return (
