@@ -75,10 +75,10 @@ const DetailPage = () => {
                     <u>By {productData.destination_details.supplier.name}</u>
                   </div>
                   <div className="mt-4">
-                    {productData.destination_details.reviews.totalReviews > 0 ? (<div><b>{productData.destination_details.reviews.combinedAverageRating.toFixed(1)}/5</b>({productData.destination_details.reviews.totalReviews} ratings)</div>):<h1></h1>} 
+                    {productData.destination_details.reviews.totalReviews > 0 ? (<div><b>{productData.destination_details.reviews.combinedAverageRating.toFixed(1)}/5</b>({productData.destination_details.reviews.totalReviews} ratings)</div>):null} 
                   </div>
                   <div className="mt-3">
-                    {productData.user_reviews.reviews.length > 0 ? <ExpandReview review={productData.user_reviews.reviews[0].text}/> :<h1></h1>} 
+                    {productData.user_reviews.reviews.length > 0 ? <ExpandReview review={productData.user_reviews.reviews[0].text}/> :null} 
                   </div>
                 </div>
               </Col>

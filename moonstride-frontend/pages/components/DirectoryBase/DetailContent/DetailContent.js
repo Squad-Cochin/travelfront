@@ -37,12 +37,12 @@ function DetailContent(props){
               <p className="base-text">
                 {props.productData.description}.
               </p>
-            </div>):<h1></h1>}
+            </div>):null}
             
             {/* <h2 className="header-type1">Languages</h2> */}
             {/* <p className="base-text">Bilingual Tour - English/Spanish</p> */}
             
-            {startLocation ?(
+            { startLocation != '-' && startLocation ?(
               <div>
                 <h2 className="header-type1">Location</h2>
                 <p className="base-text">
@@ -51,14 +51,14 @@ function DetailContent(props){
                   <strong>End point:</strong> {endLocation}
                 </p>
               </div>
-            ) :<h1></h1>}
+            ) :null}
 
             {duration ? (
               <div>
                 <h2 className="header-type1">Schedule</h2>
                 <p className="base-text">Duration: {duration} Hours</p>
               </div>
-            ):<h1></h1>}
+            ):null}
             
             {guideType ? (
               <div>
@@ -69,7 +69,7 @@ function DetailContent(props){
                   Group size: {guideCount} People
                 </p>
               </div>
-            ):<h1></h1>}
+            ):null}
             
             {/* <h2 className="header-type1">Requirements</h2>
             <p className="base-text mb-5">
