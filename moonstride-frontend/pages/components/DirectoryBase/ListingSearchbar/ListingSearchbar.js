@@ -21,6 +21,7 @@ function ActivitySearchWidgetHome(props) {
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [startDate1, setStartDate1] = useState(new Date());
   const [searchTerm, setSearchTerm] = useState('');
   const [childCount, setchildCount] = useState([]);
   const [childAges, setchildAges] = useState([]);
@@ -201,11 +202,14 @@ function ActivitySearchWidgetHome(props) {
                 <DatePicker
                   dateFormat="MMM dd"
                   selected={startDate}
-                  onChange={(date) => setStartDate(date)}
+                  onChange={(date) => {
+                                  setStartDate(date); 
+                                  setEndDate(date);
+                            }}
                   selectsStart
                   startDate={startDate}
                   endDate={endDate}
-                  minDate={startDate}
+                  minDate={startDate1}
                 />
               </label>
             </div>
