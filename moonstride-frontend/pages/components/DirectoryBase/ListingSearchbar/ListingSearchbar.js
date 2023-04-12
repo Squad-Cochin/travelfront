@@ -217,7 +217,7 @@ function ActivitySearchWidgetHome(props) {
                 {/* To date */}
                 <DatePicker
                   dateFormat="MMM dd"
-                  selected={startDate}
+                  selected={endDate}
                   onChange={(date) => setEndDate(date)}
                   selectsEnd
                   startDate={startDate}
