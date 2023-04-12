@@ -188,7 +188,12 @@ const AvailabilityPopup = (props) => {
                   ) : null}
                    {radiolist.buttonoptions ? (
                     <div className={Styles.radiobuttonOptions}>
-                        <button className={Styles.btn} onClick={() => this.setState({isActive: !this.state.isActive})} data-variant-index="1">{radiolist.buttonoptions}</button>
+                        {/* <button className={Styles.btn} data-variant-index="1">{radiolist.buttonoptions}</button> */}
+                        {/* onClick={() => this.setState({isActive: !this.state.isActive})} */}
+                        <ButtonType 
+                          className={Styles.btn}
+                          name={radiolist.buttonoptions}
+                        />
                     </div>
                   ) : null}
                 </div>
