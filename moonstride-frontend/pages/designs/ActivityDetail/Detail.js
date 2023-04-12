@@ -104,8 +104,8 @@ const DetailPage = () => {
             </Row>
             <FeatureTable productData={productData.destination_details} contactDetails={productData.contact_details}/>
             <DetailContent productData={productData.destination_details}/>
-            <MeetingSection></MeetingSection>
-            <TimelineMap />
+            {/* <MeetingSection></MeetingSection> */}
+            {/* <TimelineMap /> */}
             <AccordionType className="plusicon" productData={productData.destination_details}/>
             {/* <div className={Styles.faqssection}>
               <h2 className="header-type2">

@@ -43,13 +43,13 @@ additionalInfoHtml += `</u>`;
       bodycon:
       inclusionsHtml,
     },
-    {
-      Key: 1,
-      header:
-        "What you can expect",
-      bodycon:
-        'Flamenco Show at Tablao Flamenco Cordobes Barcelona in Las Ramblas is hosted by Flamenco Barcelona - Tablao Flamenco Cordobes. Read reviews, discover additonal experiences or contact Flamenco Barcelona - Tablao Flamenco Cordobes on Tripadvisor. Discover and book Flamenco Show at Tablao Flamenco Cordobes Barcelona in Las Ramblas on Tripadvisor',
-    },
+    // {
+    //   Key: 1,
+    //   header:
+    //     "What you can expect",
+    //   bodycon:
+    //     'Flamenco Show at Tablao Flamenco Cordobes Barcelona in Las Ramblas is hosted by Flamenco Barcelona - Tablao Flamenco Cordobes. Read reviews, discover additonal experiences or contact Flamenco Barcelona - Tablao Flamenco Cordobes on Tripadvisor. Discover and book Flamenco Show at Tablao Flamenco Cordobes Barcelona in Las Ramblas on Tripadvisor',
+    // },
     {
       Key: 2,
       header:

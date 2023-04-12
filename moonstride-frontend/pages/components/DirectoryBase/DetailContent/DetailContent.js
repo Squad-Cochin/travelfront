@@ -31,27 +31,47 @@ function DetailContent(props){
 
     return(
         <div className={Styles.cmssection}>
-            <h2 className="header-type1">About the activity / Overview</h2>
-            <p className="base-text">
-              {props.productData.description}.
-            </p>
-            <h2 className="header-type1">Languages</h2>
-            <p className="base-text">Bilingual Tour - English/Spanish</p>
-            <h2 className="header-type1">Location</h2>
-            <p className="base-text">
-              <strong>Start point:</strong> {startLocation}
-              <br />
-              <strong>End point:</strong> {endLocation}
-            </p>
-            <h2 className="header-type1">Schedule</h2>
-            <p className="base-text">Duration: {duration} Hours</p>
-            <h2 className="header-type1">Guide options</h2>
-            <p className="base-text">
-              Guide type: {guideType}
-              <br />
-              Group size: {guideCount} People
-            </p>
-            <h2 className="header-type1">Requirements</h2>
+            {props.productData.description ? (
+            <div>
+              <h2 className="header-type1">About the activity / Overview</h2>
+              <p className="base-text">
+                {props.productData.description}.
+              </p>
+            </div>):<h1></h1>}
+            
+            {/* <h2 className="header-type1">Languages</h2> */}
+            {/* <p className="base-text">Bilingual Tour - English/Spanish</p> */}
+            
+            {startLocation ?(
+              <div>
+                <h2 className="header-type1">Location</h2>
+                <p className="base-text">
+                  <strong>Start point:</strong> {startLocation}
+                  <br />
+                  <strong>End point:</strong> {endLocation}
+                </p>
+              </div>
+            ) :<h1></h1>}
+
+            {duration ? (
+              <div>
+                <h2 className="header-type1">Schedule</h2>
+                <p className="base-text">Duration: {duration} Hours</p>
+              </div>
+            ):<h1></h1>}
+            
+            {guideType ? (
+              <div>
+                <h2 className="header-type1">Guide options</h2>
+                <p className="base-text">
+                  Guide type: {guideType}
+                  <br />
+                  Group size: {guideCount} People
+                </p>
+              </div>
+            ):<h1></h1>}
+            
+            {/* <h2 className="header-type1">Requirements</h2>
             <p className="base-text mb-5">
               Please notice that this activity is subject to a minimum of 2
               people.
@@ -63,7 +83,7 @@ function DetailContent(props){
               available during adverse weather conditions.
               <br />
               Passport or ID are required
-            </p>
+            </p> */}
         </div>
     );
 }

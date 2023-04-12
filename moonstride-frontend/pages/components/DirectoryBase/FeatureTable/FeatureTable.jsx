@@ -53,19 +53,20 @@ export const FeatureTable = (props) => {
     { id: 3, label: "Activity Type", value: props.productData.itinerary.itineraryType, icon: Activity },
     { id: 4, label: "Max Group Size", value: `Max of ${props.productData.pricingInfo.ageBands[0].maxTravelersPerBooking} per group` },
     { id: 5, label: "Start / Finish", value: `${startLocation} / ${endLocation}` },
-    {
-      id: 6,
-      label: "Cities / Destinations",
-      value:
-        "Hobart - Freycinet - Launceston - Sydney - Alice Spring - Ayers Rock - Cairns",
-    },
-    { id: 7, label: "Activity Level", value: "Intermediate Cycling" },
-    {
-      id: 8,
-      label: "Language",
-      value: "English, Spanish, Frenchs",
-      icon: Language,
-    },
+    { id: 6, label: "", value: "" }
+    // {
+    //   id: 6,
+    //   label: "Cities / Destinations",
+    //   value:
+    //     "Hobart - Freycinet - Launceston - Sydney - Alice Spring - Ayers Rock - Cairns",
+    // },
+    // { id: 7, label: "Activity Level", value: "Intermediate Cycling" },
+    // {
+    //   id: 8,
+    //   label: "Language",
+    //   value: "English, Spanish, Frenchs",
+    //   icon: Language,
+    // },
   ];
   return (
     <>
