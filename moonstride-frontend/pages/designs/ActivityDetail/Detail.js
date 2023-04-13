@@ -91,7 +91,7 @@ const DetailPage = () => {
                     1/31/2022
                   </div>
                   <div className={`${Styles.freeText} mt-2`}>
-                    {productData.destination_details.cancellationPolicy.description}
+                    {productData.destination_details.cancellationPolicy.description.replace(/<\/?[^>]+(>|$)|&[^\s]*;/g, "")}
                   </div>
                   <ButtonType
                     variant="primary"

@@ -109,7 +109,7 @@ const ListingPage = (props) => {
         else if(conditionvalue[0] == 'PF'){
           
           let rangeValue = conditionvalue[1].split("&")
-          if(item.price > rangeValue[0] && item.price < rangeValue[1]){
+          if(item.price >= rangeValue[0] && item.price <= rangeValue[1]){
             returnFlag = true;
           }
         }
@@ -168,7 +168,7 @@ function ListingComponent(props){
         <Row>
           <Col xl={3} lg={4}>
           <div className={`pageSidebar`}>
-            {props.searchData.length == 0 ? <><br/><br/>No Results Found</> : <Sidebar searchData={props.searchData} filterData={props.filterData} setFilterData={props.setFilterData}/>}  
+            {props.searchData.length == 0 ? <></> : <Sidebar searchData={props.searchData} filterData={props.filterData} setFilterData={props.setFilterData}/>}  
               
           </div>
           </Col>

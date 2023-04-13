@@ -132,7 +132,12 @@ function ActivitySearchWidgetHome(props) {
         count = count + 1
         let objectData = {};
         objectData.id = count;
-        objectData.title = element.title;
+        if(element.title){
+          objectData.title = element.title;
+        }
+        else{
+          objectData.title = "";
+        }
         objectData.image = element.images[0].variants[7].url
         let itineraryType = element.itineraryType.toLowerCase();
         let duration = '';
