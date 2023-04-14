@@ -2,6 +2,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Header from "../../components/DirectoryBase/Header/Header";
+import Head from "next/head";
 import DetailSlider from "../../components/DirectoryBase/DetailSlider/DetailSlider";
 import AccordionType from "../../components/DirectoryBase/AccordionType/AccordionType";
 import AccordionType1 from "../../components/DirectoryBase/AccordionType/AccordionType1";
@@ -22,23 +23,24 @@ import Styles from "./Detail.module.scss";
 import React, { useState ,useEffect, useRef} from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 
-const DetailPage = () => {
+const DetailPage = (props) => {
+  
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [divHeight, setDivHeight] = useState(0);
-  const ref = useRef(divHeight);
+  //const ref = useRef(divHeight);
   const [productData, setproductData] = useState([]);
   //const [productId, setProductId] = useState('');
-  const router = useRouter();
-  const param1  = router.query
+  // const router = useRouter();
+  // const param1  = router.query
   
   useEffect(() => {
-    setDivHeight(ref.current.offsetHeight);
+    //setDivHeight(ref.current.offsetHeight);
     const getPageData = async () => {
-      const productId  = router.query
+      const productId  = props.handle
       //setProductId(productId.productId);
-      const details = await tourPackageDetail(productId.productId);
+      const details = await tourPackageDetail(productId);
       console.log(details);
       if(details == undefined){
         setproductData([])
@@ -48,7 +50,7 @@ const DetailPage = () => {
       }
     }
     getPageData();
-  }, [router.query]);
+  }, []);
     console.log(productData);
   if (productData.length == 0 ||  productData.Result) {
     return <div>Loading...</div>; 
@@ -56,10 +58,17 @@ const DetailPage = () => {
   else{
     return (
       <>
-        <div id="header" className={Styles.mainHeader} ref={ref} >
-          <Header />
+        <div id="header" className={Styles.mainHeader} >
+        <Head>
+          <title>Activity Detail</title>
+            <meta
+            name="description"
+            content="Check out the transfer Detail Page..."
+            key="desc"
+        />
+        </Head>
           <BackTopage label="See all Activities" href="/" />
-          <MainMenu  price={param1.price}/>
+          <MainMenu  price={productData.destination_details.from_Price} productid={props.handle}/>
         </div>
         <div className={Styles.detailpage}>
           <BreadcrumbType wishlist={false} />
@@ -84,9 +93,9 @@ const DetailPage = () => {
               </Col>
               <Col lg={4} md={5}>
                 <div className={Styles.priceSection}>
-                  <h2 className="header-type2">From ${param1.price}</h2>
+                  <h2 className="header-type2">From ${productData.destination_details.from_Price}</h2>
                   <div className={Styles.duration}>
-                    Offer ID: {param1.productId}{" "}
+                    Offer ID: {props.handle}{" "}
                     <span className={Styles.durationSeparator}></span> Exp:
                     1/31/2022
                   </div>
@@ -119,7 +128,7 @@ const DetailPage = () => {
             <Offcanvas.Header className={Styles.offcanvasHead} closeButton>
             </Offcanvas.Header>
             <Offcanvas.Body className={Styles.offcanvasinnerBox}>
-              <AvailabilityPopupContent productid={param1.productId} price={param1.price}/>
+              <AvailabilityPopupContent productid={props.handle} price={productData.destination_details.from_Price}/>
             </Offcanvas.Body>
           </Offcanvas>
         </div>

@@ -120,7 +120,7 @@ function ActivitySearchWidgetHome(props) {
     const dataTours = await tourPackages(searchData);
     var finalData = [];
     console.log(dataTours.data)
-    if(dataTours.data.Result.Code == '400'){
+    if("Error" in dataTours.data.Result){
       console.log("no data")
       props.setIsLoading(false);
     }else{
@@ -178,6 +178,7 @@ function ActivitySearchWidgetHome(props) {
       }); 
     }
     props.setIsLoading(false);
+    localStorage.setItem("searchresults", JSON.stringify(finalData));
     props.setSearchData(
       finalData
     )

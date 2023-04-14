@@ -34,7 +34,7 @@ const ListingProbox = (props) => {
   } 
   else {
       existingArray.push(item.id);
-      //localStorage.setItem("whishlisted", JSON.stringify(existingArray));
+      localStorage.setItem("whishlisted", JSON.stringify(existingArray));
   }
 
   };
@@ -86,13 +86,13 @@ const ListingProbox = (props) => {
                 {limitedContent}
               </div>
               <Link href={
-                {
-                  pathname: '/activitydetail',
-                  query: { productId: item.productCode,
-                           price: item.price
-                         },
-                }}
-              >
+                    {
+                      pathname: '/activities/[slug]',
+                      query: { 
+                              slug: item.productCode
+                            },
+                    }}
+                  >
                 <a className="link-type1">{item.linkText}</a>
               </Link>
             </Col>
@@ -115,9 +115,9 @@ const ListingProbox = (props) => {
                   {/* Click the 'Book' button to book your reservation*/}
                   <Link href={
                     {
-                      pathname: '/activitydetail',
-                      query: { productId: item.productCode,
-                              price: item.price
+                      pathname: '/activities/[slug]',
+                      query: { 
+                              slug: item.productCode
                             },
                     }}
                   >

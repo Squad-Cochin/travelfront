@@ -6,7 +6,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import ButtonType from "../../Button/Button";
 import SelectType from "../Select/Select";
 import { useRouter } from 'next/router'
-
+import Image from "next/image";
+import loadingimage from "../../../../public/images/circle-loader.gif"
 
 import { checkAvailability } from "../../../api/tourPackages";
 const AvailabilityPopup = (props) => {
@@ -14,15 +15,12 @@ const AvailabilityPopup = (props) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   let radiobox = [];
-  console.log(props)
-  const router = useRouter();
-  const param1  = router.query
-
+  
   const [productData, setproductData] = useState([]);
   useEffect(() => {
     const getPageData = async () => {
       let dataFromLocalStorage = JSON.parse(localStorage.getItem("searchdata")) || [];
-      const details = await checkAvailability(dataFromLocalStorage, param1.productId);
+      const details = await checkAvailability(dataFromLocalStorage, props.productid);
       if(details == undefined){
         setproductData([])
       }
@@ -33,11 +31,14 @@ const AvailabilityPopup = (props) => {
     getPageData();
   }, []);
   
-  console.log("test")
-  console.log(productData);
-  
   if (productData.length == 0 || productData.Message) {
-    return <div>Loading...</div>; 
+    return (
+      <>
+        <div className={Styles.AvailabilityPopup}>
+          <Image src={loadingimage} width="250" height="250"/> 
+        </div>   
+      </>
+    ); 
   }else if('Result' in productData.data){
     radiobox = [];
   }
@@ -133,7 +134,7 @@ const AvailabilityPopup = (props) => {
   return (
     <div className={Styles.AvailabilityPopup}>
       <div className={Styles.priceSection}>
-        <h2 className="header-type2">From ${param1.price} per adult</h2>
+        <h2 className="header-type2">From ${props.price} per adult</h2>
         <div className={Styles.duration}>
           Offer ID: 98292 <span className={Styles.durationSeparator}></span>{" "}
           Exp: 1/31/2022
