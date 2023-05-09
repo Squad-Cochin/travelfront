@@ -187,7 +187,7 @@ function ActivitySearchWidgetHome(props) {
     <>
       <div className={`${Styles.listingSearchbar}`}>
         <Row className="g-2">
-          <Col lg={7} md={12} xs={12}>
+          <Col lg={5} md={12} xs={12}>
             {/*Search input*/}
             <InputType
               class={`search_formbox ${Styles.searchInput}`}
@@ -235,10 +235,46 @@ function ActivitySearchWidgetHome(props) {
               </label>
             </div>
           </Col>
-          
-          <Col lg={1} md={3} xs={12}>
-            {/* Clicking the search button will submit the data */}
-            <ButtonType onClick={handleClick} className={`${Styles.searchButton} btntype1 w-100`} name="Search" />
+          <Col lg={2} md={3} xs={12}>
+            <Dropdown className={Styles.selecttraveller_box}>
+                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                  0 adults
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  {/* We are displaying this data in a dropdown. */}
+                  <Row className="g-3">
+                    <Col xs={6}>
+                      <span className={Styles.label}>Adult</span>
+                      <Select class="d-inline-block sort-select" defaultValue={sortByOptions[0]} onChange={handleAdultCount} options={sortByOptions}/>
+                      {/* <SelectType label="Adult" /> */}
+                    </Col>
+                    <Col xs={6}>
+                      <span className={Styles.label}>Children</span>
+                      <Select class="d-inline-block sort-select" onChange={handleCountChild} defaultValue={childcountOptions[0]} options={childcountOptions}/>
+                      {/* <SelectType label="Children" /> */}
+                    </Col>
+                    {childCount.map((item, index) => {
+                      return(
+                  
+                    <Col xs={6} className="mt-3 custom" key={index}>
+                      <span className={Styles.label}>Child age </span>
+                      <Select className="d-inline-block sort-select select-age" onChange={handleCountChildAges} options={childageOptions}/>
+                      {/* <SelectType label="child's age on the date of travel" /> */}
+                    </Col>
+                  )
+                  })}
+
+
+                  </Row>
+                  <div className="mt-3">
+                    <ButtonType className={`${Styles.applyButton} btntype2`} onClick={setChildAge} name="Apply" />
+                  </div>
+                </Dropdown.Menu>
+              </Dropdown>
+            </Col>
+            <Col lg={1} md={3} xs={12}>
+              {/* Clicking the search button will submit the data */}
+              <ButtonType onClick={handleClick} className={`${Styles.searchButton} btntype1 w-100`} name="Search" />
           </Col>
         </Row>
       </div>
