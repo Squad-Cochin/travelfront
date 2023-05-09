@@ -20,8 +20,8 @@
        //  };
         try{
               const items = await axios.post(`${API_BASE_URL}/tours/search-dest`, data)    
-              console.log("tourPkg");
-              console.log(items); 
+              //console.log("tourPkg");
+              //console.log(items); 
               return items;   
         }
         catch{

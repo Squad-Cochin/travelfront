@@ -2,6 +2,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Header from "../../components/DirectoryBase/Header/Header";
+import Head from "next/head";
 //import Header from "../../components/DirectoryBase1/Header/Header";
 import ListingSearchbar from "../../components/DirectoryBase/ListingSearchbar/ListingSearchbar";
 import ActivityFilter from "../../components/DirectoryBase/ActivityFilter/ActivityFilter";
@@ -12,6 +13,7 @@ import Styles from "./Listing.module.scss";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import loadingimage from "../../../public/images/circle-loader.gif"
+import { tourPackages } from "../../api/tourPackages";
 
 const ListingPage = (props) => {
 
@@ -19,17 +21,93 @@ const ListingPage = (props) => {
   const [filterValues, setFilterData] = useState([]);
   const [sortOrder, setSortOrder] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+  const [headerValue, setheaderValue] = useState('Moonstride');
   const [limit, setLimit] = useState(10);
+  useEffect(() => {
+    if(filterValues.length > 0){
+      let searchedData = JSON.parse(localStorage.getItem("searchdata")) || [];
+      let searchValues = {...searchedData, filters : filterValues }
+      const dataTours =  tourPackages(searchValues);
+      //console.log(dataTours);
+      dataTours.then((value) => {
+        console.log(value);
+        var finalData = [];
+        if(value.data.Result.Code == '400'){
+          props.setIsLoading(false);
+        }else{
+          let products = value.data.Result.products
+          let count = 0;
+          products.forEach((element, index) => {
+            try{
+              count = count + 1
+              let objectData = {};
+              objectData.id = count;
+              if(element.title){
+                objectData.title = element.title;
+              }
+              else{
+                objectData.title = "";
+              }
+              objectData.image = element.images[0].variants[7].url
+              let itineraryType = element.itineraryType.toLowerCase();
+              let duration = '';
+              let dutaionValue = '';
+              if(element.duration){
+                if(element.duration.fixedDurationInMinutes){
+                  duration = element.duration.fixedDurationInMinutes/60 
+                  duration = duration.toFixed()
+                  dutaionValue = duration;
+                  duration = duration + ' hours'
+                  
+                }
+                else if(element.duration.unstructuredDuration){
+                  duration = element.duration.unstructuredDuration
+                }
+              }
+              
+              
+              objectData.type = itineraryType.charAt(0).toUpperCase() + itineraryType.slice(1);
+              // console.log(element.duration.variableDurationFromMinutes)
+              // let time = element.duration.fixedDurationInMinutes / 60; 
+              objectData.time = duration;
+              objectData.text = element.description;
+              objectData.linkText = "More details";
+              objectData.price = element.pricing.summary.fromPriceBeforeDiscount;
+              objectData.productCode = element.productCode;
+              objectData.durationValue = dutaionValue;
+              if("reviews" in element){
+                let rating = element.reviews.combinedAverageRating.toFixed(1) + '/5';
+                let ratingCount = element.reviews.totalReviews + ' ratings';
+                objectData.rating = rating;
+                objectData.ratingCount = ratingCount;
+              }else{
+                objectData.rating = "No ratings";
+              }
+              objectData.buttonText = "Book";
+              finalData.push(objectData);
+            }
+            catch{
+              count = count + 1
+            }
+              
+          }); 
+        }
+        setIsLoading(false);
+        setSearchData(
+          finalData
+        )
+        // Expected output: 123
+      })
+    }
+  }, [filterValues]);
 
-  if(searchData.length > 0){
+  useEffect(() => {
     let searchedData = JSON.parse(localStorage.getItem("searchdata")) || [];
     if(searchedData.searchTerm){
       let headerValue = `Moonstride: ${searchedData.searchTerm} Tours`;
-      props.setheaderValue(headerValue);
+      setheaderValue(headerValue);
     }
-  }
-   
+  }, [searchData]);
 
   // Function to update the filter state
   // const updateFilter = (value) => {
@@ -37,6 +115,7 @@ const ListingPage = (props) => {
   // };
   let filterdedData = [];
   if(filterValues.length > 0){
+    //var finalData = [];
      filterdedData = searchData.filter((item) => {
       let returnFlag = false
       for(let count = 0; count < filterValues.length ; count++){
@@ -125,7 +204,14 @@ const ListingPage = (props) => {
   let limitedArray = filterdedData.slice(0, limit);
   return (
     <>
-      <Header />
+      <Head>
+        <title>{headerValue}</title>
+        <meta
+        name="description"
+        content="Check out the Index Page..."
+        key="desc"
+        />
+      </Head>
       <div className={Styles.listingpage}>
         <Container>
           <ListingSearchbar template="home" searchData={searchData} setSearchData={setSearchData} setIsLoading={setIsLoading}/>
@@ -160,9 +246,6 @@ function ListingComponent(props){
     let newlimit = props.limit + 10;
     props.setLimit(newlimit)
   }
-
-  console.log(props);
-
   return (
     <Container> 
         <Row>
