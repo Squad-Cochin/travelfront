@@ -110,71 +110,69 @@ function ActivitySearchWidgetHome(props) {
     searchData.searchTerm = searchTerm;
     searchData.start_date = startDate.toISOString().slice(0, 10);
     searchData.end_date = endDate.toISOString().slice(0, 10);
-    if(!searchDetails.adult){
-      const dropdown = document.getElementById('dropdown-basic');
-      dropdown.style.color = 'red';
-    }
     searchData.number_of_person = parseInt(searchDetails.adult) + parseInt(searchDetails.children);
     searchData.details = searchDetails;
     localStorage.setItem("searchdata", JSON.stringify(searchData));
     const dataTours = await tourPackages(searchData);
     var finalData = [];
-    console.log(dataTours.data)
     if(dataTours.data.Result.Code == '400'){
-      console.log("no data")
       props.setIsLoading(false);
     }else{
-      let products = dataTours.data.Result.products.results
+      let products = dataTours.data.Result.products
       let count = 0;
-      console.log("imp:")
-      console.log(products[1].images[0].variants[7].url)
       products.forEach((element, index) => {
-        count = count + 1
-        let objectData = {};
-        objectData.id = count;
-        if(element.title){
-          objectData.title = element.title;
-        }
-        else{
-          objectData.title = "";
-        }
-        objectData.image = element.images[0].variants[7].url
-        let itineraryType = element.itineraryType.toLowerCase();
-        let duration = '';
-        let dutaionValue = '';
-        if(element.duration){
-          if(element.duration.fixedDurationInMinutes){
-            duration = element.duration.fixedDurationInMinutes/60 
-            duration = duration.toFixed()
-            dutaionValue = duration;
-            duration = duration + ' hours'
-            
+        try{
+          count = count + 1
+          let objectData = {};
+          objectData.id = count;
+          if(element.title){
+            objectData.title = element.title;
           }
-          else if(element.duration.unstructuredDuration){
-            duration = element.duration.unstructuredDuration
+          else{
+            objectData.title = "";
           }
+          objectData.image = element.images[0].variants[7].url
+          let itineraryType = element.itineraryType.toLowerCase();
+          let duration = '';
+          let dutaionValue = '';
+          if(element.duration){
+            if(element.duration.fixedDurationInMinutes){
+              duration = element.duration.fixedDurationInMinutes/60 
+              duration = duration.toFixed()
+              dutaionValue = duration;
+              duration = duration + ' hours'
+              
+            }
+            else if(element.duration.unstructuredDuration){
+              duration = element.duration.unstructuredDuration
+            }
+          }
+          
+          
+          objectData.type = itineraryType.charAt(0).toUpperCase() + itineraryType.slice(1);
+          // console.log(element.duration.variableDurationFromMinutes)
+          // let time = element.duration.fixedDurationInMinutes / 60; 
+          objectData.time = duration;
+          objectData.text = element.description;
+          objectData.linkText = "More details";
+          objectData.price = element.pricing.summary.fromPriceBeforeDiscount;
+          objectData.productCode = element.productCode;
+          objectData.durationValue = dutaionValue;
+          if("reviews" in element){
+            let rating = element.reviews.combinedAverageRating.toFixed(1) + '/5';
+            let ratingCount = element.reviews.totalReviews + ' ratings';
+            objectData.rating = rating;
+            objectData.ratingCount = ratingCount;
+          }else{
+            objectData.rating = "No ratings";
+          }
+          objectData.buttonText = "Book";
+          finalData.push(objectData);
         }
-        
-        
-        objectData.type = itineraryType.charAt(0).toUpperCase() + itineraryType.slice(1);
-        // console.log(element.duration.variableDurationFromMinutes)
-        // let time = element.duration.fixedDurationInMinutes / 60; 
-        objectData.time = duration;
-        objectData.text = element.description;
-        objectData.linkText = "More details";
-        objectData.price = element.pricing.summary.fromPriceBeforeDiscount;
-        objectData.productCode = element.productCode;
-        objectData.durationValue = dutaionValue;
-        if("reviews" in element){
-          let rating = element.reviews.combinedAverageRating.toFixed(1) + '/5';
-          let ratingCount = element.reviews.totalReviews + ' ratings';
-          objectData.rating = rating;
-          objectData.ratingCount = ratingCount;
-        }else{
-          objectData.rating = "No ratings";
+        catch{
+          count = count + 1
         }
-        objectData.buttonText = "Book";
-        finalData.push(objectData);
+          
       }); 
     }
     props.setIsLoading(false);
@@ -189,7 +187,7 @@ function ActivitySearchWidgetHome(props) {
     <>
       <div className={`${Styles.listingSearchbar}`}>
         <Row className="g-2">
-          <Col lg={5} md={12} xs={12}>
+          <Col lg={7} md={12} xs={12}>
             {/*Search input*/}
             <InputType
               class={`search_formbox ${Styles.searchInput}`}
@@ -237,43 +235,7 @@ function ActivitySearchWidgetHome(props) {
               </label>
             </div>
           </Col>
-          <Col lg={2} md={3} xs={12}>
-            <Dropdown className={Styles.selecttraveller_box}>
-              <Dropdown.Toggle variant="success" id="dropdown-basic">
-                0 adults
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                {/* We are displaying this data in a dropdown. */}
-                <Row className="g-3">
-                  <Col xs={6}>
-                    <span className={Styles.label}>Adult</span>
-                    <Select class="d-inline-block sort-select" defaultValue={sortByOptions[0]} onChange={handleAdultCount} options={sortByOptions}/>
-                    {/* <SelectType label="Adult" /> */}
-                  </Col>
-                  <Col xs={6}>
-                    <span className={Styles.label}>Children</span>
-                    <Select class="d-inline-block sort-select" onChange={handleCountChild} defaultValue={childcountOptions[0]} options={childcountOptions}/>
-                    {/* <SelectType label="Children" /> */}
-                  </Col>
-                  {childCount.map((item, index) => {
-                    return(
-                 
-                  <Col xs={6} className="mt-3 custom" key={index}>
-                    <span className={Styles.label}>Child age </span>
-                    <Select className="d-inline-block sort-select select-age" onChange={handleCountChildAges} options={childageOptions}/>
-                    {/* <SelectType label="child's age on the date of travel" /> */}
-                  </Col>
-                 )
-                })}
-
-
-                </Row>
-                <div className="mt-3">
-                  <ButtonType className={`${Styles.applyButton} btntype2`} onClick={setChildAge} name="Apply" />
-                </div>
-              </Dropdown.Menu>
-            </Dropdown>
-          </Col>
+          
           <Col lg={1} md={3} xs={12}>
             {/* Clicking the search button will submit the data */}
             <ButtonType onClick={handleClick} className={`${Styles.searchButton} btntype1 w-100`} name="Search" />

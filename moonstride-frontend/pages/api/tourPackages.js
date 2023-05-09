@@ -19,7 +19,7 @@
        //  number_of_person: '2'
        //  };
         try{
-              const items = await axios.post(`${API_BASE_URL}/tours/search-destination`, data)    
+              const items = await axios.post(`${API_BASE_URL}/tours/search-dest`, data)    
               console.log("tourPkg");
               console.log(items); 
               return items;   

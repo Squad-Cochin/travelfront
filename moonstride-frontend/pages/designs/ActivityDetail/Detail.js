@@ -59,7 +59,7 @@ const DetailPage = () => {
         <div id="header" className={Styles.mainHeader} ref={ref} >
           <Header />
           <BackTopage label="See all Activities" href="/" />
-          <MainMenu  price={param1.price}/>
+          <MainMenu  price={productData.destination_details.from_Price}/>
         </div>
         <div className={Styles.detailpage}>
           <BreadcrumbType wishlist={false} />
@@ -84,7 +84,7 @@ const DetailPage = () => {
               </Col>
               <Col lg={4} md={5}>
                 <div className={Styles.priceSection}>
-                  <h2 className="header-type2">From ${param1.price}</h2>
+                  <h2 className="header-type2">From ${productData.destination_details.from_Price}</h2>
                   <div className={Styles.duration}>
                     Offer ID: {param1.productId}{" "}
                     <span className={Styles.durationSeparator}></span> Exp:
@@ -119,7 +119,7 @@ const DetailPage = () => {
             <Offcanvas.Header className={Styles.offcanvasHead} closeButton>
             </Offcanvas.Header>
             <Offcanvas.Body className={Styles.offcanvasinnerBox}>
-              <AvailabilityPopupContent productid={param1.productId} price={param1.price}/>
+              <AvailabilityPopupContent productid={param1.productId} price={productData.destination_details.from_Price}/>
             </Offcanvas.Body>
           </Offcanvas>
         </div>

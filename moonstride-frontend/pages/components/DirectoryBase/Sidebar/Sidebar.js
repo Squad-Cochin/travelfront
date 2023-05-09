@@ -99,7 +99,7 @@ const Sidebar = (props) => {
           <div className={Styles.sidebar_result}>
             {props.filterData.length} Results
             {/* We will show the selected checkbox values here */}
-            <div className={Styles.sidebar_selected_options}>
+            {/* <div className={Styles.sidebar_selected_options}>
               {appliedFilters.map((item, index) => (
                   <span key={index} className={Styles.tag} onClick={removefilter} style={{ zIndex: 99 }} value={index}>
                   {item}
@@ -124,7 +124,7 @@ const Sidebar = (props) => {
                 </span>
               ))}
               
-            </div>
+            </div> */}
             
           </div>
           <div className="mb-3">
@@ -199,16 +199,16 @@ const Sidebar = (props) => {
 export default Sidebar;
 Sidebar.defaultProps = {
   sidebarconfig : [
-    {
-      id: 1,
-      title: "Type",
-      sublinks: [
-        { id: 11, value: "T:Activity", checkboxData: "Cruise and water sports(A) (9)" },
-        { id: 12, value: "T:Standard",checkboxData: "Culture(S) (311)" },
-        { id: 13, value: "T:Unstructured", checkboxData: "Sightseeing, tours & museums(U) (43)" },
-        { id: 14, value: "T:Z",checkboxData: "Tours, Sightseeing & Cruises(A) (59)" },
-      ],
-    },
+    // {
+    //   id: 1,
+    //   title: "Type",
+    //   sublinks: [
+    //     { id: 11, value: "T:Activity", checkboxData: "Cruise and water sports(A) (9)" },
+    //     { id: 12, value: "T:Standard",checkboxData: "Culture(S) (311)" },
+    //     { id: 13, value: "T:Unstructured", checkboxData: "Sightseeing, tours & museums(U) (43)" },
+    //     { id: 14, value: "T:Z",checkboxData: "Tours, Sightseeing & Cruises(A) (59)" },
+    //   ],
+    // },
     {
       id: 2,
       title: "Your Budget",
@@ -220,16 +220,16 @@ Sidebar.defaultProps = {
         { id: 25, value: "B:G100", checkboxData: "Greater than $100" },
       ],
     },
-    {
-      id: 3,
-      title: "Start Time",
-      sublinks: [
-        { id: 31, checkboxData: "6:00am - 12:00am (morning)" },
-        { id: 32, checkboxData: "12:00pm - 5:00pm (afternoon)" },
-        { id: 33, checkboxData: "5:00pm - 12:00am (evening)" },
-        { id: 34, checkboxData: "Any time" },
-      ],
-    },
+    // {
+    //   id: 3,
+    //   title: "Start Time",
+    //   sublinks: [
+    //     { id: 31, checkboxData: "6:00am - 12:00am (morning)" },
+    //     { id: 32, checkboxData: "12:00pm - 5:00pm (afternoon)" },
+    //     { id: 33, checkboxData: "5:00pm - 12:00am (evening)" },
+    //     { id: 34, checkboxData: "Any time" },
+    //   ],
+    // },
     {
       id: 4,
       title: "Duration",
