@@ -212,6 +212,7 @@ const ListingPage = (props) => {
         key="desc"
         />
       </Head>
+      <Header />
       <div className={Styles.listingpage}>
         <Container>
           <ListingSearchbar template="home" searchData={searchData} setSearchData={setSearchData} setIsLoading={setIsLoading}/>
