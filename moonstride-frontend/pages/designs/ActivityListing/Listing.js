@@ -20,23 +20,81 @@ const ListingPage = (props) => {
   const [searchData, setSearchData] = useState([]);
   const [filterValues, setFilterData] = useState([]);
   const [sortOrder, setSortOrder] = useState("");
+  const [serachResults, setserachResults] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [headerValue, setheaderValue] = useState('Moonstride');
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(5);
+  const [page, setPage] = useState(1);
   useEffect(() => {
-    if(filterValues.length > 0){
+    let filters = {};
+    if(filterValues.length > 0 || page > 1){
+      //let filters = {};
+      if(filterValues.length > 0){
+        //var finalData = [];
+        for(let count = 0; count < filterValues.length ; count++){
+            let conditionvalue = filterValues[count].split(":")
+            if(conditionvalue[0] == 'D'){
+              switch(conditionvalue[1]){
+                case 'L1':
+                  filters.durationInMinutes = {"from": 0, "to": 60};
+                  break;
+                case 'L4':
+                  filters.durationInMinutes = {"from": 60, "to": 240};
+                  break;
+                case 'L24':
+                  filters.durationInMinutes = {"from": 240, "to": 1440};
+                  break;
+                case 'G24':
+                  filters.durationInMinutes = {"from": 1440, "to": ""};
+                  break;     
+              }  
+            }
+            else if(conditionvalue[0] == 'R'){
+              switch(conditionvalue[1]){
+                case '1':
+                  filters.rating = {"from": 1, "to": 5};
+                  break;
+                case '2':
+                  filters.rating = {"from": 2, "to": 5};
+                  break;
+                case '3':
+                  filters.rating = {"from": 3, "to": 5};
+                  break;
+                case '4':
+                  filters.rating = {"from": 4, "to": 5};
+                  break; 
+                case '5':
+                  filters.rating = {"from": 5, "to": 5};
+                  break;    
+              }  
+            }
+            else if(conditionvalue[0] == 'PF'){
+              let rangeValue = conditionvalue[1].split("&")
+              filters.lowestPrice = rangeValue[0];
+              filters.highestPrice = rangeValue[1];
+            }
+          }
+      }
       let searchedData = JSON.parse(localStorage.getItem("searchdata")) || [];
-      let searchValues = {...searchedData, filters : filterValues }
+      let searchValues = {...searchedData, page: page, filtering : filters }
       const dataTours =  tourPackages(searchValues);
-      //console.log(dataTours);
+      
       dataTours.then((value) => {
-        console.log(value);
+       
         var finalData = [];
+        
         if(value.data.Result.Code == '400'){
           props.setIsLoading(false);
         }else{
+          
           let products = value.data.Result.products
-          let count = 0;
+          let count;
+          if(page > 1){
+            count = page * 10;
+          }
+          else{
+            count = 0;
+          }
           products.forEach((element, index) => {
             try{
               count = count + 1
@@ -67,7 +125,7 @@ const ListingPage = (props) => {
               
               
               objectData.type = itineraryType.charAt(0).toUpperCase() + itineraryType.slice(1);
-              // console.log(element.duration.variableDurationFromMinutes)
+             
               // let time = element.duration.fixedDurationInMinutes / 60; 
               objectData.time = duration;
               objectData.text = element.description;
@@ -93,13 +151,24 @@ const ListingPage = (props) => {
           }); 
         }
         setIsLoading(false);
-        setSearchData(
-          finalData
-        )
+        setserachResults(value.data.Result.totalCount);
+        if(page > 1){
+          setSearchData(
+            searchData.concat(finalData)
+          )
+        }
+        else{
+          setSearchData(
+            finalData
+          )
+        }
+        // setSearchData(
+        //   finalData
+        // )
         // Expected output: 123
       })
     }
-  }, [filterValues]);
+  }, [filterValues, page]);
 
   useEffect(() => {
     let searchedData = JSON.parse(localStorage.getItem("searchdata")) || [];
@@ -114,94 +183,95 @@ const ListingPage = (props) => {
   //   setSearchData(value);
   // };
   let filterdedData = [];
-  if(filterValues.length > 0){
-    //var finalData = [];
-     filterdedData = searchData.filter((item) => {
-      let returnFlag = false
-      for(let count = 0; count < filterValues.length ; count++){
-         let conditionvalue = filterValues[count].split(":")
-         if(conditionvalue[0] == 'T'){
+  // if(filterValues.length > 0){
+  //   //var finalData = [];
+  //    filterdedData = searchData.filter((item) => {
+  //     let returnFlag = false
+  //     for(let count = 0; count < filterValues.length ; count++){
+  //        let conditionvalue = filterValues[count].split(":")
+  //        if(conditionvalue[0] == 'T'){
             
-            if(item.type == conditionvalue[1]){
-              returnFlag = true
-            }
-         }
-         else if(conditionvalue[0] == 'B'){
-            switch(conditionvalue[1]){
-              case 'L25':
-                if(item.price < 25){
-                  returnFlag = true
-                }
-                break;
-              case 'L50':
-                if(item.price > 25 && item.price < 50){
-                  returnFlag = true
-                }
-                break;
-              case 'L75':
-                if(item.price > 50 && item.price < 75){
-                  returnFlag = true
-                }
-                break;
-              case 'L100':
-                if(item.price > 75 && item.price < 100){
-                  returnFlag = true
-                }
-                break;
-              case 'G100':
-                if(item.price > 100){
-                  returnFlag = true
-                }
-                break;       
-            }  
+  //           if(item.type == conditionvalue[1]){
+  //             returnFlag = true
+  //           }
+  //        }
+  //        else if(conditionvalue[0] == 'B'){
+  //           switch(conditionvalue[1]){
+  //             case 'L25':
+  //               if(item.price < 25){
+  //                 returnFlag = true
+  //               }
+  //               break;
+  //             case 'L50':
+  //               if(item.price > 25 && item.price < 50){
+  //                 returnFlag = true
+  //               }
+  //               break;
+  //             case 'L75':
+  //               if(item.price > 50 && item.price < 75){
+  //                 returnFlag = true
+  //               }
+  //               break;
+  //             case 'L100':
+  //               if(item.price > 75 && item.price < 100){
+  //                 returnFlag = true
+  //               }
+  //               break;
+  //             case 'G100':
+  //               if(item.price > 100){
+  //                 returnFlag = true
+  //               }
+  //               break;       
+  //           }  
             
-         }
-         else if(conditionvalue[0] == 'D'){
-          switch(conditionvalue[1]){
-            case 'L1':
-              if(item.durationValue < 1){
-                returnFlag = true
-              }
-              break;
-            case 'L4':
-              if(item.durationValue > 1 && item.durationValue < 4){
-                returnFlag = true
-              }
-              break;
-            case 'L24':
-              if(item.durationValue > 4 && item.durationValue < 24){
-                returnFlag = true
-              }
-              break;
-            case 'G24':
-              if(item.durationValue > 24){
-                returnFlag = true
-              }
-              break;     
-          }  
-        }
-        else if(conditionvalue[0] == 'NA'){
-          if (item.title.includes(conditionvalue[1])) {
-            returnFlag = true;
-          }
-        }
-        else if(conditionvalue[0] == 'PF'){
+  //        }
+  //        else if(conditionvalue[0] == 'D'){
+  //         switch(conditionvalue[1]){
+  //           case 'L1':
+  //             if(item.durationValue < 1){
+  //               returnFlag = true
+  //             }
+  //             break;
+  //           case 'L4':
+  //             if(item.durationValue > 1 && item.durationValue < 4){
+  //               returnFlag = true
+  //             }
+  //             break;
+  //           case 'L24':
+  //             if(item.durationValue > 4 && item.durationValue < 24){
+  //               returnFlag = true
+  //             }
+  //             break;
+  //           case 'G24':
+  //             if(item.durationValue > 24){
+  //               returnFlag = true
+  //             }
+  //             break;     
+  //         }  
+  //       }
+  //       else if(conditionvalue[0] == 'NA'){
+  //         if (item.title.includes(conditionvalue[1])) {
+  //           returnFlag = true;
+  //         }
+  //       }
+  //       else if(conditionvalue[0] == 'PF'){
           
-          let rangeValue = conditionvalue[1].split("&")
-          if(item.price >= rangeValue[0] && item.price <= rangeValue[1]){
-            returnFlag = true;
-          }
-        }
-      }
-      return returnFlag;
-    });
+  //         let rangeValue = conditionvalue[1].split("&")
+  //         if(item.price >= rangeValue[0] && item.price <= rangeValue[1]){
+  //           returnFlag = true;
+  //         }
+  //       }
+  //     }
+  //     return returnFlag;
+  //   });
    
-  }
-  else{
-    filterdedData = searchData;
+  // }
+  // else{
+  //   filterdedData = searchData;
     
-  }
-  let limitedArray = filterdedData.slice(0, limit);
+  // }
+  filterdedData = searchData;
+  let limitedArray = filterdedData;
   return (
     <>
       <Head>
@@ -215,13 +285,13 @@ const ListingPage = (props) => {
       <Header />
       <div className={Styles.listingpage}>
         <Container>
-          <ListingSearchbar template="home" searchData={searchData} setSearchData={setSearchData} setIsLoading={setIsLoading}/>
+          <ListingSearchbar template="home" searchData={searchData} setSearchData={setSearchData} setIsLoading={setIsLoading} setserachResults={setserachResults}/>
         </Container>
       </div>
       <Container>
       {searchData.length == 0 ? <></> : <ActivityFilter searchData={filterdedData} setSortOrder={setSortOrder} setSearchData={setSearchData}/>}
       </Container>
-      {isLoading ? <Loader /> : <ListingComponent searchData={searchData} filterData={filterdedData} setFilterData={setFilterData} limitedArray={limitedArray} limit={limit} setLimit={setLimit}/> }
+      {isLoading ? <Loader /> : <ListingComponent searchData={searchData} filterData={filterdedData} setFilterData={setFilterData} limitedArray={limitedArray} limit={limit} setLimit={setLimit} page={page} setPage={setPage} filterValues={filterValues} serachResults={serachResults}/> }
         
     </>
   );
@@ -245,21 +315,24 @@ function ListingComponent(props){
  
   const setnewLimit = () => {
     let newlimit = props.limit + 10;
-    props.setLimit(newlimit)
+    let newPage = props.page + 1;
+   // props.setLimit(newlimit);
+    props.setPage(newPage);
   }
+
   return (
     <Container> 
         <Row>
           <Col xl={3} lg={4}>
           <div className={`pageSidebar`}>
-            {props.searchData.length == 0 ? <></> : <Sidebar searchData={props.searchData} filterData={props.filterData} setFilterData={props.setFilterData}/>}  
+            {props.searchData.length == 0 ? <></> : <Sidebar searchData={props.searchData} filterData={props.filterData} setFilterData={props.setFilterData} filterValues={props.filterValues}/>}  
               
           </div>
           </Col>
           <Col xl={9} lg={8}>
               {props.limitedArray.length == 0 ? <></> : <ListingProbox boxData = {props.limitedArray}/>}
             <div className="text-center mb-3">
-              {props.limitedArray.length < 10 || props.limitedArray.length == props.searchData.length  ? <></> : <ButtonType className="btntype2" onClick={setnewLimit} name="Show More" />}
+              {props.serachResults == 0 || props.serachResults == props.limitedArray.length ? <></> : <ButtonType className="btntype2" onClick={setnewLimit} name="Show More" />}
             </div>
           </Col>
         </Row>

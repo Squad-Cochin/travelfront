@@ -99,7 +99,7 @@ function ActivitySearchWidgetHome(props) {
     var parent = document.querySelector(".dropdown-menu");
     parent.classList.remove("show");
 
-    document.getElementById('dropdown-basic').innerText = `${adult} adults`;
+    document.getElementById('dropdown-basic').innerText = `${adult} Adults`;
     setsearchDetails(detailPersons);
   }
 
@@ -175,6 +175,7 @@ function ActivitySearchWidgetHome(props) {
           
       }); 
     }
+    props.setserachResults(dataTours.data.Result.totalCount);
     props.setIsLoading(false);
     props.setSearchData(
       finalData
@@ -238,7 +239,7 @@ function ActivitySearchWidgetHome(props) {
           <Col lg={2} md={3} xs={12}>
             <Dropdown className={Styles.selecttraveller_box}>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
-                  0 adults
+                  0 Adults
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   {/* We are displaying this data in a dropdown. */}
@@ -366,7 +367,7 @@ function listingSearchbar(props) {
 
   const widgetTemplate = props.template;
 
-  return widgetTemplate === "home" && <ActivitySearchWidgetHome searchData={props.searchData} setSearchData={props.setSearchData} setIsLoading={props.setIsLoading}/>;
+  return widgetTemplate === "home" && <ActivitySearchWidgetHome searchData={props.searchData} setSearchData={props.setSearchData} setIsLoading={props.setIsLoading} setserachResults={props.setserachResults}/>;
 
 }
 
