@@ -27,7 +27,6 @@ const ListingPage = (props) => {
   const [page, setPage] = useState(1);
   useEffect(() => {
     let filters = {};
-    if(filterValues.length > 0 || page > 1){
       //let filters = {};
       if(filterValues.length > 0){
         //var finalData = [];
@@ -77,97 +76,97 @@ const ListingPage = (props) => {
       }
       let searchedData = JSON.parse(localStorage.getItem("searchdata")) || [];
       let searchValues = {...searchedData, page: page, filtering : filters }
-      const dataTours =  tourPackages(searchValues);
-      
-      dataTours.then((value) => {
-       
-        var finalData = [];
+      // if(searchedData.length > 0){
+        const dataTours =  tourPackages(searchValues);
         
-        if(value.data.Result.Code == '400'){
-          props.setIsLoading(false);
-        }else{
-          
-          let products = value.data.Result.products
-          let count;
+        dataTours.then((value) => {
+          var finalData = [];
+          if(value.data.Result.Code == '400'){
+            props.setIsLoading(false);
+          }else{
+            
+            let products = value.data.Result.products
+            let count;
+            if(page > 1){
+              count = page * 10;
+            }
+            else{
+              count = 0;
+            }
+            products.forEach((element, index) => {
+              try{
+                count = count + 1
+                let objectData = {};
+                objectData.id = count;
+                if(element.title){
+                  objectData.title = element.title;
+                }
+                else{
+                  objectData.title = "";
+                }
+                objectData.image = element.images[0].variants[7].url
+                let itineraryType = element.itineraryType.toLowerCase();
+                let duration = '';
+                let dutaionValue = '';
+                if(element.duration){
+                  if(element.duration.fixedDurationInMinutes){
+                    duration = element.duration.fixedDurationInMinutes/60 
+                    duration = duration.toFixed()
+                    dutaionValue = duration;
+                    duration = duration + ' hours'
+                    
+                  }
+                  else if(element.duration.unstructuredDuration){
+                    duration = element.duration.unstructuredDuration
+                  }
+                }
+                
+                
+                objectData.type = itineraryType.charAt(0).toUpperCase() + itineraryType.slice(1);
+              
+                // let time = element.duration.fixedDurationInMinutes / 60; 
+                objectData.time = duration;
+                objectData.text = element.description;
+                objectData.linkText = "More details";
+                objectData.price = element.pricing.summary.fromPriceBeforeDiscount;
+                objectData.productCode = element.productCode;
+                objectData.durationValue = dutaionValue;
+                if("reviews" in element){
+                  let rating = element.reviews.combinedAverageRating.toFixed(1) + '/5';
+                  let ratingCount = element.reviews.totalReviews + ' ratings';
+                  objectData.rating = rating;
+                  objectData.ratingCount = ratingCount;
+                }else{
+                  objectData.rating = "No ratings";
+                }
+                objectData.buttonText = "Book";
+                finalData.push(objectData);
+              }
+              catch{
+                count = count + 1
+              }
+                
+            }); 
+          }
+          setIsLoading(false);
+          setserachResults(value.data.Result.totalCount);
           if(page > 1){
-            count = page * 10;
+            setSearchData(
+              searchData.concat(finalData)
+            )
           }
           else{
-            count = 0;
+            setSearchData(
+              finalData
+            )
           }
-          products.forEach((element, index) => {
-            try{
-              count = count + 1
-              let objectData = {};
-              objectData.id = count;
-              if(element.title){
-                objectData.title = element.title;
-              }
-              else{
-                objectData.title = "";
-              }
-              objectData.image = element.images[0].variants[7].url
-              let itineraryType = element.itineraryType.toLowerCase();
-              let duration = '';
-              let dutaionValue = '';
-              if(element.duration){
-                if(element.duration.fixedDurationInMinutes){
-                  duration = element.duration.fixedDurationInMinutes/60 
-                  duration = duration.toFixed()
-                  dutaionValue = duration;
-                  duration = duration + ' hours'
-                  
-                }
-                else if(element.duration.unstructuredDuration){
-                  duration = element.duration.unstructuredDuration
-                }
-              }
-              
-              
-              objectData.type = itineraryType.charAt(0).toUpperCase() + itineraryType.slice(1);
-             
-              // let time = element.duration.fixedDurationInMinutes / 60; 
-              objectData.time = duration;
-              objectData.text = element.description;
-              objectData.linkText = "More details";
-              objectData.price = element.pricing.summary.fromPriceBeforeDiscount;
-              objectData.productCode = element.productCode;
-              objectData.durationValue = dutaionValue;
-              if("reviews" in element){
-                let rating = element.reviews.combinedAverageRating.toFixed(1) + '/5';
-                let ratingCount = element.reviews.totalReviews + ' ratings';
-                objectData.rating = rating;
-                objectData.ratingCount = ratingCount;
-              }else{
-                objectData.rating = "No ratings";
-              }
-              objectData.buttonText = "Book";
-              finalData.push(objectData);
-            }
-            catch{
-              count = count + 1
-            }
-              
-          }); 
-        }
-        setIsLoading(false);
-        setserachResults(value.data.Result.totalCount);
-        if(page > 1){
-          setSearchData(
-            searchData.concat(finalData)
-          )
-        }
-        else{
-          setSearchData(
-            finalData
-          )
-        }
-        // setSearchData(
-        //   finalData
-        // )
-        // Expected output: 123
-      })
-    }
+          // setSearchData(
+          //   finalData
+          // )
+          // Expected output: 123
+        })
+      //}
+   
   }, [filterValues, page]);
 
   useEffect(() => {

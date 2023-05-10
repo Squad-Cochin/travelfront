@@ -18,7 +18,6 @@ import Checkbox from "../../Checkbox/Checkbox";
 import { tourPackages } from "../../../api/tourPackages";
 
 function ActivitySearchWidgetHome(props) {
-
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [startDate1, setStartDate1] = useState(new Date());
@@ -66,7 +65,10 @@ function ActivitySearchWidgetHome(props) {
   
 
   useEffect(() => {
-    let searchCount = JSON.parse(localStorage.getItem("searchdata")) || [];
+    let searchCount = JSON.parse(localStorage.getItem("searchdata")) || '{"searchTerm": ""}';
+    if(searchCount.searchTerm != ""){
+      setSearchTerm(searchCount.searchTerm);
+    }
     
   }, []);
 
@@ -104,7 +106,6 @@ function ActivitySearchWidgetHome(props) {
   }
 
   const handleClick = async (e) => {
-    console.log(props)
     props.setIsLoading(true);
     let searchData = {};
     searchData.searchTerm = searchTerm;
@@ -364,9 +365,8 @@ function ActivitySearchWidgetListing() {
 function listingSearchbar(props) {
   /*const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());*/
-
+  
   const widgetTemplate = props.template;
-
   return widgetTemplate === "home" && <ActivitySearchWidgetHome searchData={props.searchData} setSearchData={props.setSearchData} setIsLoading={props.setIsLoading} setserachResults={props.setserachResults}/>;
 
 }
