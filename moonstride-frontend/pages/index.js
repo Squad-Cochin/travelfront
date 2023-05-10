@@ -1,4 +1,5 @@
 import ListingPage from "./designs/ActivityListing/Listing";
+import Footer from "./components/DirectoryBase/Footer/Footer"
 import Head from "next/head";
 import { useState } from "react";
 const Home = () => {
@@ -16,6 +17,8 @@ const Home = () => {
         />
       </Head> */}
       <ListingPage />
+      <Footer />
+
     </>
   );
 };
