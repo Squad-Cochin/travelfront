@@ -166,7 +166,7 @@ function ActivitySearchWidgetHome(props) {
           }else{
             objectData.rating = "No ratings";
           }
-          objectData.buttonText = "Book";
+          objectData.buttonText = "Add to cart";
           finalData.push(objectData);
         }
         catch{
