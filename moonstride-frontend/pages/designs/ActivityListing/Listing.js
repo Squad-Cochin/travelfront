@@ -24,7 +24,7 @@ const ListingPage = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [headerValue, setheaderValue] = useState('Moonstride');
   const [limit, setLimit] = useState(5);
-  const [page, setPage] = useState();
+  const [page, setPage] = useState(0);
   useEffect(() => {
     let filters = {};
       //let filters = {};
@@ -199,7 +199,7 @@ const ListingPage = (props) => {
       <Header />
       <div className={Styles.listingpage}>
         <Container>
-          <ListingSearchbar template="home" searchData={searchData} setSearchData={setSearchData} setIsLoading={setIsLoading} setserachResults={setserachResults} setPage={setPage}/>
+          <ListingSearchbar template="home" searchData={searchData} setSearchData={setSearchData} setIsLoading={setIsLoading} setserachResults={setserachResults} setPage={setPage} page={page}/>
         </Container>
       </div>
       <Container>
