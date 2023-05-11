@@ -24,7 +24,7 @@ const ListingPage = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [headerValue, setheaderValue] = useState('Moonstride');
   const [limit, setLimit] = useState(5);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState();
   useEffect(() => {
     let filters = {};
       //let filters = {};
@@ -75,10 +75,16 @@ const ListingPage = (props) => {
           }
       }
       let searchedData = JSON.parse(localStorage.getItem("searchdata")) || [];
-      let searchValues = {...searchedData, page: page, filtering : filters }
+      let searchValues = {...searchedData, filters : filters }
+      if(page <= 0){
+        searchValues.page = 1;
+      }
+      else{
+        searchValues.page = page;
+      }
+
       // if(searchedData.length > 0){
         const dataTours =  tourPackages(searchValues);
-        
         dataTours.then((value) => {
           var finalData = [];
           if(value.data.Result.Code == '400'){
@@ -139,7 +145,7 @@ const ListingPage = (props) => {
                 }else{
                   objectData.rating = "No ratings";
                 }
-                objectData.buttonText = "Book";
+                objectData.buttonText = "Add to cart";
                 finalData.push(objectData);
               }
               catch{
@@ -193,7 +199,7 @@ const ListingPage = (props) => {
       <Header />
       <div className={Styles.listingpage}>
         <Container>
-          <ListingSearchbar template="home" searchData={searchData} setSearchData={setSearchData} setIsLoading={setIsLoading} setserachResults={setserachResults}/>
+          <ListingSearchbar template="home" searchData={searchData} setSearchData={setSearchData} setIsLoading={setIsLoading} setserachResults={setserachResults} setPage={setPage}/>
         </Container>
       </div>
       <Container>

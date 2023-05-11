@@ -27,8 +27,8 @@ const Sidebar = (props) => {
   };
   const [namevalue, setNamevalue] = useState(''); 
   const [rangeValue, setrangeValue] = useState(100);
-  const [rangeMinValue, setrangeMinValue] = useState(Math.min(...props.searchData.map(obj => obj.price)));
-  const [rangeMaxValue, setrangeMaxValue] = useState(Math.max(...props.searchData.map(obj => obj.price)));
+  const [rangeMinValue, setrangeMinValue] = useState(0/*Math.min(...props.searchData.map(obj => obj.price))*/);
+  const [rangeMaxValue, setrangeMaxValue] = useState(500/*Math.max(...props.searchData.map(obj => obj.price))*/);
   const [appliedFilters, setappliedFilters] = useState([]);
 
   //fetching highest vaue of price 
@@ -56,22 +56,19 @@ const Sidebar = (props) => {
     });
 
     let filterValuesArray = filteredArray.concat(filteredArrayRadio);
-    console.log(filterValuesArray);
     filterValuesArray.forEach((item) => {
       valuesArray.push(item.value);
       filtersArray.push(item.nextElementSibling.innerHTML)
-    })
-    console.log(valuesArray);
+    });
+    valuesArray.push('PF:' + rangeMinValue + '&' + rangeMaxValue);
     setappliedFilters(filtersArray);
     props.setFilterData(valuesArray);
 
   }
 
   const changeFilterSlide = (e) => {
-      valuesArray.push('PF:' + e[0] + '&' + e[1]);
       setrangeMaxValue(e[1]);
       setrangeMinValue(e[0]);
-      props.setFilterData(valuesArray);
   }
 
   const changeName = (e) => {
@@ -143,18 +140,21 @@ const Sidebar = (props) => {
                 </Form.Label>
                 <div className={Styles['price-rage-box']}>
                   <span>${Math.floor(rangeMinValue)}</span>
-                  <span>${Math.ceil(rangeMaxValue)}</span>
+                  <span>${Math.ceil(rangeMaxValue)}+</span>
                 </div>
                 <label className="w-100">
                   {/* The price range bar will be displayed here */}
                   <RangeSlider 
                     aria-label= "Choose a value"
-                    min= {Math.floor(lowestValue)}
-                    max= {Math.ceil(highestValue)}
+                    min= {0}
+                    max= {500}
                     defaultValue={[0, Math.ceil(highestValue)]}
                     tooltip={true}
+                    onThumbDragEnd={filterResult}
                     onInput={changeFilterSlide}
                     step={1}
+                    //thumbDrag = {true}
+                   // isDragging = {true}
                   />
                 </label>
               </Form.Group>
