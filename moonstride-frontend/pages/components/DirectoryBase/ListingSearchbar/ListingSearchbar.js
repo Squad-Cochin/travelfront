@@ -108,79 +108,81 @@ function ActivitySearchWidgetHome(props) {
   const handleClick = async (e) => {
     props.setIsLoading(true);
     let searchData = {};
+    searchData.provider = ["VTR"]
     searchData.searchTerm = searchTerm;
-    searchData.start_date = startDate.toISOString().slice(0, 10);
-    searchData.end_date = endDate.toISOString().slice(0, 10);
+    searchData.startDate = startDate.toISOString().slice(0, 10);
+    searchData.endDate = endDate.toISOString().slice(0, 10);
     searchData.number_of_person = parseInt(searchDetails.adult) + parseInt(searchDetails.children);
-    searchData.details = searchDetails;
+    searchData.passengerDetails = searchDetails;
     localStorage.setItem("searchdata", JSON.stringify(searchData));
-    const dataTours = await tourPackages(searchData);
-    var finalData = [];
-    if(dataTours.data.Result.Code == '400'){
-      props.setIsLoading(false);
-    }else{
-      let products = dataTours.data.Result.products
-      let count = 0;
-      products.forEach((element, index) => {
-        try{
-          count = count + 1
-          let objectData = {};
-          objectData.id = count;
-          if(element.title){
-            objectData.title = element.title;
-          }
-          else{
-            objectData.title = "";
-          }
-          objectData.image = element.images[0].variants[7].url
-          let itineraryType = element.itineraryType.toLowerCase();
-          let duration = '';
-          let dutaionValue = '';
-          if(element.duration){
-            if(element.duration.fixedDurationInMinutes){
-              duration = element.duration.fixedDurationInMinutes/60 
-              duration = duration.toFixed()
-              dutaionValue = duration;
-              duration = duration + ' hours'
+    props.setPage(1);
+    // const dataTours = await tourPackages(searchData);
+    // var finalData = [];
+    // if(dataTours.data.Result.Code == '400'){
+    //   props.setIsLoading(false);
+    // }else{
+    //   let products = dataTours.data.Result.products
+    //   let count = 0;
+    //   products.forEach((element, index) => {
+    //     try{
+    //       count = count + 1
+    //       let objectData = {};
+    //       objectData.id = count;
+    //       if(element.title){
+    //         objectData.title = element.title;
+    //       }
+    //       else{
+    //         objectData.title = "";
+    //       }
+    //       objectData.image = element.images[0].variants[7].url
+    //       let itineraryType = element.itineraryType.toLowerCase();
+    //       let duration = '';
+    //       let dutaionValue = '';
+    //       if(element.duration){
+    //         if(element.duration.fixedDurationInMinutes){
+    //           duration = element.duration.fixedDurationInMinutes/60 
+    //           duration = duration.toFixed()
+    //           dutaionValue = duration;
+    //           duration = duration + ' hours'
               
-            }
-            else if(element.duration.unstructuredDuration){
-              duration = element.duration.unstructuredDuration
-            }
-          }
+    //         }
+    //         else if(element.duration.unstructuredDuration){
+    //           duration = element.duration.unstructuredDuration
+    //         }
+    //       }
           
           
-          objectData.type = itineraryType.charAt(0).toUpperCase() + itineraryType.slice(1);
-          // console.log(element.duration.variableDurationFromMinutes)
-          // let time = element.duration.fixedDurationInMinutes / 60; 
-          objectData.time = duration;
-          objectData.text = element.description;
-          objectData.linkText = "More details";
-          objectData.price = element.pricing.summary.fromPriceBeforeDiscount;
-          objectData.productCode = element.productCode;
-          objectData.durationValue = dutaionValue;
-          if("reviews" in element){
-            let rating = element.reviews.combinedAverageRating.toFixed(1) + '/5';
-            let ratingCount = element.reviews.totalReviews + ' ratings';
-            objectData.rating = rating;
-            objectData.ratingCount = ratingCount;
-          }else{
-            objectData.rating = "No ratings";
-          }
-          objectData.buttonText = "Add to cart";
-          finalData.push(objectData);
-        }
-        catch{
-          count = count + 1
-        }
+    //       objectData.type = itineraryType.charAt(0).toUpperCase() + itineraryType.slice(1);
+    //       // console.log(element.duration.variableDurationFromMinutes)
+    //       // let time = element.duration.fixedDurationInMinutes / 60; 
+    //       objectData.time = duration;
+    //       objectData.text = element.description;
+    //       objectData.linkText = "More details";
+    //       objectData.price = element.pricing.summary.fromPriceBeforeDiscount;
+    //       objectData.productCode = element.productCode;
+    //       objectData.durationValue = dutaionValue;
+    //       if("reviews" in element){
+    //         let rating = element.reviews.combinedAverageRating.toFixed(1) + '/5';
+    //         let ratingCount = element.reviews.totalReviews + ' ratings';
+    //         objectData.rating = rating;
+    //         objectData.ratingCount = ratingCount;
+    //       }else{
+    //         objectData.rating = "No ratings";
+    //       }
+    //       objectData.buttonText = "Add to cart";
+    //       finalData.push(objectData);
+    //     }
+    //     catch{
+    //       count = count + 1
+    //     }
           
-      }); 
-    }
-    props.setserachResults(dataTours.data.Result.totalCount);
-    props.setIsLoading(false);
-    props.setSearchData(
-      finalData
-    )
+    //   }); 
+    // }
+    // props.setserachResults(dataTours.data.Result.totalCount);
+    // props.setIsLoading(false);
+    // props.setSearchData(
+    //   finalData
+    // )
     
 
   }
@@ -367,7 +369,7 @@ function listingSearchbar(props) {
   const [endDate, setEndDate] = useState(new Date());*/
   
   const widgetTemplate = props.template;
-  return widgetTemplate === "home" && <ActivitySearchWidgetHome searchData={props.searchData} setSearchData={props.setSearchData} setIsLoading={props.setIsLoading} setserachResults={props.setserachResults}/>;
+  return widgetTemplate === "home" && <ActivitySearchWidgetHome searchData={props.searchData} setSearchData={props.setSearchData} setIsLoading={props.setIsLoading} setserachResults={props.setserachResults} setPage={props.setPage}/>;
 
 }
 
