@@ -24,6 +24,10 @@
                     
                 }
             }
+            
+        }
+        .slick-slide img{
+            min-width: 100%;
         }
     } 
     .secondSlider{
@@ -136,5 +140,10 @@
             width: 100% !important;
             max-width: 406px !important;
         }
+        img{
+            min-width: 100% ;
+            height: auto;
+        }
     }
+   
 }

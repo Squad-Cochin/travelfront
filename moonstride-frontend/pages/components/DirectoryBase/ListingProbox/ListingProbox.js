@@ -1,3 +1,4 @@
+
 //{ On the component that displays the homepage, 
 // this component displays all destination images, along with descriptions, booking amounts, and more }
 
@@ -51,7 +52,7 @@ const ListingProbox = (props) => {
       return(
         <div className={Styles.list_probox} id={item.id} key={index}>
           <Row className="g-3">
-            <Col className="d-flex align-items-center" lg={{ span: 3, order: 1 }} xs={{ span: 5, order: 1 }}>
+            <Col className="d-flex" lg={{ span: 4, order: 1 }} xs={{ span: 5, order: 1 }}>
               <div className={`position-relative ${Styles.imagebox}`}>
                 <img src={item.image} alt="Activity Image" />
                 {/* <span className={`${Styles.favourite_list} ${active == (true && item.id) ? Styles.activeFavouritelist : ""}`} onClick={() => {
@@ -70,7 +71,7 @@ const ListingProbox = (props) => {
                 </span> */}
               </div>
             </Col>
-            <Col lg={{ span: 6, order: 2 }} xs={{ span: 12, order: 3 }}>
+            <Col lg={{ span: 5, order: 2 }} xs={{ span: 12, order: 3 }}>
               <h2 className="header-type1">
                 {item.title}
               </h2>
