@@ -18,10 +18,9 @@
        //  end_date: '2023-04-01',
        //  number_of_person: '2'
        //  };
+       console.log(data);
         try{
-              const items = await axios.post(`${API_BASE_URL}/tours/search-dest`, data)    
-              //console.log("tourPkg");
-              //console.log(items); 
+              const items = await axios.post(`${API_BASE_URL}/0f105f8572f1bfa1514149f07999f04c7cf7ec62/Tour/Search`, data)    
               return items;   
         }
         catch{
