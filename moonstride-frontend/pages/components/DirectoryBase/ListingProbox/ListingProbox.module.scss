@@ -4,6 +4,10 @@
   padding-bottom: 20px;
   border-bottom: 1px solid #dfdfdf;
   .imagebox {
+    overflow: hidden;
+      img{
+        max-width: 100%;
+      }
     > span {
       display: block !important;
       &.favourite_list {
@@ -27,7 +31,7 @@
     }
   }
   :global(.header-type1) {
-    margin: -6px 0 10px;
+    margin: 0px 0 10px;
   }
   .probox_type {
     margin-bottom: 10px;
