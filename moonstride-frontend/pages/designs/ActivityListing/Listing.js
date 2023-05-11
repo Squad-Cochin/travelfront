@@ -82,7 +82,7 @@ const ListingPage = (props) => {
         dataTours.then((value) => {
           var finalData = [];
           if(value.data.Result.Code == '400'){
-            props.setIsLoading(false);
+            setIsLoading(false);
           }else{
             
             let products = value.data.Result.products
@@ -177,98 +177,7 @@ const ListingPage = (props) => {
     }
   }, [searchData]);
 
-  // Function to update the filter state
-  // const updateFilter = (value) => {
-  //   setSearchData(value);
-  // };
   let filterdedData = [];
-  // if(filterValues.length > 0){
-  //   //var finalData = [];
-  //    filterdedData = searchData.filter((item) => {
-  //     let returnFlag = false
-  //     for(let count = 0; count < filterValues.length ; count++){
-  //        let conditionvalue = filterValues[count].split(":")
-  //        if(conditionvalue[0] == 'T'){
-            
-  //           if(item.type == conditionvalue[1]){
-  //             returnFlag = true
-  //           }
-  //        }
-  //        else if(conditionvalue[0] == 'B'){
-  //           switch(conditionvalue[1]){
-  //             case 'L25':
-  //               if(item.price < 25){
-  //                 returnFlag = true
-  //               }
-  //               break;
-  //             case 'L50':
-  //               if(item.price > 25 && item.price < 50){
-  //                 returnFlag = true
-  //               }
-  //               break;
-  //             case 'L75':
-  //               if(item.price > 50 && item.price < 75){
-  //                 returnFlag = true
-  //               }
-  //               break;
-  //             case 'L100':
-  //               if(item.price > 75 && item.price < 100){
-  //                 returnFlag = true
-  //               }
-  //               break;
-  //             case 'G100':
-  //               if(item.price > 100){
-  //                 returnFlag = true
-  //               }
-  //               break;       
-  //           }  
-            
-  //        }
-  //        else if(conditionvalue[0] == 'D'){
-  //         switch(conditionvalue[1]){
-  //           case 'L1':
-  //             if(item.durationValue < 1){
-  //               returnFlag = true
-  //             }
-  //             break;
-  //           case 'L4':
-  //             if(item.durationValue > 1 && item.durationValue < 4){
-  //               returnFlag = true
-  //             }
-  //             break;
-  //           case 'L24':
-  //             if(item.durationValue > 4 && item.durationValue < 24){
-  //               returnFlag = true
-  //             }
-  //             break;
-  //           case 'G24':
-  //             if(item.durationValue > 24){
-  //               returnFlag = true
-  //             }
-  //             break;     
-  //         }  
-  //       }
-  //       else if(conditionvalue[0] == 'NA'){
-  //         if (item.title.includes(conditionvalue[1])) {
-  //           returnFlag = true;
-  //         }
-  //       }
-  //       else if(conditionvalue[0] == 'PF'){
-          
-  //         let rangeValue = conditionvalue[1].split("&")
-  //         if(item.price >= rangeValue[0] && item.price <= rangeValue[1]){
-  //           returnFlag = true;
-  //         }
-  //       }
-  //     }
-  //     return returnFlag;
-  //   });
-   
-  // }
-  // else{
-  //   filterdedData = searchData;
-    
-  // }
   filterdedData = searchData;
   let limitedArray = filterdedData;
   return (
