@@ -83,7 +83,7 @@ const ListingProbox = (props) => {
               <Link href={
                 {
                   pathname: '/activitydetail',
-                  query: { productId: item.productCode }
+                  query: { productId: item.productCode, price: item.price }
                 }}
               >
                 <a className="link-type1">{item.linkText}</a>

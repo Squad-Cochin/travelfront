@@ -9,21 +9,22 @@ import { useRouter } from 'next/router'
 
 
 import { checkAvailability } from "../../../api/tourPackages";
-const AvailabilityPopup = (props) => {
+const AvailabilityPopup = ({...props}) => {
   console.log("test")
   console.log(props);
+  console.log("propsEnd");
   let count = 0
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   let radiobox = [];
   const router = useRouter();
   const param1  = router.query
-
   const [productData, setproductData] = useState([]);
+
   useEffect(() => {
     const getPageData = async () => {
       let dataFromLocalStorage = JSON.parse(sessionStorage.getItem("searchdata")) || [];
-      console.log(dataFromLocalStorage);
+      
       if(!dataFromLocalStorage.passengerDetails.adult){
         dataFromLocalStorage.passengerDetails.adult = 0
         dataFromLocalStorage.passengerDetails.children = 0  
@@ -39,9 +40,6 @@ const AvailabilityPopup = (props) => {
     }
     getPageData();
   }, []);
-  
-  console.log("test")
-  console.log(productData);
   
   if (productData.length == 0 || productData.Message) {
     return <div>Loading...</div>; 
@@ -138,7 +136,7 @@ const AvailabilityPopup = (props) => {
           Product ID: {props.productid} <span className={Styles.durationSeparator}></span>{" "}
         </div>
         <div className={`${Styles.freeText} mt-2`}>
-          {props.cancellationPolicyDescription}
+          {props.destinationDetails}
         </div>
       </div>
       <Form className="mt-4">

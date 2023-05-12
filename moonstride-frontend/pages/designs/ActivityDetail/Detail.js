@@ -10,7 +10,7 @@ import { MainMenu } from "../../components/DirectoryBase/MainMenu/MainMenu";
 import BreadcrumbType from "../../components/DirectoryBase/BreadcrumbType/BreadcrumbType";
 import BackTopage from "../../components/DirectoryBase/BackTopage/BackTopage";
 import MeetingSection from "../../components/DirectoryBase/MeetingSection/MeetingSection";
-import AvailabilityPopupContent from "../../components/DirectoryBase/AvailabilityPopup/AvailabilityPopup";
+import AvailabilityPopup from "../../components/DirectoryBase/AvailabilityPopup/AvailabilityPopup";
 import ButtonType from "../../components/Button/Button";
 import { FeatureTable } from "../../components/DirectoryBase/FeatureTable/FeatureTable";
 import DetailContent from "../../components/DirectoryBase/DetailContent/DetailContent";
@@ -63,7 +63,7 @@ const DetailPage = () => {
         <div id="header" className={Styles.mainHeader} ref={ref} >
           <Header />
           <BackTopage label="See all Activities" href="/" />
-          <MainMenu  price={"$ " + price}/>
+          <MainMenu  price={"$ " + price} productid={productId} fromPrice={price} currency={`$`} destinationDetails={productData.destinationDetails.cancellationPolicyDescription}/>
         </div>
         <div className={Styles.detailpage}>
           <BreadcrumbType wishlist={false} />
@@ -122,7 +122,7 @@ const DetailPage = () => {
             <Offcanvas.Header className={Styles.offcanvasHead} closeButton>
             </Offcanvas.Header>
             <Offcanvas.Body className={Styles.offcanvasinnerBox}>
-              <AvailabilityPopupContent productid={productId} fromPrice={price} currency={`$`} destinationDetails={productData.destinationDetails}/>
+              <AvailabilityPopup productid={productId} fromPrice={price} currency={`$`} destinationDetails={productData.destinationDetails.cancellationPolicyDescription}/>
             </Offcanvas.Body>
           </Offcanvas>
         </div>

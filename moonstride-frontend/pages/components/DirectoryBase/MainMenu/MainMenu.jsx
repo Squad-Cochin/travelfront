@@ -58,7 +58,7 @@ export const MainMenu = (props) => {
                   closeButton
                 ></Offcanvas.Header>
                 <Offcanvas.Body className={Styles.offcanvasinnerBox}>
-                  <AvailabilityPopupContent />
+                  <AvailabilityPopupContent productid={props.productId} fromPrice={props.price} currency={`$`} destinationDetails={props.destinationDetails}/>
                 </Offcanvas.Body>
               </Offcanvas>
             </div>
