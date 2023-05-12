@@ -15,11 +15,11 @@ export default function DetailSlider(props) {
   const [nav1, setNav1] = useState();
   const [nav2, setNav2] = useState();
   // Requird images with the size
-const images = props.images.filter((item) => {
-    if(item.variants.length > 0){
+// const images = props.images.filter((item) => {
+//     if(item.variants.length > 0){
 
-    }
-});
+//     }
+// });
 
   const settings = {
     dots: false,
@@ -57,12 +57,11 @@ const images = props.images.filter((item) => {
               swipeToSlide={false}
               fade={true}
             > 
-              {props.images.map((item) => item.variants.filter(variant => variant.height == 480).map((item) => 
+              {props.images.map((item) =>  
                   <div className={Styles.bannerslide}>
-                    
                     <img height={item.height} width={item.width} className={Styles.bannerim} src={item.url} />
                   </div>  
-              ))}
+              )}
               
             </Slider>
           </Col>
@@ -73,11 +72,11 @@ const images = props.images.filter((item) => {
               ref={(slider2) => setNav2(slider2)}
               {...settings}
             >
-              {props.images.map((item) => item.variants.filter(variant => variant.height == 480).map((item) => 
+              {props.images.map((item) => 
                   <div className={Styles.bannerslide}>
                     <img height='220.06' width='362' className={Styles.bannerim} src={item.url} />
                   </div>  
-              ))}
+              )}
               
             </Slider>
           </Col>

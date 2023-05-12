@@ -2,9 +2,8 @@ import Accordion from "react-bootstrap/Accordion";
 import Styles from "./AccordionType.module.scss";
 
 function AccordionType(props) {
-
   const inclusions = props.productData.inclusions
-  const additionalInfo = props.productData.additionalInfo
+  const additionalInfo = props.productData.additionalInformation
   var inclusionsHtml = `<ul class="aminities">`;
   var additionalInfoHtml = `<ul class="aminities">`;
   inclusions.forEach(async (element) => {

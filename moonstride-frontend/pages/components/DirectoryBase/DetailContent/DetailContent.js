@@ -1,32 +1,21 @@
 import Styles from './DetailContent.module.scss';
 function DetailContent(props){
-    
-    let duration = '-';
-    if(props.productData.itinerary.duration){
-      let durationObject = props.productData.itinerary.duration
-      if(durationObject.variableDurationToMinutes){
-          duration = durationObject.variableDurationToMinutes / 60;
-      }
-      if(durationObject.fixedDurationInMinutes){
-        duration = durationObject.fixedDurationInMinutes / 60;
-      }
-
+    let duration ,guideType, guideCount, startLocation, endLocation = '-';
+    if(props.productData.duration){
+      duration = props.productData.duration / 60;
     }
-    let guideType = '-';
-    let guideCount = '0';
-    if(props.productData.languageGuides){
-       guideType = props.productData.languageGuides[0].type;
-       guideCount = props.productData.languageGuides.length;
+    if(props.productData.languageGuides.guideType){
+      guideType = props.productData.languageGuides.guideType;
     }
-    
+    if(props.productData.languageGuides.guideCount){
+      guideCount = props.productData.languageGuides.guideCount;
+    }
     //Start or End location 
-    let startLocation = '-'
-    if(props.productData.logistics.start){
-      startLocation = props.productData.logistics.start['0'].description;
+    if(props.productData.startPoint){
+      startLocation = props.productData.startPoint;
     } 
-    let endLocation = "-";
-    if( props.productData.logistics.end){
-      endLocation = props.productData.logistics.end['0'].description;
+    if(props.productData.endingPoint){
+      endLocation = props.productData.endingPoint;
     } 
 
     return(

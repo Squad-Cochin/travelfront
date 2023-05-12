@@ -32,14 +32,14 @@ const DetailPage = () => {
   //const [productId, setProductId] = useState('');
   const router = useRouter();
   const param1  = router.query
-  
+  //const productData = productResult.Result
   useEffect(() => {
     setDivHeight(ref.current.offsetHeight);
     const getPageData = async () => {
       const productId  = router.query
       //setProductId(productId.productId);
+      console.log("ddddddddddd1")
       const details = await tourPackageDetail(productId.productId);
-      console.log(details);
       if(details == undefined){
         setproductData([])
       }
@@ -49,8 +49,8 @@ const DetailPage = () => {
     }
     getPageData();
   }, [router.query]);
-    console.log(productData);
-  if (productData.length == 0 ||  productData.Result) {
+  console.log(productData);
+  if (productData.length == 0) {
     return <div>Loading...</div>; 
   }
   else{
@@ -59,39 +59,37 @@ const DetailPage = () => {
         <div id="header" className={Styles.mainHeader} ref={ref} >
           <Header />
           <BackTopage label="See all Activities" href="/" />
-          <MainMenu  price={productData.destination_details.from_Price}/>
+          <MainMenu  price={productData.currency+ " " + productData.fromPrice}/>
         </div>
         <div className={Styles.detailpage}>
           <BreadcrumbType wishlist={false} />
           <Container>
-            <DetailSlider images={productData.destination_details.images}/>
+            <DetailSlider images={productData.images}/>
             <Row className="mt-5">
               <Col lg={8} md={7}>
               <div className={Styles.productDesc}>
                   <h2 className="header-type2">
-                  {productData.destination_details.title}
+                  {productData.title}
                   </h2>
                   <div className={Styles.byTravelText}>
-                    <u>By {productData.destination_details.supplier.name}</u>
+                    <u>By {productData.supplierName}</u>
                   </div>
                   <div className="mt-4">
-                    {productData.destination_details.reviews.totalReviews > 0 ? (<div><b>{productData.destination_details.reviews.combinedAverageRating.toFixed(1)}/5</b>({productData.destination_details.reviews.totalReviews} ratings)</div>):null} 
+                    {productData.numberOfReviews > 0 ? (<div><b>{productData.combinedAverageRating.toFixed(1)}/5</b>({productData.numberOfReviews} ratings)</div>):null} 
                   </div>
                   <div className="mt-3">
-                    {productData.user_reviews.reviews.length > 0 ? <ExpandReview review={productData.user_reviews.reviews[0].text}/> :null} 
+                    {productData.userReviews.length > 0 ? <ExpandReview review={productData.userReviews[0]}/> :null} 
                   </div>
                 </div>
               </Col>
               <Col lg={4} md={5}>
                 <div className={Styles.priceSection}>
-                  <h2 className="header-type2">From ${productData.destination_details.from_Price}</h2>
+                  <h2 className="header-type2">From ${productData.fromPrice}</h2>
                   <div className={Styles.duration}>
-                    Offer ID: {param1.productId}{" "}
-                    <span className={Styles.durationSeparator}></span> Exp:
-                    1/31/2022
+                    Product ID: {param1.productId}{" "}
                   </div>
                   <div className={`${Styles.freeText} mt-2`}>
-                    {productData.destination_details.cancellationPolicy.description.replace(/<\/?[^>]+(>|$)|&[^\s]*;/g, "")}
+                    {productData.cancellationPolicyDescription.replace(/<\/?[^>]+(>|$)|&[^\s]*;/g, "")}
                   </div>
                   <ButtonType
                     variant="primary"
@@ -102,11 +100,11 @@ const DetailPage = () => {
                 </div>
               </Col>
             </Row>
-            <FeatureTable productData={productData.destination_details} contactDetails={productData.contact_details}/>
-            <DetailContent productData={productData.destination_details}/>
+            <FeatureTable productData={productData.destinationDetails} contactDetails={productData.contact}/>
+            <DetailContent productData={productData.destinationDetails}/>
             {/* <MeetingSection></MeetingSection> */}
             {/* <TimelineMap /> */}
-            <AccordionType className="plusicon" productData={productData.destination_details}/>
+            <AccordionType className="plusicon" productData={productData.destinationDetails}/>
             {/* <div className={Styles.faqssection}>
               <h2 className="header-type2">
                 Frequently Asked Questions about Barcelona Sailing Experience -
@@ -119,7 +117,7 @@ const DetailPage = () => {
             <Offcanvas.Header className={Styles.offcanvasHead} closeButton>
             </Offcanvas.Header>
             <Offcanvas.Body className={Styles.offcanvasinnerBox}>
-              <AvailabilityPopupContent productid={param1.productId} price={productData.destination_details.from_Price}/>
+              <AvailabilityPopupContent productid={param1.productId} price={productData.destinationDetails.from_Price}/>
             </Offcanvas.Body>
           </Offcanvas>
         </div>

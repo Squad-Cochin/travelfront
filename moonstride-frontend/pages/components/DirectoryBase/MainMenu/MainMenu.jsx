@@ -39,7 +39,7 @@ export const MainMenu = (props) => {
             </ul>
             <div className={Styles.rightMenu}>
               <div className={Styles.headerPrice}>
-                From ${price} 
+                From {price} 
                </div>
               <ButtonType
                 variant="primary"
