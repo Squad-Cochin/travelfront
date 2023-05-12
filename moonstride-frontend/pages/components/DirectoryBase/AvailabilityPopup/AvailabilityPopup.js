@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 import { checkAvailability } from "../../../api/tourPackages";
 const AvailabilityPopup = (props) => {
   console.log("test")
-  console.log(props)
+  console.log(props);
   let count = 0
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -22,7 +22,8 @@ const AvailabilityPopup = (props) => {
   const [productData, setproductData] = useState([]);
   useEffect(() => {
     const getPageData = async () => {
-      let dataFromLocalStorage = JSON.parse(localStorage.getItem("searchdata")) || [];
+      let dataFromLocalStorage = JSON.parse(sessionStorage.getItem("searchdata")) || [];
+      console.log(dataFromLocalStorage);
       if(!dataFromLocalStorage.passengerDetails.adult){
         dataFromLocalStorage.passengerDetails.adult = 0
         dataFromLocalStorage.passengerDetails.children = 0  
@@ -49,7 +50,7 @@ const AvailabilityPopup = (props) => {
   }
   else{
     let items = productData.data[0].bookableItems
-    let dataFromLocalStorage = JSON.parse(localStorage.getItem("searchdata")) || [];
+    let dataFromLocalStorage = JSON.parse(sessionStorage.getItem("searchdata")) || [];
     let numberOfAdult = 0;
     let numberOfChild = 0;
       if(!dataFromLocalStorage.passengerDetails.adult){
@@ -137,7 +138,7 @@ const AvailabilityPopup = (props) => {
           Product ID: {props.productid} <span className={Styles.durationSeparator}></span>{" "}
         </div>
         <div className={`${Styles.freeText} mt-2`}>
-          {props.destinationDetails.cancellationPolicyDescription}
+          {props.cancellationPolicyDescription}
         </div>
       </div>
       <Form className="mt-4">
