@@ -167,7 +167,7 @@ const ListingPage = (props) => {
                     objectData.ratingCount = "";
                   }
                   
-                  objectData.buttonText = "Add to cart";
+                  objectData.buttonText = "Add to quote";
                   finalData.push(objectData);
                 }
                 catch{
