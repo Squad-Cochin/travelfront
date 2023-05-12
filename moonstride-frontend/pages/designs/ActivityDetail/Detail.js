@@ -89,7 +89,7 @@ const DetailPage = () => {
                     Product ID: {param1.productId}{" "}
                   </div>
                   <div className={`${Styles.freeText} mt-2`}>
-                    {productData.cancellationPolicyDescription.replace(/<\/?[^>]+(>|$)|&[^\s]*;/g, "")}
+                    {productData.destinationDetails.cancellationPolicyDescription.replace(/<\/?[^>]+(>|$)|&[^\s]*;/g, "")}
                   </div>
                   <ButtonType
                     variant="primary"
@@ -117,7 +117,7 @@ const DetailPage = () => {
             <Offcanvas.Header className={Styles.offcanvasHead} closeButton>
             </Offcanvas.Header>
             <Offcanvas.Body className={Styles.offcanvasinnerBox}>
-              <AvailabilityPopupContent productid={param1.productId} price={productData.destinationDetails.from_Price}/>
+              <AvailabilityPopupContent productid={param1.productId} />
             </Offcanvas.Body>
           </Offcanvas>
         </div>

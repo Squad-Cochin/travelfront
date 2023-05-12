@@ -82,13 +82,14 @@ async function tourPackageDetail(productId) {
                                    },
                                    "destinationDetails":{
                                           "description": "Explore India's Golden Triangle on this four-day private tour traveling by air-conditioned vehicle with a local guide. In Delhi, visit Qutb Minar, Lotus Temple, India Gate, and Parliament House. Watch the sun rise over the Taj Mahal, visit Agra’s Red Fort and Baby Taj. In Jaipur, visit Panna Meena Ka Kund (Step well), Amber Fort, Jal Mahal, Palace of Winds, Maharaja's City Palace, and Jantar Mantar Observatory. Three nights of five-star accommodations, breakfasts, transportation, and guided tours are included. You’ll sample local dishes for lunch and dinner on your own, and cover your own monument entrance fees..",
-                                          "duration": "200",
+                                          "duration": "2",
                                           "startPoint": "Delhi",
                                           "endingPoint": "Kerala",
                                           "ageRangeFrom": "5",
                                           "ageRangeTo": "50",
                                           "itineraryType": "MULTI_DAY_TOUR",
                                           "maxGroupSize": "10",
+                                          "cancellationPolicyDescription" : "For a full refund, cancel at least 24 hours before the scheduled departure time.",
                                           "languageGuides":{
                                                  "guideType" : "GUIDE",
                                                  "guideCount" : "7"
@@ -110,16 +111,11 @@ async function tourPackageDetail(productId) {
                                                  "Public transportation options are available nearby"
                                           ]
                                    },
-                                   "cancellationPolicyDescription" : "For a full refund, cancel at least 24 hours before the scheduled departure time.",
+                                   
                                    
                                    "userReviews": [
                                           "Great tour! The hotels selected for our 5 star stays were amazing, delicious breakfast and excellent service. I loved that each city had its own guide, native to the city. Our driver “Rati” was really kind, patient and incredibly reliable. Communication before the tour by the company was great. I would highly recommend this tour for a comprehensive trip of the golden triangle!",
                                           "Great tour! The hotels selected for our 5 star stays were amazing, delicious breakfast and excellent service. I loved that each city had its own guide, native to the city. Our driver “Rati” was really kind, patient and incredibly reliable. Communication before the tour by the company was great. I would highly recommend this tour for a comprehensive trip of the golden triangle!"
-                                   ],
-                                   "cancellationPolicy": [
-                                          "For a full refund, you must cancel at least 24 hours before the experience’s start time.",
-                                          "For a full refund, you must cancel at least 24 hours before the experience’s start time.",
-                                          "For a full refund, you must cancel at least 24 hours before the experience’s start time."
                                    ]
                             }
                      }]
@@ -135,8 +131,8 @@ async function checkAvailability(searchData, productId) {
        const data = {
               prod_code: productId,
               travel_date: searchData.start_date,
-              adult: searchData.details.adult,
-              child: searchData.details.children
+              adult: searchData.passengerDetails.adult,
+              child: searchData.passengerDetails.children
        };
        const items = await axios.post(`${API_BASE_URL}/tours/view-destination-details/check-availability`, data);
        console.log("data")

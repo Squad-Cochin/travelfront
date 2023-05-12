@@ -9,12 +9,11 @@ import { useRouter } from 'next/router'
 
 
 import { checkAvailability } from "../../../api/tourPackages";
-const AvailabilityPopup = (props) => {
+const AvailabilityPopup = () => {
   let count = 0
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   let radiobox = [];
-  console.log(props)
   const router = useRouter();
   const param1  = router.query
 
@@ -22,6 +21,14 @@ const AvailabilityPopup = (props) => {
   useEffect(() => {
     const getPageData = async () => {
       let dataFromLocalStorage = JSON.parse(localStorage.getItem("searchdata")) || [];
+      if(!dataFromLocalStorage.passengerDetails.adult){
+        dataFromLocalStorage = {
+          passengerDetails : {
+              adult: 0, 
+              children: 0
+          }
+        }
+      }
       const details = await checkAvailability(dataFromLocalStorage, param1.productId);
       if(details == undefined){
         setproductData([])
