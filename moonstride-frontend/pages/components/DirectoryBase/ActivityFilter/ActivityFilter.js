@@ -16,45 +16,45 @@ const ActivityFilter = (props) => {
   const handleSort = (e) => {
     let value = e.value
     let data = props.searchData;
-    switch (value) {
-      case 'PLH':
-        let sortedData = data.sort((a,b) => a.price - b.price);
-        console.log(sortedData);
-        props.setSearchData(
-          sortedData
-        );
-        props.setSortOrder(value);
-        break;
-      case 'PHL':
-        let sortedDataDesc =  data.sort((a,b) => b.price - a.price);
-        console.log(sortedDataDesc);
-        props.setSearchData(sortedDataDesc);
-        props.setSortOrder(value);
-        break;
-      case 'CRT':
-        let sortedDataCust =  data.sort((a,b) => b.price - a.price);
-        console.log(sortedDataCust);
-        props.setSearchData(sortedDataCust);
-        props.setSortOrder(value);
+    console.log(value);
+    props.setSortValue(value);
+    props.page == 0 ? props.setPage(1) : props.setPage(0);
+    // switch (value) {
+    //   case 'PLH':
+    //     let sortedData = data.sort((a,b) => a.price - b.price);
+    //     console.log(sortedData);
+    //     props.setSearchData(
+    //       sortedData
+    //     );
+    //     props.setSortOrder(value);
+    //     break;
+    //   case 'PHL':
+    //     let sortedDataDesc =  data.sort((a,b) => b.price - a.price);
+    //     console.log(sortedDataDesc);
+    //     props.setSearchData(sortedDataDesc);
+    //     props.setSortOrder(value);
+    //     break;
+    //   case 'CRT':
+    //     let sortedDataCust =  data.sort((a,b) => b.price - a.price);
+    //     console.log(sortedDataCust);
+    //     props.setSearchData(sortedDataCust);
+    //     props.setSortOrder(value);
 
-        break;
-      default:
-        console.log("Invalid day");
-    }
+    //     break;
+    //   default:
+    //     console.log("Invalid day");
+    // }
   }
 
   const sortByOptions = [
-    { value: "PLH", label: "Price (low to high)" ,key:"1"},
-    { value: "PHL", label: "Price (high to low)" ,key:"2"},
-    { value: "Date (New to Old)", label: "Date (New to Old)" ,key:"3"},
-    { value: "Date (Old to New)", label: "Date (Old to New)" ,key:"4"},
-    { value: "Discount", label: "Discount" ,key:"5"},
-    { value: "CRT", label: "Customer Rating" ,key:"6"},
+    { value: "PRICE:ASCENDING", label: "Price (low to high)" ,key:"1"},
+    { value: "PRICE:DESCENDING", label: "Price (high to low)" ,key:"2"},
+    { value: "NEW_ON_VIATOR:ASCENDING", label: "Date (New to Old)" , key:"3"},
+    // { value: "NEW_ON_VIATOR:DESCENDING", label: "Date (Old to New)" ,key:"4"},
+    { value: "TRAVELER_RATING:DESCENDING", label: "Customer Rating" ,key:"5"}
   ];
-  let productCount = '0';
-  if(props.searchData){
-    productCount = props.searchData.length     
-  }
+  let productCount = props.serachResults
+  
   return (
     <div className={Styles.filterbox}>
       <Row className="align-items-center">

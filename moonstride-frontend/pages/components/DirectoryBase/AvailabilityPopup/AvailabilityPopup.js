@@ -10,11 +10,12 @@ import { useRouter } from 'next/router'
 
 import { checkAvailability } from "../../../api/tourPackages";
 const AvailabilityPopup = (props) => {
+  console.log("test")
+  console.log(props)
   let count = 0
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   let radiobox = [];
-  console.log(props)
   const router = useRouter();
   const param1  = router.query
 
@@ -22,6 +23,11 @@ const AvailabilityPopup = (props) => {
   useEffect(() => {
     const getPageData = async () => {
       let dataFromLocalStorage = JSON.parse(localStorage.getItem("searchdata")) || [];
+      if(!dataFromLocalStorage.passengerDetails.adult){
+        dataFromLocalStorage.passengerDetails.adult = 0
+        dataFromLocalStorage.passengerDetails.children = 0  
+      }
+
       const details = await checkAvailability(dataFromLocalStorage, param1.productId);
       if(details == undefined){
         setproductData([])
@@ -42,32 +48,25 @@ const AvailabilityPopup = (props) => {
     radiobox = [];
   }
   else{
-    let items = productData.data.availability_status.bookableItems
+    let items = productData.data[0].bookableItems
+    let dataFromLocalStorage = JSON.parse(localStorage.getItem("searchdata")) || [];
+    let numberOfAdult = 0;
+    let numberOfChild = 0;
+      if(!dataFromLocalStorage.passengerDetails.adult){
+        numberOfAdult = dataFromLocalStorage.passengerDetails.adult;
+        numberOfChild = dataFromLocalStorage.passengerDetails.children;
+      }
     items.forEach(item => {
       try{
         count ++;
         let product = {}
         product.id = count;
-        product.title = item.item_details.title;
-        product.content = item.item_details.description.replace(/<\/?[^>]+(>|$)|&[^\s]*;/g, "");
+        product.title = item.title;
+        product.content = item.description.replace(/<\/?[^>]+(>|$)|&[^\s]*;/g, "");
         product.linklabel = "Read more";
         product.url = "";
-        let perAdult = 0;
-        let noAdult = 0;
-        let perChild = 0;
-        let noChild = 0;
-        item.lineItems.forEach(ageBand => {
-          if(ageBand.ageBand == 'ADULT'){
-            perAdult = ageBand.subtotalPrice.price.recommendedRetailPrice
-            noAdult = ageBand.numberOfTravelers
-          }else if(ageBand.ageBand == 'CHILD'){
-            perChild = ageBand.subtotalPrice.price.recommendedRetailPrice
-            noChild = ageBand.numberOfTravelers
-          }
-        })
-
-        product.subtitle = "Total $" + item.totalPrice.price.recommendedRetailPrice  + " ,$" + perAdult + " per adult"
-        product.subdesc = noAdult + " Adults x $" + perAdult + " + " + noChild + " child x $" + perChild;
+        product.subtitle = "Total $" + item.totalPrice  + " ,$" + item.priceForAdult + " per adult"
+        product.subdesc = numberOfAdult + " Adults x $" + item.priceForAdult + " + " + numberOfAdult + " child x $" + item.priceForChild;
         product.buttonoptions= item.startTime;
         radiobox.push(product);
       }
@@ -133,13 +132,12 @@ const AvailabilityPopup = (props) => {
   return (
     <div className={Styles.AvailabilityPopup}>
       <div className={Styles.priceSection}>
-        <h2 className="header-type2">From ${param1.price} per adult</h2>
+        <h2 className="header-type2">From ${props.fromPrice} per adult</h2>
         <div className={Styles.duration}>
-          Offer ID: 98292 <span className={Styles.durationSeparator}></span>{" "}
-          Exp: 1/31/2022
+          Product ID: {props.productid} <span className={Styles.durationSeparator}></span>{" "}
         </div>
         <div className={`${Styles.freeText} mt-2`}>
-          Free cancellation available
+          {props.destinationDetails.cancellationPolicyDescription}
         </div>
       </div>
       <Form className="mt-4">
@@ -187,15 +185,19 @@ const AvailabilityPopup = (props) => {
                     </div>
                   ) : null}
                    {radiolist.buttonoptions ? (
-                    <div className={Styles.radiobuttonOptions}>
-                        {/* <button className={Styles.btn} data-variant-index="1">{radiolist.buttonoptions}</button> */}
-                        {/* onClick={() => this.setState({isActive: !this.state.isActive})} */}
-                        <ButtonType 
-                          className={Styles.btn}
-                          name={radiolist.buttonoptions}
-                        />
-                    </div>
-                  ) : null}
+                      radiolist.buttonoptions.map((time) => {
+                        <div className={Styles.radiobuttonOptions}>
+                          {/* <button className={Styles.btn} data-variant-index="1">{radiolist.buttonoptions}</button> */}
+                          {/* onClick={() => this.setState({isActive: !this.state.isActive})} */}
+                          <ButtonType 
+                            className={Styles.btn}
+                            name={time}
+                          />
+                        </div>
+                      })
+                    ) : null}
+                    
+                 
                 </div>
               </label>
             </>

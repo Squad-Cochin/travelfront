@@ -2,34 +2,37 @@ import Accordion from "react-bootstrap/Accordion";
 import Styles from "./AccordionType.module.scss";
 
 function AccordionType(props) {
-
   const inclusions = props.productData.inclusions
-  const additionalInfo = props.productData.additionalInfo
+  const exclusions = props.productData.exclusions
+  const additionalInfo = props.productData.additionalInformation
   var inclusionsHtml = `<ul class="aminities">`;
   var additionalInfoHtml = `<ul class="aminities">`;
   inclusions.forEach(async (element) => {
-    if(element.otherDescription){
-      inclusionsHtml += `<li class="inclusiveitem">${element.otherDescription}</li>`
+    if(element){
+      inclusionsHtml += `<li class="inclusiveitem">${element}</li>`
     }
-    else if(element.description){
-      inclusionsHtml += `<li class="inclusiveitem">${element.description}</li>`
-    }
-    
   });
-  if(props.productData.exclusions){
-    const exclusions = props.productData.exclusions
-    exclusions.forEach(async (element) => {
-      if(element.otherDescription){
-        inclusionsHtml += `<li class="exclusiveitem">${element.otherDescription}</li>`
-      }
-      else if(element.description){
-        inclusionsHtml += `<li class="exclusiveitem">${element.description}</li>`
-      }
-    });
-  }
+  
+  exclusions.forEach(async (element) => {
+    if(element){
+      inclusionsHtml += `<li class="exclusiveitem">${element}</li>`
+    }
+  });  
+  
+  // if(props.productData.exclusions){
+  //   const exclusions = props.productData.exclusions
+  //   exclusions.forEach(async (element) => {
+  //     if(element.otherDescription){
+  //       inclusionsHtml += `<li class="exclusiveitem">${element.otherDescription}</li>`
+  //     }
+  //     else if(element.description){
+  //       inclusionsHtml += `<li class="exclusiveitem">${element.description}</li>`
+  //     }
+  //   });
+  // }
   
   additionalInfo.forEach(async (element) => {
-    additionalInfoHtml += `<li class="inclusiveitem">${element.description}</li>`
+    additionalInfoHtml += `<li class="inclusiveitem">${element}</li>`
   });
 
 inclusionsHtml += `</u>`;

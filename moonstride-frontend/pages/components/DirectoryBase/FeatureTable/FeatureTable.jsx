@@ -26,32 +26,36 @@ function Tableitem(props) {
   );
 }
 export const FeatureTable = (props) => {
-  
-  let duration = '-';
-  if(props.productData.itinerary.duration){
-    let durationObject = props.productData.itinerary.duration
-    if(durationObject.variableDurationToMinutes){
-        duration = durationObject.variableDurationToMinutes / 60;
-    }
-    if(durationObject.fixedDurationInMinutes){
-      duration = durationObject.fixedDurationInMinutes / 60;
-    }
+  let duration, startLocation, endLocation, startAge, endAge, itineraryType, maxGroupSize = '-';
+  if(props.productData.duration){
+    duration = props.productData.duration / 60;
   }
   //Start or End location 
-  let startLocation = '-'
-  if(props.productData.logistics.start){
-    startLocation = props.productData.logistics.start['0'].description;
+  if(props.productData.startPoint){
+    startLocation = props.productData.startPoint;
   } 
-  let endLocation = "-";
-  if( props.productData.logistics.end){
-    endLocation = props.productData.logistics.end['0'].description;
-  } 
+  if(props.productData.endingPoint){
+    endLocation = props.productData.endingPoint;
+  }
+  if(props.productData.ageRangeFrom){
+    startAge = props.productData.ageRangeFrom
+  }
+  if(props.productData.ageRangeTo){
+    endAge = props.productData.ageRangeTo
+  }
+  if(props.productData.itineraryType){
+    itineraryType = props.productData.itineraryType
+  }
+  if(props.productData.maxGroupSize){
+    maxGroupSize = props.productData.maxGroupSize
+  }
+
 
   const tablevalues = [
     { id: 1, label: "Duration", value: duration + " hours", icon: Ftime },
-    { id: 2, label: "Age range", value: `${props.productData.pricingInfo.ageBands[0].startAge} to ${props.productData.pricingInfo.ageBands[0].endAge} years old` },
-    { id: 3, label: "Activity Type", value: props.productData.itinerary.itineraryType, icon: Activity },
-    { id: 4, label: "Max Group Size", value: `Max of ${props.productData.pricingInfo.ageBands[0].maxTravelersPerBooking} per group` },
+    { id: 2, label: "Age range", value: `${startAge} to ${endAge} years old` },
+    { id: 3, label: "Activity Type", value: itineraryType, icon: Activity },
+    { id: 4, label: "Max Group Size", value: `Max of ${maxGroupSize} per group` },
     { id: 5, label: "Start / Finish", value: `${startLocation} / ${endLocation}` },
     { id: 6, label: "", value: "" }
     // {
@@ -86,17 +90,17 @@ export const FeatureTable = (props) => {
               <span className={Styles.label}>Contact</span>
               <span className={Styles.value}>
                 <Image className={Styles.icon} src={Contact} alt="" />
-                  {props.contactDetails.suppliers[0].contact.address}
+                  {props.contactDetails.address}
               </span>
             </li>
             <li className={`socialMedia ${Styles.tableItem}`}>
               <span className={Styles.phone}>
                 <Image className={Styles.icon} src={Phone} alt="" />
-                <a href="phone">{props.contactDetails.suppliers[0].contact.phone}</a>
+                <a href="phone">{props.contactDetails.email}</a>
               </span>
               <span className={Styles.mail}>
                 <Image className={Styles.icon} src={Mail} alt="" />
-                <a href="mail">{props.contactDetails.suppliers[0].contact.email}</a>
+                <a href="mail">{props.contactDetails.email}</a>
               </span>
               {/* <span className={Styles.site}>
                 <Image className={Styles.icon} src={Site} alt="" />
