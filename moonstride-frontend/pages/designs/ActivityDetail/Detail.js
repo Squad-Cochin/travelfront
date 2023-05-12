@@ -15,6 +15,7 @@ import ButtonType from "../../components/Button/Button";
 import { FeatureTable } from "../../components/DirectoryBase/FeatureTable/FeatureTable";
 import DetailContent from "../../components/DirectoryBase/DetailContent/DetailContent";
 import { TimelineMap } from "../../components/DirectoryBase/TimelineMap/TimelineMap";
+import Review from "../../components/DirectoryBase/Review/Review";
 
 import { tourPackageDetail } from "../../api/tourPackages";
 import { useRouter } from 'next/router'
@@ -108,6 +109,7 @@ const DetailPage = () => {
             {/* <MeetingSection></MeetingSection> */}
             {/* <TimelineMap /> */}
             <AccordionType className="plusicon" productData={productData.destinationDetails} productDataFull={productData}/>
+            <Review />
             {/* <div className={Styles.faqssection}>
               <h2 className="header-type2">
                 Frequently Asked Questions about Barcelona Sailing Experience -
