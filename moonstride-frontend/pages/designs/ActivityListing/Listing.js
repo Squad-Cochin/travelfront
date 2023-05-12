@@ -25,7 +25,7 @@ const ListingPage = (props) => {
   const [headerValue, setheaderValue] = useState('Moonstride');
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(0);
-  const [sortValue, setSortValue] = useState('NEW_ON_VIATOR:DESCENDING');
+  const [sortValue, setSortValue] = useState('PRICE:ASCENDING');
   useEffect(() => {
     let filters = {};
     let specials = [];
