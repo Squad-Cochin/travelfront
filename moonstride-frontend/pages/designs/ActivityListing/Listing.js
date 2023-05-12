@@ -22,6 +22,7 @@ const ListingPage = (props) => {
   const [sortOrder, setSortOrder] = useState("");
   const [serachResults, setserachResults] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSorting, setSorting] = useState(false);
   const [headerValue, setheaderValue] = useState('Moonstride');
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(0);
@@ -81,7 +82,7 @@ const ListingPage = (props) => {
         }
         filters.flags = specials;
       }
-      let searchedData = JSON.parse(localStorage.getItem("searchdata")) || [];
+      let searchedData = JSON.parse(sessionStorage.getItem("searchdata")) || [];
       let searchValues = {...searchedData, filters : filters }
       if(page <= 0){
         searchValues.page = 1;
@@ -95,6 +96,7 @@ const ListingPage = (props) => {
         "order": sortingData[1]
       }
       if(Object.keys(searchedData).length != 0){
+       // setIsLoading(true);
         const dataTours =  tourPackages(searchValues);
         dataTours.then((value) => {
           var finalData = [];
@@ -102,6 +104,7 @@ const ListingPage = (props) => {
           if(value.data.length != 0){
             if(value.data[0].Result.Code == '400'){
               setIsLoading(false);
+              setSorting(false);
               setSearchData(
                 []
               )
@@ -174,7 +177,13 @@ const ListingPage = (props) => {
               }); 
             }
             setIsLoading(false);
-            setserachResults(value.data[0].Result.totalCount);
+            setSorting(false);
+            if(value.data[0].Result.totalCount){
+              setserachResults(value.data[0].Result.totalCount);
+            }
+            else{
+              setserachResults(0);
+            }
             if(page > 1){
               setSearchData(
                 searchData.concat(finalData)
@@ -187,6 +196,7 @@ const ListingPage = (props) => {
             }
           }
           else{
+            setSorting(false);
             setIsLoading(false);
             setserachResults(0);
             setSearchData(
@@ -205,7 +215,7 @@ const ListingPage = (props) => {
   }, [filterValues, page]);
 
   useEffect(() => {
-    let searchedData = JSON.parse(localStorage.getItem("searchdata")) || [];
+    let searchedData = JSON.parse(sessionStorage.getItem("searchdata")) || [];
     if(searchedData.searchTerm){
       let headerValue = `Moonstride: ${searchedData.searchTerm} Tours`;
       setheaderValue(headerValue);
@@ -234,7 +244,7 @@ const ListingPage = (props) => {
       <Container>
       {serachResults == 0 ? <></> : <ActivityFilter searchData={filterdedData} setSortOrder={setSortOrder} setSearchData={setSearchData} serachResults={serachResults} setSortValue={setSortValue} setPage={setPage} page={page} />}
       </Container>
-      {isLoading ? <Loader /> : <ListingComponent searchData={searchData} filterData={filterdedData} setFilterData={setFilterData} limitedArray={limitedArray} limit={limit} setLimit={setLimit} page={page} setPage={setPage} filterValues={filterValues} serachResults={serachResults} /> }
+      {isLoading ? <Loader /> : <ListingComponent searchData={searchData} filterData={filterdedData} setFilterData={setFilterData} limitedArray={limitedArray} limit={limit} setLimit={setLimit} page={page} setPage={setPage} filterValues={filterValues} serachResults={serachResults} setSorting={setSorting} isSorting={isSorting} /> }
     </>
   );
 };
@@ -254,7 +264,7 @@ function Loader(){
 }
 
 function ListingComponent(props){
- 
+  
   const setnewLimit = () => {
     let newlimit = props.limit + 10;
     
@@ -265,9 +275,11 @@ function ListingComponent(props){
       let newPage = props.page + 1;
       props.setPage(newPage);
     }
+    props.setSorting(true);
    // props.setLimit(newlimit);
    // props.setPage(newPage);
   }
+  console.log(props.serachResults)
   if(props.serachResults > 0){
     return (
       <Container> 
@@ -281,7 +293,7 @@ function ListingComponent(props){
             <Col xl={9} lg={8}>
                 {props.limitedArray.length == 0 ? <></> : <ListingProbox boxData = {props.limitedArray}/>}
               <div className="text-center mb-3">
-                {props.serachResults == 0 || props.serachResults == props.limitedArray.length ? <></> : <ButtonType className="btntype2" onClick={setnewLimit} name="Show More" />}
+                {props.serachResults == 0 || props.serachResults == props.limitedArray.length ? <></> : <ButtonType className="btntype2" onClick={setnewLimit} name={props.isSorting ? `Loading...`: `Show More`} />}
               </div>
             </Col>
           </Row>
@@ -293,9 +305,16 @@ function ListingComponent(props){
       <Container> 
           <Row>
             <Col xl={3} lg={4}>
+            <div className={`pageSidebar`}>
+              <Sidebar searchData={props.searchData} filterData={props.filterData} setFilterData={props.setFilterData} filterValues={props.filterValues} setPage={props.setPage} page={props.page} />  
+                
+            </div>
             </Col>
             <Col xl={9} lg={8}>
-               No match found / Some internal server issues
+              <div className="text-center mb-3">
+                <br/><br/>
+                No Results Found..
+               </div>
             </Col>
           </Row>
         </Container>

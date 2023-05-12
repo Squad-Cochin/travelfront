@@ -16,7 +16,6 @@ const ActivityFilter = (props) => {
   const handleSort = (e) => {
     let value = e.value
     let data = props.searchData;
-    console.log(value);
     props.setSortValue(value);
     props.page == 0 ? props.setPage(1) : props.setPage(0);
     // switch (value) {
@@ -49,7 +48,7 @@ const ActivityFilter = (props) => {
   const sortByOptions = [
     { value: "PRICE:ASCENDING", label: "Price (low to high)" ,key:"1"},
     { value: "PRICE:DESCENDING", label: "Price (high to low)" ,key:"2"},
-    { value: "NEW_ON_VIATOR:ASCENDING", label: "Date (New to Old)" , key:"3"},
+    //{ value: "NEW_ON_VIATOR:ASCENDING", label: "Date (New to Old)" , key:"3"},
     // { value: "NEW_ON_VIATOR:DESCENDING", label: "Date (Old to New)" ,key:"4"},
     { value: "TRAVELER_RATING:DESCENDING", label: "Customer Rating" ,key:"5"}
   ];
@@ -74,7 +73,7 @@ const ActivityFilter = (props) => {
             <div>
               <span className="d-inline-block align-middle me-2">Sort by</span>
               {/* We will show the select dropdown here */}
-              <Select class="d-inline-block sort-select" label="Sort by" defaultValue={sortByOptions[2]} options={sortByOptions} onChange={handleSort}/>
+              <Select class="d-inline-block sort-select" label="Sort by" defaultValue={sortByOptions[0]} options={sortByOptions} onChange={handleSort}/>
             </div>
           </div>
         </Col>

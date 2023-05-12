@@ -65,11 +65,10 @@ function ActivitySearchWidgetHome(props) {
   
 
   useEffect(() => {
-    let searchCount = JSON.parse(localStorage.getItem("searchdata")) || '{"searchTerm": ""}';
+    let searchCount = JSON.parse(sessionStorage.getItem("searchdata")) || '{"searchTerm": ""}';
     if(searchCount.searchTerm != ""){
       setSearchTerm(searchCount.searchTerm);
     }
-    
   }, []);
 
   const handleCountChild = (e) => {
@@ -115,7 +114,7 @@ function ActivitySearchWidgetHome(props) {
     searchData.numberOfPerson = parseInt(searchDetails.adult) + parseInt(searchDetails.children);
     searchData.passengerDetails = searchDetails;
     //searchData.filters = {};
-    localStorage.setItem("searchdata", JSON.stringify(searchData));
+    sessionStorage.setItem("searchdata", JSON.stringify(searchData));
     //setFilterData={setFilterData}
     props.setFilterData([]);
     props.page == 0 ? props.setPage(1) : props.setPage(0);

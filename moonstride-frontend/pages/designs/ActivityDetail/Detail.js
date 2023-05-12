@@ -31,15 +31,19 @@ const DetailPage = () => {
   const [productData, setproductData] = useState([]);
   //const [productId, setProductId] = useState('');
   const router = useRouter();
-  const param1  = router.query
+  //console.log(router);
+  const {productId, price}  = router.query
+  //console.log(productId);
   //const productData = productResult.Result
   useEffect(() => {
-    setDivHeight(ref.current.offsetHeight);
+    //setDivHeight(ref.current.offsetHeight);
+    if(productId == undefined) {
+      return;
+    }
     const getPageData = async () => {
-      const productId  = router.query
       //setProductId(productId.productId);
-      console.log("ddddddddddd1")
-      const details = await tourPackageDetail(productId.productId);
+      //console.log("ddddddddddd1")
+      const details = await tourPackageDetail(productId);
       if(details == undefined){
         setproductData([])
       }
@@ -48,8 +52,7 @@ const DetailPage = () => {
       }
     }
     getPageData();
-  }, [router.query]);
-  console.log(productData);
+  }, [productId]);
   if (productData.length == 0) {
     return <div>Loading...</div>; 
   }
@@ -59,7 +62,7 @@ const DetailPage = () => {
         <div id="header" className={Styles.mainHeader} ref={ref} >
           <Header />
           <BackTopage label="See all Activities" href="/" />
-          <MainMenu  price={productData.currency+ " " + productData.fromPrice}/>
+          <MainMenu  price={"$ " + price}/>
         </div>
         <div className={Styles.detailpage}>
           <BreadcrumbType wishlist={false} />
@@ -84,9 +87,9 @@ const DetailPage = () => {
               </Col>
               <Col lg={4} md={5}>
                 <div className={Styles.priceSection}>
-                  <h2 className="header-type2">From ${productData.fromPrice}</h2>
+                  <h2 className="header-type2">From ${price}</h2>
                   <div className={Styles.duration}>
-                    Product ID: {param1.productId}{" "}
+                    Product ID: {productId}{" "}
                   </div>
                   <div className={`${Styles.freeText} mt-2`}>
                     {productData.destinationDetails.cancellationPolicyDescription.replace(/<\/?[^>]+(>|$)|&[^\s]*;/g, "")}
@@ -104,7 +107,7 @@ const DetailPage = () => {
             <DetailContent productData={productData.destinationDetails}/>
             {/* <MeetingSection></MeetingSection> */}
             {/* <TimelineMap /> */}
-            <AccordionType className="plusicon" productData={productData.destinationDetails}/>
+            <AccordionType className="plusicon" productData={productData.destinationDetails} productDataFull={productData}/>
             {/* <div className={Styles.faqssection}>
               <h2 className="header-type2">
                 Frequently Asked Questions about Barcelona Sailing Experience -
@@ -117,7 +120,7 @@ const DetailPage = () => {
             <Offcanvas.Header className={Styles.offcanvasHead} closeButton>
             </Offcanvas.Header>
             <Offcanvas.Body className={Styles.offcanvasinnerBox}>
-              <AvailabilityPopupContent productid={param1.productId} fromPrice={productData.fromPrice} currency={productData.currency} destinationDetails={productData.destinationDetails}/>
+              <AvailabilityPopupContent productid={productId} fromPrice={price} currency={`$`} destinationDetails={productData.destinationDetails}/>
             </Offcanvas.Body>
           </Offcanvas>
         </div>
