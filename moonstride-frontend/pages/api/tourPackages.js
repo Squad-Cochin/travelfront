@@ -128,14 +128,36 @@ async function tourPackageDetail(productId) {
 }
 
 async function checkAvailability(searchData, productId) {
-       const data = {
-              prod_code: productId,
-              travel_date: searchData.start_date,
-              adult: searchData.passengerDetails.adult,
-              child: searchData.passengerDetails.children
-       };
-       const items = await axios.post(`${API_BASE_URL}/tours/view-destination-details/check-availability`, data);
-       console.log("data")
+       // const data = {
+       //        prod_code: productId,
+       //        travel_date: searchData.start_date,
+       //        adult: searchData.passengerDetails.adult,
+       //        child: searchData.passengerDetails.children
+       // };
+       // const items = await axios.post(`${API_BASE_URL}/tours/view-destination-details/check-availability`, data);
+       // console.log("data")
+       const items = {
+                     data : [{
+                            bookableItems : [
+                                   {
+                                          "title" : "Jos",
+                                          "description" : "Joseph Kuruvila",
+                                          "priceForChild" : "10",
+                                          "priceForAdult" : "20",
+                                          "totalPrice" : "200",
+                                          "startTime":["10AM","12PM"]
+                                   },
+                                   {
+                                          "title" : "Jo",
+                                          "description" : "Joseph Chandi",
+                                          "priceForChild" : "30",
+                                          "priceForAdult" : "40",
+                                          "totalPrice" : "500",
+                                          "startTime":["10AM","12PM"]
+                                   }
+                            ]
+                     }]
+              }      
        console.log(items)
        return items;
       
