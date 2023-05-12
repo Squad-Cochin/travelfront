@@ -25,9 +25,12 @@ const ListingPage = (props) => {
   const [headerValue, setheaderValue] = useState('Moonstride');
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(0);
+  const [sortValue, setSortValue] = useState('NEW_ON_VIATOR:DESCENDING');
   useEffect(() => {
     let filters = {};
+    let specials = [];
       //let filters = {};
+      console.log(filterValues);
       if(filterValues.length > 0){
         //var finalData = [];
         for(let count = 0; count < filterValues.length ; count++){
@@ -47,6 +50,9 @@ const ListingPage = (props) => {
                   filters.durationInMinutes = {"from": 1440, "to": ""};
                   break;     
               }  
+            }
+            if(conditionvalue[0] == 'S'){
+              specials.push(conditionvalue[1]);
             }
             else if(conditionvalue[0] == 'R'){
               switch(conditionvalue[1]){
@@ -72,7 +78,8 @@ const ListingPage = (props) => {
               filters.lowestPrice = rangeValue[0];
               filters.highestPrice = rangeValue[1];
             }
-          }
+        }
+        filters.flags = specials;
       }
       let searchedData = JSON.parse(localStorage.getItem("searchdata")) || [];
       let searchValues = {...searchedData, filters : filters }
@@ -82,96 +89,118 @@ const ListingPage = (props) => {
       else{
         searchValues.page = page;
       }
-
-      // if(searchedData.length > 0){
+      let sortingData = sortValue.split(':');
+      searchValues.sorting = {
+        "sort": sortingData[0],
+        "order": sortingData[1]
+      }
+      if(Object.keys(searchedData).length != 0){
         const dataTours =  tourPackages(searchValues);
         dataTours.then((value) => {
           var finalData = [];
-          if(value.data.Result.Code == '400'){
+          console.log(value);
+          if(value.data.length != 0){
+            if(value.data[0].Result.Code == '400'){
+              setIsLoading(false);
+              setSearchData(
+                []
+              )
+            }else{
+              
+              let products = value.data[0].Result.data
+              console.log(products);
+              let count;
+              if(page > 1){
+                count = page * 10;
+              }
+              else{
+                count = 0;
+              }
+              products.forEach((element, index) => {
+                try{
+                  count = count + 1
+                  let objectData = {};
+                  objectData.id = count;
+                  if(element.title){
+                    objectData.title = element.title;
+                  }
+                  else{
+                    objectData.title = "";
+                  }
+                  objectData.image = element.image.url
+                  let itineraryType = element.itineraryType.toLowerCase();
+                  let duration = '';
+                  let dutaionValue = '';
+                  if(element.duration){
+                    if(element.duration.fixedDurationInMinutes){
+                      duration = element.duration.fixedDurationInMinutes/60 
+                      duration = duration.toFixed()
+                      dutaionValue = duration;
+                      duration = duration + ' hours'
+                      
+                    }
+                    else if(element.duration.unstructuredDuration){
+                      duration = element.duration.unstructuredDuration
+                    }
+                  }
+                  
+                  
+                  objectData.type = itineraryType.charAt(0).toUpperCase() + itineraryType.slice(1);
+                
+                  // let time = element.duration.fixedDurationInMinutes / 60; 
+                  objectData.time = duration;
+                  objectData.text = element.description;
+                  objectData.linkText = "More details";
+                  objectData.price = element.fromPrice;
+                  objectData.productCode = element.productCode;
+                  objectData.durationValue = dutaionValue;
+                  if("reviews" in element){
+                    let rating = element.reviews.combinedAverageRating.toFixed(1) + '/5';
+                    let ratingCount = element.reviews.numberOfReviews + ' ratings';
+                    objectData.rating = rating;
+                    objectData.ratingCount = ratingCount;
+                  }else{
+                    objectData.rating = "No ratings";
+                    objectData.ratingCount = "";
+                  }
+                  
+                  objectData.buttonText = "Add to cart";
+                  finalData.push(objectData);
+                }
+                catch{
+                  count = count + 1
+                }
+                  
+              }); 
+            }
             setIsLoading(false);
-          }else{
-            
-            let products = value.data.Result.products
-            let count;
+            setserachResults(value.data[0].Result.totalCount);
             if(page > 1){
-              count = page * 10;
+              setSearchData(
+                searchData.concat(finalData)
+              )
             }
             else{
-              count = 0;
+              setSearchData(
+                finalData
+              )
             }
-            products.forEach((element, index) => {
-              try{
-                count = count + 1
-                let objectData = {};
-                objectData.id = count;
-                if(element.title){
-                  objectData.title = element.title;
-                }
-                else{
-                  objectData.title = "";
-                }
-                objectData.image = element.images[0].variants[7].url
-                let itineraryType = element.itineraryType.toLowerCase();
-                let duration = '';
-                let dutaionValue = '';
-                if(element.duration){
-                  if(element.duration.fixedDurationInMinutes){
-                    duration = element.duration.fixedDurationInMinutes/60 
-                    duration = duration.toFixed()
-                    dutaionValue = duration;
-                    duration = duration + ' hours'
-                    
-                  }
-                  else if(element.duration.unstructuredDuration){
-                    duration = element.duration.unstructuredDuration
-                  }
-                }
-                
-                
-                objectData.type = itineraryType.charAt(0).toUpperCase() + itineraryType.slice(1);
-              
-                // let time = element.duration.fixedDurationInMinutes / 60; 
-                objectData.time = duration;
-                objectData.text = element.description;
-                objectData.linkText = "More details";
-                objectData.price = element.pricing.summary.fromPriceBeforeDiscount;
-                objectData.productCode = element.productCode;
-                objectData.durationValue = dutaionValue;
-                if("reviews" in element){
-                  let rating = element.reviews.combinedAverageRating.toFixed(1) + '/5';
-                  let ratingCount = element.reviews.totalReviews + ' ratings';
-                  objectData.rating = rating;
-                  objectData.ratingCount = ratingCount;
-                }else{
-                  objectData.rating = "No ratings";
-                }
-                objectData.buttonText = "Add to cart";
-                finalData.push(objectData);
-              }
-              catch{
-                count = count + 1
-              }
-                
-            }); 
-          }
-          setIsLoading(false);
-          setserachResults(value.data.Result.totalCount);
-          if(page > 1){
-            setSearchData(
-              searchData.concat(finalData)
-            )
           }
           else{
+            setIsLoading(false);
+            setserachResults(0);
             setSearchData(
-              finalData
+             []
             )
+           
           }
+          
           // setSearchData(
           //   finalData
           // )
           // Expected output: 123
         })
-      //}
+      }
    
   }, [filterValues, page]);
 
@@ -199,14 +228,13 @@ const ListingPage = (props) => {
       <Header />
       <div className={Styles.listingpage}>
         <Container>
-          <ListingSearchbar template="home" searchData={searchData} setSearchData={setSearchData} setIsLoading={setIsLoading} setserachResults={setserachResults} setPage={setPage} page={page}/>
+          <ListingSearchbar template="home" searchData={searchData} setSearchData={setSearchData} setIsLoading={setIsLoading} setserachResults={setserachResults} setPage={setPage} page={page} setFilterData={setFilterData}/>
         </Container>
       </div>
       <Container>
-      {searchData.length == 0 ? <></> : <ActivityFilter searchData={filterdedData} setSortOrder={setSortOrder} setSearchData={setSearchData}/>}
+      {serachResults == 0 ? <></> : <ActivityFilter searchData={filterdedData} setSortOrder={setSortOrder} setSearchData={setSearchData} serachResults={serachResults} setSortValue={setSortValue} setPage={setPage} page={page} />}
       </Container>
-      {isLoading ? <Loader /> : <ListingComponent searchData={searchData} filterData={filterdedData} setFilterData={setFilterData} limitedArray={limitedArray} limit={limit} setLimit={setLimit} page={page} setPage={setPage} filterValues={filterValues} serachResults={serachResults}/> }
-        
+      {isLoading ? <Loader /> : <ListingComponent searchData={searchData} filterData={filterdedData} setFilterData={setFilterData} limitedArray={limitedArray} limit={limit} setLimit={setLimit} page={page} setPage={setPage} filterValues={filterValues} serachResults={serachResults} /> }
     </>
   );
 };
@@ -229,29 +257,51 @@ function ListingComponent(props){
  
   const setnewLimit = () => {
     let newlimit = props.limit + 10;
-    let newPage = props.page + 1;
+    
+    if(props.page == 1 || props.page == 0){
+      props.setPage(2);
+    }
+    else{
+      let newPage = props.page + 1;
+      props.setPage(newPage);
+    }
    // props.setLimit(newlimit);
-    props.setPage(newPage);
+   // props.setPage(newPage);
   }
-
-  return (
-    <Container> 
-        <Row>
-          <Col xl={3} lg={4}>
-          <div className={`pageSidebar`}>
-            {props.searchData.length == 0 ? <></> : <Sidebar searchData={props.searchData} filterData={props.filterData} setFilterData={props.setFilterData} filterValues={props.filterValues}/>}  
-              
-          </div>
-          </Col>
-          <Col xl={9} lg={8}>
-              {props.limitedArray.length == 0 ? <></> : <ListingProbox boxData = {props.limitedArray}/>}
-            <div className="text-center mb-3">
-              {props.serachResults == 0 || props.serachResults == props.limitedArray.length ? <></> : <ButtonType className="btntype2" onClick={setnewLimit} name="Show More" />}
+  if(props.serachResults > 0){
+    return (
+      <Container> 
+          <Row>
+            <Col xl={3} lg={4}>
+            <div className={`pageSidebar`}>
+              {props.searchData.length == 0 ? <></> : <Sidebar searchData={props.searchData} filterData={props.filterData} setFilterData={props.setFilterData} filterValues={props.filterValues} setPage={props.setPage} page={props.page} />}  
+                
             </div>
-          </Col>
-        </Row>
-      </Container>
-  )
+            </Col>
+            <Col xl={9} lg={8}>
+                {props.limitedArray.length == 0 ? <></> : <ListingProbox boxData = {props.limitedArray}/>}
+              <div className="text-center mb-3">
+                {props.serachResults == 0 || props.serachResults == props.limitedArray.length ? <></> : <ButtonType className="btntype2" onClick={setnewLimit} name="Show More" />}
+              </div>
+            </Col>
+          </Row>
+        </Container>
+    )
+  }
+  else{
+    return (
+      <Container> 
+          <Row>
+            <Col xl={3} lg={4}>
+            </Col>
+            <Col xl={9} lg={8}>
+               No match found / Some internal server issues
+            </Col>
+          </Row>
+        </Container>
+    )
+  }
+  
 }
 
 const boxData = [

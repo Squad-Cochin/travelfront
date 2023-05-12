@@ -114,7 +114,10 @@ function ActivitySearchWidgetHome(props) {
     searchData.endDate = endDate.toISOString().slice(0, 10);
     searchData.numberOfPerson = parseInt(searchDetails.adult) + parseInt(searchDetails.children);
     searchData.passengerDetails = searchDetails;
+    //searchData.filters = {};
     localStorage.setItem("searchdata", JSON.stringify(searchData));
+    //setFilterData={setFilterData}
+    props.setFilterData([]);
     props.page == 0 ? props.setPage(1) : props.setPage(0);
     // const dataTours = await tourPackages(searchData);
     // var finalData = [];
@@ -369,7 +372,7 @@ function listingSearchbar(props) {
   const [endDate, setEndDate] = useState(new Date());*/
   
   const widgetTemplate = props.template;
-  return widgetTemplate === "home" && <ActivitySearchWidgetHome searchData={props.searchData} setSearchData={props.setSearchData} setIsLoading={props.setIsLoading} setserachResults={props.setserachResults} setPage={props.setPage} page={props.page}/>;
+  return widgetTemplate === "home" && <ActivitySearchWidgetHome searchData={props.searchData} setSearchData={props.setSearchData} setIsLoading={props.setIsLoading} setserachResults={props.setserachResults} setPage={props.setPage} page={props.page} setFilterData={props.setFilterData}/>;
 
 }
 

@@ -63,6 +63,7 @@ const Sidebar = (props) => {
     valuesArray.push('PF:' + rangeMinValue + '&' + rangeMaxValue);
     setappliedFilters(filtersArray);
     props.setFilterData(valuesArray);
+    props.page == 0 ? props.setPage(1) : props.setPage(0);
 
   }
 
@@ -102,7 +103,7 @@ const Sidebar = (props) => {
   
         <div className={Styles.sidebar_box}>
           <div className={Styles.sidebar_result}>
-            {props.filterData.length} Results
+            {/* {props.filterData.length} Results */}
             {/* We will show the selected checkbox values here */}
             {/* <div className={Styles.sidebar_selected_options}>
               {appliedFilters.map((item, index) => (
@@ -148,7 +149,7 @@ const Sidebar = (props) => {
                     aria-label= "Choose a value"
                     min= {0}
                     max= {500}
-                    defaultValue={[0, Math.ceil(highestValue)]}
+                    defaultValue={[0, 500]}
                     tooltip={true}
                     onThumbDragEnd={filterResult}
                     onInput={changeFilterSlide}
