@@ -82,7 +82,7 @@ async function tourPackageDetail(productId) {
                                    },
                                    "destinationDetails":{
                                           "description": "Explore India's Golden Triangle on this four-day private tour traveling by air-conditioned vehicle with a local guide. In Delhi, visit Qutb Minar, Lotus Temple, India Gate, and Parliament House. Watch the sun rise over the Taj Mahal, visit Agra’s Red Fort and Baby Taj. In Jaipur, visit Panna Meena Ka Kund (Step well), Amber Fort, Jal Mahal, Palace of Winds, Maharaja's City Palace, and Jantar Mantar Observatory. Three nights of five-star accommodations, breakfasts, transportation, and guided tours are included. You’ll sample local dishes for lunch and dinner on your own, and cover your own monument entrance fees..",
-                                          "duration": "2",
+                                          "duration": "200",
                                           "startPoint": "Delhi",
                                           "endingPoint": "Kerala",
                                           "ageRangeFrom": "5",
