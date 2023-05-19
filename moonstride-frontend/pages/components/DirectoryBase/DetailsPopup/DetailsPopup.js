@@ -5,6 +5,7 @@ import Col from "react-bootstrap/Col";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { FaRegCalendarCheck } from "react-icons/fa";
 import { FaWeight } from "react-icons/fa";
+import { FaMobile } from "react-icons/fa";
 import DetailsPopupSlider from "../DetailsPopupSlider/DetailsPopupSlider";
 import Styles from "./DetailsPopup.module.scss";
 
@@ -17,7 +18,9 @@ function MyVerticallyCenteredModal(props) {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header closeButton>
+
+        {/* closeButton -->  If close button required add this to next line after Modal.Header  */}
+        <Modal.Header >
           <Modal.Title id="contained-modal-title-vcenter" >
             {/* Kamakura Tour */}
             <DetailsPopupSlider />
@@ -47,6 +50,14 @@ function MyVerticallyCenteredModal(props) {
                   <br></br>
                   <span className={Styles.SideBarOptionValue}>English, Spanish</span>
                 </div>
+
+                <div className={Styles.sideBarOptions}>
+                  <FaMobile />{" "}
+                  <span className={Styles.title}> Mobile </span>
+                  <br></br>
+                  <span className={Styles.SideBarOptionValue}>+91 97 xxx xxx 05</span>
+                </div>
+
               </div>
             </Col>
             <Col xs={12} md={8}>
@@ -95,7 +106,9 @@ function MyVerticallyCenteredModal(props) {
           </Row>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={props.onHide}>Close</Button>
+          <div className={Styles.CloseButton}>
+             <Button className={Styles.btntype1} onClick={props.onHide}>Close</Button>
+          </div>  
         </Modal.Footer>
       </Modal>
     
