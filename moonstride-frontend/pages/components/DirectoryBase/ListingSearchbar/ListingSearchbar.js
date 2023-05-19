@@ -111,6 +111,7 @@ function ActivitySearchWidgetHome(props) {
     searchData.searchTerm = searchTerm;
     searchData.startDate = startDate.toISOString().slice(0, 10);
     searchData.endDate = endDate.toISOString().slice(0, 10);
+    searchData.currency = "AUD"
     searchData.numberOfPerson = parseInt(searchDetails.adult) + parseInt(searchDetails.children);
     searchData.passengerDetails = searchDetails;
     //searchData.filters = {};
