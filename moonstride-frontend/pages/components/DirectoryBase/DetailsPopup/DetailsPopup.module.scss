@@ -1,0 +1,23 @@
+@import "../../../../styles/_config.scss";
+.sidebar{
+    background-color: #f1f1f1;
+    padding: 30px 25px;
+    height: 100%;
+    
+    .sideBarOptions{
+        margin-bottom: 20px;
+    }
+    svg{
+        height: 20px;
+        width: 20px;
+    }
+    .title{
+        font-size: 14px;
+        font-weight: 700;
+        margin-left: 4px;
+    }
+    .SideBarOptionValue{
+        font-size: 12px;
+    }
+
+}

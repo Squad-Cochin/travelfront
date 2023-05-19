@@ -12,7 +12,7 @@ import ButtonType from "../../components/Button/Button";
 import Styles from "./Listing.module.scss";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import loadingimage from "../../../public/images/circle-loader.gif"
+import loadingimage from "../../../public/moonstride-loader.svg"
 import { tourPackages } from "../../api/tourPackages";
 
 const ListingPage = (props) => {
@@ -291,10 +291,12 @@ function ListingComponent(props){
             </div>
             </Col>
             <Col xl={9} lg={8}>
+             <Row>
                 {props.limitedArray.length == 0 ? <></> : <ListingProbox boxData = {props.limitedArray}/>}
               <div className="text-center mb-3">
                 {props.serachResults == 0 || props.serachResults == props.limitedArray.length ? <></> : <ButtonType className="btntype2" onClick={setnewLimit} name={props.isSorting ? `Loading...`: `Show More`} />}
               </div>
+              </Row>
             </Col>
           </Row>
         </Container>

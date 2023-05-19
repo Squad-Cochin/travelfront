@@ -6,14 +6,19 @@ import React,{useEffect, useState} from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Link from "next/link";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import Image from "next/image";
 // This component is designed for reusing buttons
 import ButtonType from "../../Button/Button";
 import ActivityImage1 from "../../../../public/images/acitivity-image1.jpg";
+import MyVerticallyCenteredModal from "../../DirectoryBase/DetailsPopup/DetailsPopup"
 import Styles from "./ListingProbox.module.scss";
+
 
 const ListingProbox = (props) => {
   const [active, setActive] = useState(false);
+  const [modalShow, setModalShow] = React.useState(false);
   //new
   const [store, setStore] = useState([]);
 
@@ -40,8 +45,42 @@ const ListingProbox = (props) => {
 
   };
 
+  // function MyVerticallyCenteredModal(props) {
+  //   return (
+  //     <Modal
+  //       {...props}
+  //       size="lg"
+  //       aria-labelledby="contained-modal-title-vcenter"
+  //       centered
+  //     >
+  //       <Modal.Header closeButton>
+  //         <Modal.Title id="contained-modal-title-vcenter">
+  //           Modal heading
+  //         </Modal.Title>
+  //       </Modal.Header>
+  //       <Modal.Body>
+  //         <h4>Centered Modal</h4>
+  //         <p>
+  //           Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+  //           dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
+  //           consectetur ac, vestibulum at eros.
+  //         </p>
+  //       </Modal.Body>
+  //       <Modal.Footer>
+  //         <Button onClick={props.onHide}>Close</Button>
+  //       </Modal.Footer>
+  //     </Modal>
+  //   );
+  // }
+  
+
   return (
     <>
+      <MyVerticallyCenteredModal
+          show={modalShow}
+           onHide={() => setModalShow(false)}
+      />
+
     {/* We are displaying the data here */}
     {props.boxData.map((item, index) => {
 
@@ -50,80 +89,95 @@ const ListingProbox = (props) => {
       const limitedContent = item.text.substring(0, maxLength) + (item.text.length > maxLength ? "..." : "");
       
       return(
-        <div className={Styles.list_probox} id={item.id} key={index}>
-          <Row className="g-3">
-            <Col className="d-flex" lg={{ span: 4, order: 1 }} xs={{ span: 5, order: 1 }}>
-              <div className={`position-relative ${Styles.imagebox}`}>
-                <img src={item.image} alt="Activity Image" />
-                {/* <span className={`${Styles.favourite_list} ${active == (true && item.id) ? Styles.activeFavouritelist : ""}`} onClick={() => {
-                      handleClick(item);
-                      setActive(!active && item.id);
-                    }}>
-                  <svg
-                    height="20px"
-                    version="1.1"
-                    viewBox="0 0 512 512"
-                    width="20px"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M340.8,83C307,83,276,98.8,256,124.8c-20-26-51-41.8-84.8-41.8C112.1,83,64,131.3,64,190.7c0,27.9,10.6,54.4,29.9,74.6  L245.1,418l10.9,11l10.9-11l148.3-149.8c21-20.3,32.8-47.9,32.8-77.5C448,131.3,399.9,83,340.8,83L340.8,83z" fill={store.includes(item.id) ? "red" : "black"} />
-                  </svg>
-                </span> */}
-              </div>
-            </Col>
-            <Col lg={{ span: 5, order: 2 }} xs={{ span: 12, order: 3 }}>
-              <h2 className="header-type1">
-                {item.title}
-              </h2>
-              <div className={Styles.probox_type}>{item.type}</div>
-              <div className={Styles.probox_time}>{item.time}</div>
-              <div className={Styles.probox_text}>
-                {limitedContent}
-              </div>
-              <Link href={
-                {
-                  pathname: '/activitydetail',
-                  query: { productId: item.productCode, price: item.price }
-                }}
-              >
-                <a className="link-type1">{item.linkText}</a>
-              </Link>
-            </Col>
-            <Col
-              lg={{ span: 3, order: 3 }}
-              xs={{ span: 7, order: 2 }}
-              className="text-end"
-            >
-              <div className={Styles.price_section}>
-                <span>From</span>
-                <div className={Styles.price}>${item.price}</div>
-                <span>per adult</span>
-                <div className={Styles.probox_canceltext}>
-                  Free Cancellation available
-                </div>
-                <div className={Styles.btn_bar}>
-                  <div className="pb-2">
-                    <span className="fw-bold">{item.rating}</span> ({item.ratingCount})
+           <Col lg={12} md={6}>
+            <div className={Styles.list_probox} id={item.id} key={index}>
+              <Row className="g-3">
+                <Col className="d-flex" lg={{ span: 4, order: 1 }} md={{ span: 12, order: 1 }} xs={{ span: 12, order: 1 }}>
+                  <div className={`position-relative ${Styles.imagebox}`}>
+                    <img src={item.image} alt="Activity Image" />
+                    {/* <span className={`${Styles.favourite_list} ${active == (true && item.id) ? Styles.activeFavouritelist : ""}`} onClick={() => {
+                          handleClick(item);
+                          setActive(!active && item.id);
+                        }}>
+                      <svg
+                        height="20px"
+                        version="1.1"
+                        viewBox="0 0 512 512"
+                        width="20px"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M340.8,83C307,83,276,98.8,256,124.8c-20-26-51-41.8-84.8-41.8C112.1,83,64,131.3,64,190.7c0,27.9,10.6,54.4,29.9,74.6  L245.1,418l10.9,11l10.9-11l148.3-149.8c21-20.3,32.8-47.9,32.8-77.5C448,131.3,399.9,83,340.8,83L340.8,83z" fill={store.includes(item.id) ? "red" : "black"} />
+                      </svg>
+                    </span> */}
                   </div>
-                  {/* Click the 'Book' button to book your reservation*/}
+                </Col>
+                <Col lg={{ span: 5, order: 2 }} md={{ span: 12, order: 2 }} xs={{ span: 12, order: 2 }}>
+                  <h2 className="header-type1">
+                    {item.title}
+                  </h2>
+                  <div className={Styles.probox_type}>{item.type}</div>
+                  <div className={Styles.probox_time}>{item.time}</div>
+                  <div className={Styles.probox_text}>
+                    {limitedContent}
+                  </div>
                   <Link href={
                     {
                       pathname: '/activitydetail',
-                      query: { productId: item.productCode, price: item.price}
+                      query: { productId: item.productCode, price: item.price }
                     }}
                   >
-                  <ButtonType className="btntype1" name={item.buttonText} />
-                </Link>
-                </div>
-              </div>
-            </Col>
-          </Row>
-        </div>
+                    <a className="link-type1"></a>
+                  </Link>
+                </Col>
+                <Col
+                  lg={{ span: 3, order: 3 }}
+                  md={{ span: 12, order: 3 }}
+                  xs={{ span: 12, order: 3 }}
+                  className="text-end"
+                >
+                  <div className={Styles.price_section}>
+                    <div>From
+                    <span className={Styles.price}> ${item.price}</span>
+                    </div>
+                    <span>per adult</span>
+                    <div className={Styles.probox_canceltext}>
+                      Free Cancellation available
+                    </div>
+                    <div className={Styles.btn_bar}>
+                      <div className="pb-2">
+                        <span className="fw-bold">{item.rating}</span> ({item.ratingCount})
+                      </div>
+                      {/* Click the 'Book' button to book your reservation*/}
+                      {/* <Link href={
+                        {
+                          pathname: '/activitydetail',
+                          query: { productId: item.productCode, price: item.price}
+                        }}
+                      >
+                      <ButtonType className="btntype1" name={item.buttonText} /> 
+                      
+                        </Link> */}
+
+                         <Button className="btntype1" variant="primary" onClick={() => setModalShow(true)}>
+                            Add to Quote
+                         </Button>
+                       
+                    
+                   
+                    </div>
+                  </div>
+                </Col>
+                
+              </Row>
+            </div>
+           </Col>
       )
     })}
     </>
   );
 };
+
+
 
 export default ListingProbox;
 ListingProbox.defaultProps = {
