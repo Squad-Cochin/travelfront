@@ -26,25 +26,29 @@ function HomeCarousel() {
     setIndex(selectedIndex);
   };
 
+  
+
+
   return (
-    <Carousel activeIndex={index} onSelect={handleSelect}>
+    <Carousel activeIndex={index} onSelect={handleSelect} >
        {data.map((slide, i) => {
         return (
-          <Carousel.Item>        
-        <img
-          className="d-block w-100"
-          src={"https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80"}
-          alt="slider image"
-        />
-        <Carousel.Caption>
-          <h3>{slide.caption}</h3>
-          <p>{slide.description}</p>
-        </Carousel.Caption>
-      </Carousel.Item>
+        <Carousel.Item>      
+          <img
+            className="d-block w-100"
+            src={"https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80"}
+            alt="slider image"
+          />
+          <Carousel.Caption>
+            <h3>{slide.caption}</h3>
+            <p>{slide.description}</p>
+          </Carousel.Caption>
+        </Carousel.Item>
         )
       })}
       
     </Carousel>
   );
 }
+
 export default HomeCarousel;

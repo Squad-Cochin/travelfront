@@ -1,7 +1,128 @@
 @import "../../../../styles/_config.scss";
+.Availability{
+    background-color: #f1f1f1;
+    border-radius: 6px;
+    height: 100%;
+    margin-bottom: 15px;
+    padding: 15px 10px;
+    .price{
+        font-size: 15px;
+        padding: 15px 20px;
+        span{
+            font-size: 20px;
+            font-weight: 600;
+        }
+    }
+    .btntype1{
+        width: 100%;
+        color: $header-bgcolor;
+        background-color: $secondry-color;
+        border-color: $secondry-color;
+        height: 100%;
+    }
+    .btntype1:focus {
+       outline: none;
+       border: none;
+     }
+    .selecttraveller_box button{
+        width: 100%;
+    }
+    .accordian{
+        transition: height 200ms;
+    } 
+    .accordian_body{
+        padding: 30px 0
+    }
+    .radioinnerBox{
+        border-radius: 4px;
+        border: solid 1px #000;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+    .radioinnerBox{
+        padding: 10px 35px 10px 10px;
+        position: relative;
+    }
+    .checkbox{
+        position: absolute;
+        top: 10px;
+        right: 12px;
+    }
+    .radioTitle{
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 1.2;
+        color: #2b2b2b;
+        margin-bottom: 10px;
+    }
+    .radioContent{
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.71;
+        color: #2b2b2b;
+    }
+    .radioSubhd{
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 1.2;
+        color: #410f4e;
+        margin: 0;
+    }
+    .radioSubdesc{
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.71;
+        color: #2b2b2b;
+    }
+    .btntype2{
+        color: $header-bgcolor;
+        background-color: $secondry-color;
+        border-color: $secondry-color;
+        height: 100%;
+        border-radius: 7px;    border-radius: 7px;
+        font-weight: 600;
+        padding: 13px 15px;
+        min-width: 140px;
+        margin-bottom: 10px;
+        border: none;
+    }
+    .btntype2:focus {
+       outline: none;
+       border: none;
+     }
+     .input_check_box{
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        right: 10px;
+        top: 10px;
+        z-index: 9;
+     }
+     .checkmark {
+        position: absolute;
+        top: 3px;
+        right: 5px;
+        height: 25px;
+        width: 25px;
+        background-color: $check-box;
+        border-radius: 50%;
+      }
+      .checkmark:after {
+        top: 9px;
+        left: 9px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: white;
+   }
+      .input_check_box:checked ~ .checkmark {
+        background-color: #2196F3;
+      }
+     
+}
 .sidebar{
     background-color: #f1f1f1;
-    padding: 30px 25px;
+    padding: 30px 20px;
     height: 100%;
     
     .sideBarOptions{
@@ -18,6 +139,7 @@
     }
     .SideBarOptionValue{
         font-size: 12px;
+        padding-left:  28px;
     }
 
 }

@@ -153,13 +153,13 @@ const ListingProbox = (props) => {
                           pathname: '/activitydetail',
                           query: { productId: item.productCode, price: item.price}
                         }}
-                      >
+                      >  
                       <ButtonType className="btntype1" name={item.buttonText} /> 
                       
                         </Link> */}
 
                          <Button className="btntype1" variant="primary" onClick={() => setModalShow(true)}>
-                            Add to Quote
+                            View Options
                          </Button>
                        
                     

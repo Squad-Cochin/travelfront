@@ -1,8 +1,15 @@
-// {On the component page that displays the homepage, the search bar allows the user to search for a location and select a start date. Additionally, 
-//the user can select an end date and the number of adults and thair functionalities  using this component}
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                  //
+//    ON THE COMPONENT PAGE THAT DISPLAYS THE HOMEPAGE, THE SEARCH BAR ALLOWS THE USER TO SEARCH    //
+//        FOR A LOCATION AND SELECT A START DATE. ADDITIONALLY, THE USER CAN SELECT AN END          //                                                           
+//          DATE AND THE NUMBER OF ADULTS AND THEIR FUNCTIONALITIES USING THIS COMPONENT.           //
+//                                                                                                  //
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 import React, { useEffect, useState } from "react";
-import Select,{components} from 'react-select';
+import Select, {components} from 'react-select';
+import AsyncSelect from 'react-select/async'
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -10,22 +17,26 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 //We are displaying the location search input here , We have passed values into the input component so that it can be reused.
-import InputType from "../../Input/Input";
-import SelectType from "../Select/Select";
 import ButtonType from "../../Button/Button";
-import Styles from "./ListingSearchbar.module.scss";
-import Checkbox from "../../Checkbox/Checkbox";
-import { tourPackages } from "../../../api/tourPackages";
+import Styles from "./listingSearchbar.module.scss";
+import {locationOptions} from "../../../api/locationDetails";
 
+
+// FUNCTION WORKOUT FOR LISTING SEARCH BAR
 function ActivitySearchWidgetHome(props) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [startDate1, setStartDate1] = useState(new Date());
   const [searchTerm, setSearchTerm] = useState('');
+  const [searchId, setSearchId] = useState(0);
   const [childCount, setchildCount] = useState([]);
   const [childAges, setchildAges] = useState([]);
   const [children, setchildren] = useState(0);
   const [adult, setAdult] = useState(1);
+  const [datePickerStartState, setdatePickerStartState] = useState(false);
+  const [datePickerEndtState, setdatePickerEndState] = useState(false);
+  const [travelerDropShow, settravelerDropShow] = useState(false);
+  
   const [searchDetails, setsearchDetails] = useState({});
   const sortByOptions = [
     { value: "1", label: "1" ,key:"1"},
@@ -58,19 +69,48 @@ function ActivitySearchWidgetHome(props) {
     { value: "12", label: "12" ,key:"12"}
 
   ]
-  const inputTextHandler = (e) => {
-    setSearchTerm(e.target.value);
-  }
-
-  
 
   useEffect(() => {
-    let searchCount = JSON.parse(sessionStorage.getItem("searchdata")) || '{"searchTerm": ""}';
+    let searchCount = JSON.parse(sessionStorage.getItem("searchdata")) || {"searchTerm": ""};
     if(searchCount.searchTerm != ""){
       setSearchTerm(searchCount.searchTerm);
+      setStartDate(new Date(searchCount.startDate));
+      setEndDate(new Date(searchCount.endDate));
+      setAdult(searchCount.passengerDetails.adult);
     }
   }, []);
 
+  // This function is used to fetch location based on search
+  const getAPIResults = async (inputValue) => {
+    if(inputValue.length >=3){
+      let destinations = await locationOptions(inputValue);
+      return destinations;
+    }
+    else{
+      return [];
+    }
+    
+  };
+  
+  // This function provides matching results to search bar
+  const loadOptions =  async (inputValue) => 
+    // perform a request
+    new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(getAPIResults(inputValue));
+      })
+    });
+  
+  // This function executes when a value is selected from the searchbar  
+  const selectOption = (e) => {
+    //console.log(e)
+    setSearchTerm(e.label);
+    setSearchId(e.value);
+    setStartDate(new Date());
+    setEndDate(new Date());
+    setdatePickerStartState(true)
+  }
+ 
   const handleCountChild = (e) => {
     setchildren(e.value);
     const elements = Array.from({ length: e.value }, (_, index) => {
@@ -109,85 +149,18 @@ function ActivitySearchWidgetHome(props) {
     let searchData = {};
     searchData.provider = ["VTR"]
     searchData.searchTerm = searchTerm;
+    searchData.searchDestinationId = searchId;
     searchData.startDate = startDate.toISOString().slice(0, 10);
     searchData.endDate = endDate.toISOString().slice(0, 10);
-    searchData.currency = "AUD"
+    searchData.currency = 'AUD';
     searchData.numberOfPerson = parseInt(searchDetails.adult) + parseInt(searchDetails.children);
-    searchData.passengerDetails = searchDetails;
-    //searchData.filters = {};
+    searchData.passengerDetails = {
+      adult : adult,
+      children: children
+    }
     sessionStorage.setItem("searchdata", JSON.stringify(searchData));
-    //setFilterData={setFilterData}
     props.setFilterData([]);
     props.page == 0 ? props.setPage(1) : props.setPage(0);
-    // const dataTours = await tourPackages(searchData);
-    // var finalData = [];
-    // if(dataTours.data.Result.Code == '400'){
-    //   props.setIsLoading(false);
-    // }else{
-    //   let products = dataTours.data.Result.products
-    //   let count = 0;
-    //   products.forEach((element, index) => {
-    //     try{
-    //       count = count + 1
-    //       let objectData = {};
-    //       objectData.id = count;
-    //       if(element.title){
-    //         objectData.title = element.title;
-    //       }
-    //       else{
-    //         objectData.title = "";
-    //       }
-    //       objectData.image = element.images[0].variants[7].url
-    //       let itineraryType = element.itineraryType.toLowerCase();
-    //       let duration = '';
-    //       let dutaionValue = '';
-    //       if(element.duration){
-    //         if(element.duration.fixedDurationInMinutes){
-    //           duration = element.duration.fixedDurationInMinutes/60 
-    //           duration = duration.toFixed()
-    //           dutaionValue = duration;
-    //           duration = duration + ' hours'
-              
-    //         }
-    //         else if(element.duration.unstructuredDuration){
-    //           duration = element.duration.unstructuredDuration
-    //         }
-    //       }
-          
-          
-    //       objectData.type = itineraryType.charAt(0).toUpperCase() + itineraryType.slice(1);
-    //       // console.log(element.duration.variableDurationFromMinutes)
-    //       // let time = element.duration.fixedDurationInMinutes / 60; 
-    //       objectData.time = duration;
-    //       objectData.text = element.description;
-    //       objectData.linkText = "More details";
-    //       objectData.price = element.pricing.summary.fromPriceBeforeDiscount;
-    //       objectData.productCode = element.productCode;
-    //       objectData.durationValue = dutaionValue;
-    //       if("reviews" in element){
-    //         let rating = element.reviews.combinedAverageRating.toFixed(1) + '/5';
-    //         let ratingCount = element.reviews.totalReviews + ' ratings';
-    //         objectData.rating = rating;
-    //         objectData.ratingCount = ratingCount;
-    //       }else{
-    //         objectData.rating = "No ratings";
-    //       }
-    //       objectData.buttonText = "Add to cart";
-    //       finalData.push(objectData);
-    //     }
-    //     catch{
-    //       count = count + 1
-    //     }
-          
-    //   }); 
-    // }
-    // props.setserachResults(dataTours.data.Result.totalCount);
-    // props.setIsLoading(false);
-    // props.setSearchData(
-    //   finalData
-    // )
-    
-
   }
 
   return (
@@ -196,14 +169,36 @@ function ActivitySearchWidgetHome(props) {
         <Row className="g-2">
           <Col lg={5} md={12} xs={12}>
             {/*Search input*/}
-            <InputType
-              class={`search_formbox ${Styles.searchInput}`}
-              label=""
+            <AsyncSelect
+              className={`search_formbox ${Styles.searchInput}`}
+              loadOptions={loadOptions}
               placeholder= "Search..."
-              value={searchTerm}
-              onChange={inputTextHandler}
+              onChange={selectOption}
+              cacheOptions={true}
+              styles={{
+                control: (baseStyles, state) => (
+                  {
+                  ...baseStyles,
+                  minHeight: `50px`,
+                  "&:hover": {borderColor: "#000000"},
+                  borderColor: state.isSelected  ? "#000" : "#999",
+                  boxShadow: state.isSelected  ? "0 0 0 1px #000000" : "",
+                  backgroundColor: `hsl(0deg 0% 100% / 0%)`,
+                  paddingLeft: '2rem'    
+                 }
+                ),
+                indicatorsContainer: (baseStyles, state) => (
+                  {
+                  ...baseStyles,
+                  display: `none`,    
+                 }
+                ),
+              }}
+              instanceId={`searchlocations`} 
+              defaultOptions={true}
             />
           </Col>
+          
           <Col lg={2} md={3} xs={6}>
             <div className="position-relative">
               <div className={Styles.date_fromtext}>From</div>
@@ -215,8 +210,16 @@ function ActivitySearchWidgetHome(props) {
                   onChange={(date) => {
                                   setStartDate(date); 
                                   setEndDate(date);
+                                  setdatePickerStartState(false);
+                                  setdatePickerEndState(true);
                             }}
-                  selectsStart
+                  onFocus={() => {
+                    setdatePickerStartState(true);
+                  }}
+                  onBlur={() => {
+                    setdatePickerStartState(false);
+                  }}          
+                  open={datePickerStartState}
                   startDate={startDate}
                   endDate={endDate}
                   minDate={startDate1}
@@ -232,8 +235,18 @@ function ActivitySearchWidgetHome(props) {
                 <DatePicker
                   dateFormat="MMM dd"
                   selected={endDate}
-                  onChange={(date) => setEndDate(date)}
-                  selectsEnd
+                  onChange={(date) => {
+                    setEndDate(date)
+                    setdatePickerEndState(false);
+                    settravelerDropShow(true);
+                  }}
+                  onFocus={() => {
+                    setdatePickerEndState(true);
+                  }}
+                  onBlur={() => {
+                    setdatePickerEndState(false);
+                  }} 
+                  open={datePickerEndtState}
                   startDate={startDate}
                   endDate={endDate}
                   minDate={startDate}
@@ -242,44 +255,42 @@ function ActivitySearchWidgetHome(props) {
               </label>
             </div>
           </Col>
+          {/* Adult code comes here */}
           <Col lg={2} md={3} xs={12}>
-            <Dropdown className={Styles.selecttraveller_box}>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                  0 Adults
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  {/* We are displaying this data in a dropdown. */}
-                  <Row className="g-3">
-                    <Col xs={6}>
-                      <span className={Styles.label}>Adult</span>
-                      <Select class="d-inline-block sort-select" defaultValue={sortByOptions[0]} onChange={handleAdultCount} options={sortByOptions}/>
-                      {/* <SelectType label="Adult" /> */}
-                    </Col>
-                    <Col xs={6}>
-                      <span className={Styles.label}>Children</span>
-                      <Select class="d-inline-block sort-select" onChange={handleCountChild} defaultValue={childcountOptions[0]} options={childcountOptions}/>
-                      {/* <SelectType label="Children" /> */}
-                    </Col>
-                    {childCount.map((item, index) => {
-                      return(
-                  
-                    <Col xs={6} className="mt-3 custom" key={index}>
-                      <span className={Styles.label}>Child age </span>
-                      <Select className="d-inline-block sort-select select-age" onChange={handleCountChildAges} options={childageOptions}/>
-                      {/* <SelectType label="child's age on the date of travel" /> */}
-                    </Col>
-                  )
-                  })}
+            <Dropdown className={Styles.selecttraveller_box} show={travelerDropShow}>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                {adult} Adults
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                {/* We are displaying this data in a dropdown. */}
+                <Row className="g-3">
+                  <Col xs={6}>
+                    <span className={Styles.label}>Adult</span>
+                    <Select class="d-inline-block sort-select" defaultValue={sortByOptions[(adult-1)]} onChange={handleAdultCount} options={sortByOptions}/>
+                  </Col>
+                  <Col xs={6}>
+                    <span className={Styles.label}>Children</span>
+                    <Select class="d-inline-block sort-select" onChange={handleCountChild} defaultValue={childcountOptions[0]} options={childcountOptions}/>
+                  </Col>
+                  {childCount.map((item, index) => {
+                    return(
+                
+                  <Col xs={6} className="mt-3 custom" key={index}>
+                    <span className={Styles.label}>Child age </span>
+                    <Select className="d-inline-block sort-select select-age" onChange={handleCountChildAges} options={childageOptions}/>
+                  </Col>
+                )
+                })}
 
 
-                  </Row>
-                  <div className="mt-3">
-                    <ButtonType className={`${Styles.applyButton} btntype2`} onClick={setChildAge} name="Apply" />
-                  </div>
-                </Dropdown.Menu>
-              </Dropdown>
-            </Col>
-            <Col lg={1} md={3} xs={12}>
+                </Row>
+                <div className="mt-3">
+                  <ButtonType className={`${Styles.applyButton} btntype2`} onClick={setChildAge} name="Apply" />
+                </div>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Col>
+          <Col lg={1} md={3} xs={12}>
               {/* Clicking the search button will submit the data */}
               <ButtonType onClick={handleClick} className={`${Styles.searchButton} btntype1 w-100`} name="Search" />
           </Col>
@@ -289,211 +300,13 @@ function ActivitySearchWidgetHome(props) {
   );
 }
 
-function ActivitySearchWidgetListing() {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-
-  return (
-    <>
-      <div className={`${Styles.listingSearchbar}`}>
-        <Row className="g-2">
-          <Col lg={5} md={12} xs={12}>
-            <InputType
-              class={`search_formbox ${Styles.searchInput}`}
-              label=""
-              placeholder= "Search..."
-            />
-          </Col>
-          <Col lg={2} md={3} xs={6}>
-            <div className="position-relative">
-              <div className={Styles.date_fromtext}>From</div>
-              <label>
-                <DatePicker
-                  dateFormat="MMM dd"
-                  selected={startDate}
-                  onChange={(date) => setStartDate(date)}
-                  selectsStart
-                  startDate={startDate}
-                  endDate={endDate}
-                />
-              </label>
-            </div>
-          </Col>
-          <Col lg={2} md={3} xs={6}>
-            <div className="position-relative">
-              <div className={Styles.date_fromtext}>To</div>
-              <label>
-                <DatePicker
-                  dateFormat="MMM dd"
-                  selected={endDate}
-                  onChange={(date) => setEndDate(date)}
-                  selectsEnd
-                  startDate={startDate}
-                  endDate={endDate}
-                  minDate={startDate}
-                />
-              </label>
-            </div>
-          </Col>
-          <Col lg={2} md={3} xs={12}>
-            <Dropdown className={Styles.selecttraveller_box}>
-              <Dropdown.Toggle variant="success" id="dropdown-basic">
-                2 adults
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Row className="g-3">
-                  <Col xs={6}>
-                    <SelectType label="Adult" />
-                  </Col>
-                  <Col xs={6}>
-                    <SelectType label="Children" />
-                  </Col>
-                  <Col xs={12} className="m-0">
-                    <SelectType label="child's age on the date of travel" />
-                  </Col>
-                </Row>
-                <div>
-                  <ButtonType className="btntype1 w-50" name="Apply" />
-                </div>
-              </Dropdown.Menu>
-            </Dropdown>
-          </Col>
-          <Col lg={1} md={3} xs={12}>
-            <ButtonType className="btntype1 w-100" name="Search" />
-          </Col>
-        </Row>
-      </div>
-    </>
-  );
-}
-
+// FUNCTION FOR LISTING SEARCH BAR CALL
 function listingSearchbar(props) {
-  /*const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());*/
-  
   const widgetTemplate = props.template;
   return widgetTemplate === "home" && <ActivitySearchWidgetHome searchData={props.searchData} setSearchData={props.setSearchData} setIsLoading={props.setIsLoading} setserachResults={props.setserachResults} setPage={props.setPage} page={props.page} setFilterData={props.setFilterData}/>;
 
 }
 
-function ListingCarSearchbar() {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [diffLocation, setDiffLocation] = useState(false);
-  console.log(diffLocation);
-  return (
-    <>
-      <div className={Styles.listingCarHeader}>
-        <Container>
-          <div className={`${Styles.listingCarSearch}`}>
-            <span className={Styles.searchCriteria}>Your Search Criteria</span>
-            <Row className="g-2">
-              <Col lg={3} md={12} xs={12} className={Styles.locationCol}>
-                <div className={Styles.location}>
-                  {diffLocation ? (
-                    <span className={Styles.locationTxt}>Pick-up location</span>
-                  ) : (
-                    <span className={Styles.locationTxt}>
-                      Pick-up and drop-off location
-                    </span>
-                  )}
-                  <span className={Styles.locationName}>Barcelona Airport</span>
-                </div>
-              </Col>
-              <Col lg={3} md={6} xs={6} className={Styles.locationCol}>
-                <Row className={`${Styles.pickupDate} g-2`}>
-                  <Col className={` ${Styles.pickupDateDiv} `}>
-                    <div className={Styles.date_fromtext}>Pick-up date</div>
-                    <label>
-                      <DatePicker
-                        label= ""
-                        dateFormat="MMM dd"
-                        selected={startDate}
-                        onChange={(date) => setStartDate(date)}
-                        selectsStart
-                        startDate={startDate}
-                        endDate={endDate}
-                      />
-                    </label>
-                  </Col>
-                  <Col className={` ${Styles.pickupDateDiv}`}>
-                    <div className={Styles.date_fromtext}>Drop-off date</div>
-                    <label>
-                      <DatePicker
-                        label= ""
-                        dateFormat="MMM dd"
-                        selected={endDate}
-                        onChange={(date) => setEndDate(date)}
-                        selectsEnd
-                        startDate={startDate}
-                        endDate={endDate}
-                        minDate={startDate}
-                      />
-                    </label>
-                  </Col>
-                </Row>
-              </Col>
-              <Col lg={3} md={6} xs={6} className={Styles.locationCol}>
-                <Row className={`${Styles.pickupTime} g-2`}>
-                  <Col className={`${Styles.pickupTimeDiv} pickupTimeDivGlb`}>
-                    <div className={Styles.date_fromtext}>Pick-up Time</div>
-                    <label>
-                      <DatePicker
-                        label= ""
-                        selected={startDate}
-                        onChange={(date) => setStartDate(date)}
-                        showTimeSelect
-                        showTimeSelectOnly
-                        timeIntervals={15}
-                        timeCaption="Time"
-                        dateFormat="h:mm aa"
-                      />
-                    </label>
-                  </Col>
-                  <Col className={`${Styles.pickupTimeDiv} pickupTimeDivGlb`}>
-                    <div className={Styles.date_fromtext}>Drop-off Time</div>
-                    <label>
-                      <DatePicker
-                        label= ""
-                        selected={endDate}
-                        onChange={(date) => setEndDate(date)}
-                        showTimeSelect
-                        showTimeSelectOnly
-                        timeIntervals={15}
-                        timeCaption="Time"
-                        dateFormat="h:mm aa"
-                      />
-                    </label>
-                  </Col>
-                </Row>
-              </Col>
-              <Col lg={3} md={12} xs={12} className={Styles.searchBtn}>
-                <ButtonType className={`${Styles.searchButton} btntype1 w-100`} name="Search" />
-              </Col>
-            </Row>
-            <div className={Styles.diffLocation} onChange={() => setDiffLocation(!diffLocation)}>
-              <Checkbox
-                label="Add a different drop-off location"
-                // onChange={() => setDiffLocation(!diffLocation)}
-                // {...(diffLocation ? "checked" : "")}
-              />
-            </div>
-            {diffLocation === true ? 
-              <div className={Styles.locationCol}>
-                <div className={Styles.location}>
-                  <span className={Styles.locationTxt}>Drop-off location</span>
-                  <span className={Styles.locationName}>Barcelona Airport</span>
-                </div>
-              </div>
-             : "" }
-          </div>
-        </Container>
-      </div>
-    </>
-  );
-}
 
 export default listingSearchbar;
-export { ListingCarSearchbar };
 export { ActivitySearchWidgetHome };
-export { ActivitySearchWidgetListing };
