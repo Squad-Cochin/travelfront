@@ -217,7 +217,7 @@ function MyVerticallyCenteredModal(props) {
                             <h4 className={Styles.radioSubhd}>Total $3.05 ,$3.05 per adult</h4>
                             <div className={Styles.radioSubdesc}>1 Adults x $3.05</div>
                         </div>
-                        <button type="button" value="Submit" className={Styles.btntype2}>Book Now</button>
+                        <button type="button" value="Submit" className={Styles.btntype2}>Add to Cart</button>
                     </div>
                   )}
                 </div>
