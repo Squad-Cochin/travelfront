@@ -26,6 +26,35 @@
      }
     .selecttraveller_box button{
         width: 100%;
+        border-color: #999;
+        width: 100%;
+        padding: 12px 10px 12px 40px;
+        font-size: 16px;
+        font-weight: 600;
+        background-image: url(/_next/static/media/icon-user.d040e602.svg);
+        background-repeat: no-repeat;
+        background-position: center left 10px;
+    }
+    .selecttraveller_box{
+            :global(.dropdown-menu) {
+                padding: 15px 15px;
+                min-width: 250px;
+                // max-height: 250px;
+                // overflow-x: auto;
+                .label{
+                font-size: 14px;
+                line-height: 20px;
+                font-weight: 600;
+                color: #1d1d1d;
+                }
+                :global(.css-t3ipsp-control){
+                overflow-y: auto;
+                }
+                // :global(.css-1nmdiq5-menu){
+                //   height: 150px;
+                //   overflow-y: auto;
+                // }
+            }
     }
     .accordian{
         transition: height 200ms;
@@ -124,6 +153,15 @@
         background-color: #2196F3;
       }
      
+}
+.Modal_close {
+    button{
+        position: absolute;
+        top: 30px;
+        right: 20px;
+        background-color: #ffffff;
+        opacity: 1;
+    }
 }
 .sidebar{
     background-color: #f1f1f1;

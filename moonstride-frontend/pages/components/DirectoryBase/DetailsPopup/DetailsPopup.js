@@ -114,7 +114,7 @@ function MyVerticallyCenteredModal(props) {
         {/* closeButton -->  If close button required add this to next line after Modal.Header  */}
         <Modal.Header >
           <Modal.Title id="contained-modal-title-vcenter" >
-            {/* Kamakura Tour */}
+             Al Majles Resort Day Pass
             <DetailsPopupSlider />
           </Modal.Title>
         </Modal.Header>
