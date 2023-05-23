@@ -1,54 +1,89 @@
-import React, {useState} from "react"; 
-import Carousel from 'react-bootstrap/Carousel';
-<link rel="stylesheet" href="../DetailsPopupSlider/DetailsPopupSlider.modules.css"></link>
+import { useState } from 'react';
+import ReactSimplyCarousel from 'react-simply-carousel';
+import Styles from "./DetailsPopupSlider.module.scss";
 
-const data = [
-  {
-   image: require('../../../../public/images/acitivity-image1.jpg'), 
-   caption:"Caption",
-   description:"Description Here"
-  },
-  {
-    image:require("../../../../public/images/acitivity-image1.jpg"), 
-    caption:"Caption",
-    description:"Description Here"
-   },
-   {
-    image:require('../../../../public/images/acitivity-image1.jpg'), 
-    caption:"Caption",
-    description:"Description Here"
-   } 
-]
-
-function HomeCarousel() {
-  const [index, setIndex] = useState(0);
-  const handleSelect = (selectedIndex, e) => {
-    setIndex(selectedIndex);
-  };
-
-  
-
+export default function SimpleSlider() {
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
   return (
-    <Carousel activeIndex={index} onSelect={handleSelect} >
-       {data.map((slide, i) => {
-        return (
-        <Carousel.Item>      
-          <img
-            className="d-block w-100"
-            src={"https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80"}
-            alt="slider image"
-          />
-          <Carousel.Caption>
-            <h3>{slide.caption}</h3>
-            <p>{slide.description}</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        )
-      })}
+    <div className={Styles.Carousel_slider}>
+      <ReactSimplyCarousel
+        activeSlideIndex={activeSlideIndex}
+        onRequestChange={setActiveSlideIndex}
+        itemsToShow={1}
+        itemsToScroll={1}
+        forwardBtnProps={{
+          //here you can also pass className, or any other button element attributes
+          style: {
+            alignSelf: 'center',
+            background: '#ff6555',
+            border: 'none',
+            borderRadius: '50%',
+            color: 'white',
+            cursor: 'pointer',
+            fontSize: '20px',
+            height: 30,
+            lineHeight: 1,
+            textAlign: 'center',
+            width: 30,
+          },
+          children: <span>{`>`}</span>,
+        }}
+        backwardBtnProps={{
+          //here you can also pass className, or any other button element attributes
+          style: {
+            alignSelf: 'center',
+            background: '#ff6555',
+            border: 'none',
+            borderRadius: '50%',
+            color: 'white',
+            cursor: 'pointer',
+            fontSize: '20px',
+            height: 30,
+            lineHeight: 1,
+            textAlign: 'center',
+            width: 30,
+          },
+          children: <span>{`<`}</span>,
+        }}
+        responsiveProps={[
+          {
+            itemsToShow: 3,
+            itemsToScroll: 2,
+            minWidth: 768,
+          },
+        ]}
+        speed={400}
+        easing="linear"
+      >
+        {/* here you can also pass any other element attributes. Also, you can use your custom components as slides */}
+        <div className={Styles.slider}>
+           <img src="https://fujifilm-x.com/wp-content/uploads/2021/01/gfx100s_sample_02_thum-1.jpg" ></img>
+        </div>
+        <div className={Styles.slider}>
+          <img src="https://fujifilm-x.com/wp-content/uploads/2021/01/gfx100s_sample_02_thum-1.jpg"></img>
+        </div>
+        <div className={Styles.slider}>
+        <img src="https://fujifilm-x.com/wp-content/uploads/2021/01/gfx100s_sample_02_thum-1.jpg"></img>
+        </div>
+        <div className={Styles.slider}>
+        <img src="https://fujifilm-x.com/wp-content/uploads/2021/01/gfx100s_sample_02_thum-1.jpg"></img>
+        </div>
+        <div className={Styles.slider}>
+           <img src="https://fujifilm-x.com/wp-content/uploads/2021/01/gfx100s_sample_02_thum-1.jpg" ></img>
+        </div>
+        <div className={Styles.slider}>
+          <img src="https://fujifilm-x.com/wp-content/uploads/2021/01/gfx100s_sample_02_thum-1.jpg"></img>
+        </div>
+        <div className={Styles.slider}>
+        <img src="https://fujifilm-x.com/wp-content/uploads/2021/01/gfx100s_sample_02_thum-1.jpg"></img>
+        </div>
+        <div className={Styles.slider}>
+        <img src="https://fujifilm-x.com/wp-content/uploads/2021/01/gfx100s_sample_02_thum-1.jpg"></img>
+        </div>
+        
       
-    </Carousel>
+      </ReactSimplyCarousel>
+    </div>
   );
 }
-
-export default HomeCarousel;

@@ -86,6 +86,11 @@
         margin-bottom: 10px;
         border: none;
     }
+    .btntype2:hover{
+        background-color: $header-bgcolor;
+        border-color: $button-hover-color;
+        color: $button-hover-color;
+    }
     .btntype2:focus {
        outline: none;
        border: none;
@@ -149,4 +154,5 @@
         border-color: $secondry-color;
         padding: 10px 35px;
     }
+   
 }

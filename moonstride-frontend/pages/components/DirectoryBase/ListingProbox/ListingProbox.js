@@ -158,12 +158,10 @@ const ListingProbox = (props) => {
                       
                         </Link> */}
 
-                         <Button className="btntype1" variant="primary" onClick={() => setModalShow(true)}>
+                        <Button className="btntype1" variant="primary" onClick={() => setModalShow(true)}>
                             View Options
                          </Button>
-                       
-                    
-                   
+                
                     </div>
                   </div>
                 </Col>

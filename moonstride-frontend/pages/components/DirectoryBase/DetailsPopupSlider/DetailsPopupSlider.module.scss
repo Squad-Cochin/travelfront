@@ -1,0 +1,12 @@
+@import "../../../../styles/_config.scss";
+.Carousel_slider{
+   .slider{
+    color: red;
+    width: 230px;
+    height: 200px;
+    padding: 5px;
+   }
+   .slider img{
+      max-width: 100%;
+   }
+}
