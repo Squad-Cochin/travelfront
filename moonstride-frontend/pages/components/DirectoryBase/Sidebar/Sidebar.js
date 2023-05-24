@@ -17,6 +17,7 @@ import Styles from "./Sidebar.module.scss";
 
 // *This is an NPM package for displaying a price range
 import RangeSlider from '../../../../node_modules/react-range-slider-input/dist/components/RangeSlider';
+import Sidebar_booking_details from '../SidebarBookingItems/SidebarBookingItems'
 import 'react-range-slider-input/dist/style.css';
 import { Form } from "react-bootstrap";
 
@@ -89,6 +90,7 @@ const Sidebar = (props) => {
 
   return (
     <aside>
+      <Sidebar_booking_details />
       <div className={Styles.sidebar_section}>
         <div className={`${Styles.sidebar_header_wrapper} d-flex justify-content-between align-items-center`}>
           <h2 className={`clearfix ${Styles.sidebar_header}`}>Filter</h2>
