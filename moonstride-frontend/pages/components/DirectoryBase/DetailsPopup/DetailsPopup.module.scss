@@ -1,0 +1,197 @@
+@import "../../../../styles/_config.scss";
+.Availability{
+    background-color: #f1f1f1;
+    border-radius: 6px;
+    height: 100%;
+    margin-bottom: 15px;
+    padding: 15px 10px;
+    .price{
+        font-size: 15px;
+        padding: 15px 20px;
+        span{
+            font-size: 20px;
+            font-weight: 600;
+        }
+    }
+    .btntype1{
+        width: 100%;
+        color: $header-bgcolor;
+        background-color: $secondry-color;
+        border-color: $secondry-color;
+        height: 100%;
+    }
+    .btntype1:focus {
+       outline: none;
+       border: none;
+     }
+    .selecttraveller_box button{
+        width: 100%;
+        border-color: #999;
+        width: 100%;
+        padding: 12px 10px 12px 40px;
+        font-size: 16px;
+        font-weight: 600;
+        background-image: url(/_next/static/media/icon-user.d040e602.svg);
+        background-repeat: no-repeat;
+        background-position: center left 10px;
+    }
+    .selecttraveller_box{
+            :global(.dropdown-menu) {
+                padding: 15px 15px;
+                min-width: 250px;
+                // max-height: 250px;
+                // overflow-x: auto;
+                .label{
+                font-size: 14px;
+                line-height: 20px;
+                font-weight: 600;
+                color: #1d1d1d;
+                }
+                :global(.css-t3ipsp-control){
+                overflow-y: auto;
+                }
+                // :global(.css-1nmdiq5-menu){
+                //   height: 150px;
+                //   overflow-y: auto;
+                // }
+            }
+    }
+    .accordian{
+        transition: height 200ms;
+    } 
+    .accordian_body{
+        padding: 30px 0
+    }
+    .radioinnerBox{
+        border-radius: 4px;
+        border: solid 1px #000;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+    .radioinnerBox{
+        padding: 10px 35px 10px 10px;
+        position: relative;
+    }
+    .checkbox{
+        position: absolute;
+        top: 10px;
+        right: 12px;
+    }
+    .radioTitle{
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 1.2;
+        color: #2b2b2b;
+        margin-bottom: 10px;
+    }
+    .radioContent{
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.71;
+        color: #2b2b2b;
+    }
+    .radioSubhd{
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 1.2;
+        color: #410f4e;
+        margin: 0;
+    }
+    .radioSubdesc{
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.71;
+        color: #2b2b2b;
+    }
+    .btntype2{
+        color: $header-bgcolor;
+        background-color: $secondry-color;
+        border-color: $secondry-color;
+        height: 100%;
+        border-radius: 7px;    border-radius: 7px;
+        font-weight: 600;
+        padding: 13px 15px;
+        min-width: 140px;
+        margin-bottom: 10px;
+        border: none;
+    }
+    .btntype2:hover{
+        background-color: $header-bgcolor;
+        border-color: $button-hover-color;
+        color: $button-hover-color;
+    }
+    .btntype2:focus {
+       outline: none;
+       border: none;
+     }
+     .input_check_box{
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        right: 10px;
+        top: 10px;
+        z-index: 9;
+     }
+     .checkmark {
+        position: absolute;
+        top: 3px;
+        right: 5px;
+        height: 25px;
+        width: 25px;
+        background-color: $check-box;
+        border-radius: 50%;
+      }
+      .checkmark:after {
+        top: 9px;
+        left: 9px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: white;
+   }
+      .input_check_box:checked ~ .checkmark {
+        background-color: #2196F3;
+      }
+     
+}
+.Modal_close {
+    button{
+        position: absolute;
+        top: 30px;
+        right: 20px;
+        background-color: #ffffff;
+        opacity: 1;
+    }
+}
+.sidebar{
+    background-color: #f1f1f1;
+    padding: 30px 20px;
+    height: 100%;
+    
+    .sideBarOptions{
+        margin-bottom: 20px;
+    }
+    svg{
+        height: 20px;
+        width: 20px;
+    }
+    .title{
+        font-size: 14px;
+        font-weight: 700;
+        margin-left: 4px;
+    }
+    .SideBarOptionValue{
+        font-size: 12px;
+        padding-left:  28px;
+        word-wrap: break-word;
+    }
+
+}
+.CloseButton{
+    .btntype1{
+        background-color: $secondry-color;
+        border-color: $secondry-color;
+        padding: 10px 35px;
+    }
+   
+}

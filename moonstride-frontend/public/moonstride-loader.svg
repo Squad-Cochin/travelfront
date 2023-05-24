@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Keyshape -->
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" style="white-space: pre;">
+    <style>
+@keyframes a0_mo { 0% { offset-distance: 0%; animation-timing-function: cubic-bezier(0,0,1,1); } 100% { offset-distance: 0%; } }
+@keyframes a1_t { 0% { transform: translate(36.8px,59.4038px) scale(1.2,1.2) translate(-3px,17.1635px); } 0.9259% { transform: translate(36.8px,59.4038px) scale(1.2,1.2) translate(-3px,17.1635px); } 19.4444% { transform: translate(36.8px,59.4038px) scale(1.2,1.2) translate(-3px,-17.1635px); } 50.9259% { transform: translate(36.8px,59.4038px) scale(1.2,1.2) translate(-3px,-17.1635px); } 69.4444% { transform: translate(36.8px,59.4038px) scale(1.2,1.2) translate(-3px,-17.1635px); } 100% { transform: translate(36.8px,59.4038px) scale(1.2,1.2) translate(-3px,-17.1635px); } }
+@keyframes a1_h { 0% { height: 0px; } 0.9259% { height: 0px; } 19.4444% { height: 34.327px; } 50.9259% { height: 34.327px; } 69.4444% { height: 0px; } 100% { height: 0px; } }
+@keyframes a2_t { 0% { transform: translate(50.3168px,49.8038px) scale(1.2,1.2) translate(-3px,9.1635px); } 13.8888% { transform: translate(50.3168px,49.8038px) scale(1.2,1.2) translate(-3px,9.1635px); } 28.7037% { transform: translate(50.3168px,49.8038px) scale(1.2,1.2) translate(-3px,-9.1635px); } 68.5185% { transform: translate(50.3168px,49.8038px) scale(1.2,1.2) translate(-3px,-9.1635px); } 82.4074% { transform: translate(50.3168px,49.8038px) scale(1.2,1.2) translate(-3px,-9.1635px); } 100% { transform: translate(50.3168px,49.8038px) scale(1.2,1.2) translate(-3px,-9.1635px); } }
+@keyframes a2_h { 0% { height: 0px; } 13.8889% { height: 0px; } 28.7037% { height: 18.327px; } 68.5185% { height: 18.327px; } 82.4074% { height: 0px; } 100% { height: 0px; } }
+@keyframes a3_t { 0% { transform: translate(63.0374px,40.4px) scale(1.2,1.2) translate(-3.1355px,17px); } 25.9259% { transform: translate(63.0374px,40.4px) scale(1.2,1.2) translate(-3.1355px,17px); } 44.4444% { transform: translate(63.0374px,40.4px) scale(1.2,1.2) translate(-3.1355px,-17px); } 81.4814% { transform: translate(63.0374px,40.4px) scale(1.2,1.2) translate(-3.1355px,-17px); } 100% { transform: translate(63.0374px,40.4px) scale(1.2,1.2) translate(-3.1355px,-17px); } }
+@keyframes a3_h { 0% { height: 0px; } 25.9259% { height: 0px; } 44.4444% { height: 34px; } 81.4815% { height: 34px; } 100% { height: 0px; } }
+    </style>
+    <ellipse rx="45.4348" ry="45.4348" fill="#ffffff" stroke="none" style="transform: scale(1.04545,1.04545); animation: 2.7s linear both a0_mo; offset-path: path('M50,50C50,50,50,50,50,50'); offset-rotate: 0deg;"/>
+    <rect width="6" height="0" fill="#000000" stroke="none" transform="translate(36.8,59.4038) scale(1.2,1.2) translate(-3,17.1635)" style="animation: 2.7s linear both a1_t, 2.7s linear both a1_h;"/>
+    <rect width="6" height="0" fill="#000000" stroke="none" transform="translate(50.3168,49.8038) scale(1.2,1.2) translate(-3,9.1635)" style="animation: 2.7s linear both a2_t, 2.7s linear both a2_h;"/>
+    <rect width="6.271" height="0" fill="#000000" stroke="none" transform="translate(63.0374,40.4) scale(1.2,1.2) translate(-3.1355,17)" style="animation: 2.7s linear both a3_t, 2.7s linear both a3_h;"/>
+</svg>

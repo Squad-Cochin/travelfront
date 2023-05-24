@@ -1,0 +1,149 @@
+///////////////////////////////////////////////////////////////////////////////////////
+//                                                                                   //
+//                          FILE FOR STYLE REVIEW COMPONENT.                         //
+//                                                                                   //
+///////////////////////////////////////////////////////////////////////////////////////
+
+
+@import "../../../../styles/_config.scss";
+.review_section{
+    text-align: left;
+    padding: 0px 0;
+    width: 100%;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    .headerBody{
+        color: #000;
+        font-size: 13px;
+        display: flex;
+        flex-direction: row;
+        margin-top: 25px;
+
+        .averageRating{
+            display: flex;
+            align-items: baseline;
+            width: 35.00rem;
+        }
+        .RatingValue {
+            font-weight: 700;
+            font-size: 30px;
+            margin-bottom: 15px;
+            margin-right: 0.625rem
+        }
+        .starRating{
+            display: flex;
+            align-items: flex-end;
+        }
+        .stars {
+            display: flex;
+            white-space: nowrap;
+            margin-right: 0.5rem;
+        }
+        .starIcon{
+            height: 1.5rem;
+            width: 1.5rem;
+            fill: #FED141;
+            height: 1.5rem;
+            display: inline-block;
+            margin-right: 0.125rem;
+        }
+        .ratingsWithTitle{
+            margin-left: 0;
+            margin-top: 0;
+            align-self: flex-end;
+
+            .subTitle {
+                color: #737373;
+                font-size: 14px;
+                margin-left: 1.375rem;
+                margin-bottom: 1rem;
+                font-weight: 400;
+                letter-spacing: 1px;
+            }
+            .ratingBars{
+                font-weight: 400;
+                display: grid;
+                grid-template-columns: fit-content(40%) 1fr auto;
+                grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+                grid-row-gap: 4px;
+                align-items: center;
+            }
+            .label, .reviewCount {
+                cursor: pointer;
+                color: forestgreen;
+                margin: 0 1rem;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                border: none;
+                background-color: inherit;
+                text-align: left;
+                font-weight: 600;
+                font-size: 18px;
+            }
+            .progressBar{
+                height: 1rem;
+                background-color: #DFE0E2;
+                border-radius: 0.5rem;
+                margin: 0.5rem 0;
+            }
+            .progressBarFill{
+                height: 100%;
+                background-color: var(--viator-color-black);
+                border-radius: 0.5rem;
+                transition: width 1s ease-in-out;
+                will-change: width;
+            }
+            .progressBarFill{
+                background-color: #008768;
+            }
+           
+        }
+        
+
+    }
+    .review{
+        margin-top:50px;
+
+        .starRating{
+            display: flex;
+            align-items: flex-end;
+        }
+        .stars{
+            display: flex;
+            white-space: nowrap;
+            margin-right: 0.5rem;
+        }
+        .starIcon{
+            height: 1.5rem;
+            width: 15px;
+            fill: #FED141;
+            display: inline-block;
+            margin-right: 0.125rem;
+        }
+        .title {
+            display: flex;
+            align-items: flex-start;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 17px;
+            font-family: system-ui;
+            color: #212529;
+            letter-spacing: 0;
+            font-weight: 600;
+        }
+        .subtitle{
+            font-size: 15px;
+            margin: 10px 0 15px 0;
+        }
+        .details{
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 17px;
+            font-family: system-ui;
+            color: #212529;
+            letter-spacing: 0;
+        }
+    }
+}
