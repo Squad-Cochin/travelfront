@@ -236,9 +236,18 @@ function MyVerticallyCenteredModal(props) {
               <div className={Styles.Popup_title}>
                 {productDetails.title}
                 <CloseButton className={Styles.btntype3} onClick={props.onHide} />
-                  <div className={Styles.price}>
-                    From <span className={Styles.value}> ${props.productdetail.price}</span>
-                </div>
+                 <Row>
+                  <Col xs={12} md={6}>
+                    <div className={Styles.price}>
+                        From <span className={Styles.value}> ${props.productdetail.price}</span>
+                    </div>
+                  </Col>
+                  <Col xs={12} md={6}>
+                    <div className={Styles.reviewRating}>
+                        <span className={Styles.reviewRatingValue}>5.0/5</span> (123 ratings)
+                    </div>
+                    </Col>
+                 </Row> 
               </div>  
                 <DetailsPopupSlider  images={productDetails.images}/>
               </Modal.Title>
@@ -251,7 +260,7 @@ function MyVerticallyCenteredModal(props) {
               {/* ************************* Activity Section Start ******************************* */}
 
               <Row>
-                <Col xs={6} md={4}>
+                <Col xs={12} md={4}>
                   <div className={Styles.sidebar}>
                     <div className={Styles.sideBarOptions}>
                       <FaWeight /> <span className={Styles.title}> Duration </span>
