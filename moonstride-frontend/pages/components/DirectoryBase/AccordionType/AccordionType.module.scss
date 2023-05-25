@@ -130,8 +130,8 @@
         border: solid 1px #cac6c6;
     }  
     .radioinnerBox_bottom{
-        display: flex;
-        justify-content: space-between;
+        // display: flex;
+        // justify-content: space-between;
         margin-top: 10px;
 
         .date_fromtext input {
@@ -146,9 +146,39 @@
             border-color: #fe6652;
             height: 40px;
             font-size: 14px;
+            float: right;
         }
         .btntype1:hover{
-            background-color: $event-button-hover ;
+            background-color:  $button-color ;
+         }
+    }   
+    .selecttraveller_box {
+        :global(.dropdown-toggle){
+          &::after{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 10px;
+          }
         }
-    }    
+        button{
+            width: 100%;
+            padding: 9px 10px 9px;
+            background-color: white;
+            border-color: #7c7676c4;
+        }
+        :global(.dropdown-menu) {
+          padding: 15px 15px;
+          min-width: 250px;
+          .label{
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 600;
+            color: #1d1d1d;
+          }
+          :global(.css-t3ipsp-control){
+            overflow-y: auto;
+          }
+        }
+      }  
 }

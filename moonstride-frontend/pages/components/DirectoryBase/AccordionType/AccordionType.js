@@ -5,16 +5,97 @@
 //                                                                                           //
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-
+import React, { useEffect, useState } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import Styles from "./AccordionType.module.scss";
 import DatePicker from "react-datepicker";
 import { Button } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Dropdown from "react-bootstrap/Dropdown";
+import Select,{components} from 'react-select';
+import ButtonType from "../../Button/Button";
 
 // FUNCTION FOR ACCORDIAN TYPE COMPONENT
 function AccordionType(props) {
+
+  const [childCount, setchildCount] = useState([]);
+  const [searchDetails, setsearchDetails] = useState({});
+  const [children, setchildren] = useState(0);
+  const [adult, setAdult] = useState(1);
+  const sortByOptions = [
+    { value: "1", label: "1" ,key:"1"},
+    { value: "2", label: "2" ,key:"2"},
+    { value: "3", label: "3" ,key:"3"},
+    { value: "4", label: "4" ,key:"4"},
+    { value: "5", label: "5" ,key:"5"},
+    { value: "6", label: "6" ,key:"6"}
+  ];
+  const childcountOptions = [
+    { value: "0", label: "0" ,key:"0"},
+    { value: "1", label: "1" ,key:"1"},
+    { value: "2", label: "2" ,key:"2"},
+    { value: "3", label: "3" ,key:"3"},
+    { value: "4", label: "4" ,key:"4"},
+
+  ];
+  const childageOptions = [
+    { value: "1", label: "1" ,key:"1"},
+    { value: "2", label: "2" ,key:"2"},
+    { value: "3", label: "3" ,key:"3"},
+    { value: "4", label: "4" ,key:"4"},
+    { value: "5", label: "5" ,key:"5"},
+    { value: "6", label: "6" ,key:"6"},
+    { value: "7", label: "7" ,key:"7"},
+    { value: "8", label: "8" ,key:"8"},
+    { value: "9", label: "9" ,key:"9"},
+    { value: "10", label: "10" ,key:"10"},
+    { value: "11", label: "11" ,key:"11"},
+    { value: "12", label: "12" ,key:"12"}
+
+  ]
+
+  const [language] = useState([
+    { code: 'En', title: 'English'},
+    { code: 'SP', title: 'Spanish'},
+    { code: 'JP', title: 'Jappanies'}
+  ]);
+  const [toggleContents, setToggleContents] = useState("Select Language");
+  const [selectedCountry, setSelectedCountry] = useState();
+
+
+  const handleCountChild = (e) => {
+    setchildren(e.value);
+    const elements = Array.from({ length: e.value }, (_, index) => {
+      return index;
+    });
+    setchildCount(elements)
+  }
+  
+  const handleCountChildAges = (e) => {
+    
+  }
+
+  const handleAdultCount = (e) => {
+    setAdult(e.value);
+  }
+
+  const setChildAge = (e) => {
+    let detailPersons = {};
+    detailPersons.adult = adult;
+    detailPersons.children = children;
+    detailPersons.childAge = [];
+    let ages = document.querySelectorAll(".select-age");
+    ages.forEach((item) => {
+      detailPersons.childAge.push(item.innerText)
+    })
+
+    var parent = document.querySelector(".dropdown-menu");
+    parent.classList.remove("show");
+
+    document.getElementById('dropdown-basic').innerText = `${adult} Adults`;
+    setsearchDetails(detailPersons);
+  }
   
   const inclusions = props.productDataFull.inclusions
   const exclusions = props.productDataFull.exclusions
@@ -88,6 +169,8 @@ additionalInfoHtml += `</u>`;
       <Accordion.Body>
             <div className={Styles.DetailsContent}> {faqlist.bodycon}</div>
             <div className={Styles.radioinnerBox_bottom}>
+                      <Row>
+                            <Col xs={6} md={3}>
                               <div className={Styles.event_date}>
                                   <div className="position-relative">
                                   <div className={Styles.date_fromtext}>
@@ -109,11 +192,80 @@ additionalInfoHtml += `</u>`;
                                   </div>
                                 </div>
                               </div>
+                            </Col>           
+
+                    <Col xs={6} md={3}> 
+                      <Dropdown className={Styles.selecttraveller_box}>
+                        <Dropdown.Toggle variant="success" id="dropdown-basic">
+                          0 Adults
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                          {/* We are displaying this data in a dropdown. */}
+                          <Row className="g-3">
+                            <Col xs={6}>
+                              <span className={Styles.label}>Adult</span>
+                              <Select class="d-inline-block sort-select" defaultValue={sortByOptions[0]} onChange={handleAdultCount} options={sortByOptions}/>
+                              {/* <SelectType label="Adult" /> */}
+                            </Col>
+                            <Col xs={6}>
+                              <span className={Styles.label}>Children</span>
+                              <Select class="d-inline-block sort-select" onChange={handleCountChild} defaultValue={childcountOptions[0]} options={childcountOptions}/>
+                              {/* <SelectType label="Children" /> */}
+                            </Col>
+                            {childCount.map((item, index) => {
+                              return(
+                          
+                            <Col xs={6} className="mt-3 custom" key={index}>
+                              <span className={Styles.label}>Child age </span>
+                              <Select className="d-inline-block sort-select select-age" onChange={handleCountChildAges} options={childageOptions}/>
+                              {/* <SelectType label="child's age on the date of travel" /> */}
+                            </Col>
+                          )
+                          })}
+
+
+                          </Row>
+                          <div className="mt-3">
+                            <ButtonType className={`${Styles.applyButton} btntype2`} onClick={setChildAge} name="Apply" />
+                          </div>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    </Col>
+
+                    <Col xs={6} md={3}> 
+                      
+                    <div className={Styles.selecttraveller_box}>
+                        <Dropdown
+                           onSelect={eventKey => {
+                            const { code, title } = language.find(({ code }) => eventKey === code);
+
+                            setSelectedCountry(eventKey);
+                            setToggleContents(<> {title}</>);
+                          }}
+                          >
+                            <Dropdown.Toggle variant="success" id="dropdown-basic">
+                            {toggleContents}
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                            {language.map(({ code, title }) => (
+                               <Dropdown.Item key={code} eventKey={code}> {title}</Dropdown.Item>
+                             ))}
+                            </Dropdown.Menu>
+                          </Dropdown>
+                      </div>
+                    </Col>
+
+
+                    <Col xs={6} md={3}>
                               <div className={Styles.radioSubdesc}>
                                 <button className={Styles.btntype1}>Book</button>
 
                               </div>
-                          </div>
+                     </Col> 
+                     </Row>
+
+                 </div>
       </Accordion.Body>
     </Accordion.Item>
   ));
