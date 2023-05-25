@@ -16,12 +16,14 @@ import { FaRoute } from "react-icons/fa";
 import { FaWalking } from "react-icons/fa";
 import { FaChild } from "react-icons/fa";
 import DetailsPopupSlider from "../DetailsPopupSlider/DetailsPopupSlider";
+import AccordionType from "../../../components/DirectoryBase/AccordionType/AccordionType";
 import Styles from "./DetailsPopup.module.scss";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import Select,{components} from 'react-select';
 import ButtonType from "../../Button/Button";
+import { CloseButton } from 'react-bootstrap';
 //import ReactDOM from "react-dom"
 import { tourPackageDetail, checkAvailability } from "../../../api/tourPackages";
 import loadingimage from "../../../../public/moonstride-loader.svg"
@@ -229,102 +231,24 @@ function MyVerticallyCenteredModal(props) {
           >
 
             {/* closeButton -->  If close button required add this to next line after Modal.Header  */}
-            <Modal.Header >
+            <Modal.Header  >
               <Modal.Title id="contained-modal-title-vcenter" >
+              <div className={Styles.Popup_title}>
                 {productDetails.title}
+                <CloseButton className={Styles.btntype3} onClick={props.onHide} />
+                  <div className={Styles.price}>
+                    From <span className={Styles.value}> ${props.productdetail.price}</span>
+                </div>
+              </div>  
                 <DetailsPopupSlider  images={productDetails.images}/>
               </Modal.Title>
             </Modal.Header>
             <Modal.Body className="show-grid">
-              <div className={Styles.Availability}>
-                  <Row>
-                        <Col xs={6} md={3}>
-                          <div className={Styles.price}>
-                            From <span className={Styles.value}> ${props.productdetail.price}</span>
-                          </div>
-                        </Col>
 
-                        <Col xs={6} md={3}> 
-                          <div className="position-relative">
-                              <div className={Styles.date_fromtext}></div>
-                              <label>
-                                {/* From date */}
-                                <DatePicker
-                                  dateFormat="MMM dd"
-                                  selected={availabilityDate}
-                                  onChange={(date) => {
-                                    //setStartDate(date); 
-                                    setAvailabilityDate(date);
-                                    setdatePickerStartState(false);
-                                  }}
-                                  onFocus={() => {
-                                    setdatePickerStartState(true);
-                                  }}
-                                  onBlur={() => {
-                                    setdatePickerStartState(false);
-                                  }} 
-                                  open={datePickerStartState}
-                                  startDate={startDate}
-                                  maxDate={endDate}
-                                  minDate={startDate}
-                                />
-                              </label>
-                            </div>
-                        
-                        </Col>
-
-                        <Col xs={6} md={3}> 
-                        <Dropdown className={Styles.selecttraveller_box}>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    {adult} Adults
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                      {/* We are displaying this data in a dropdown. */}
-                      <Row className="g-3">
-                        <Col xs={6}>
-                          <span className={Styles.label}>Adult</span>
-                          <Select class="d-inline-block sort-select" defaultValue={sortByOptions[0]} onChange={handleAdultCount} options={sortByOptions}/>
-                          {/* <SelectType label="Adult" /> */}
-                        </Col>
-                        <Col xs={6}>
-                          <span className={Styles.label}>Children</span>
-                          <Select class="d-inline-block sort-select" onChange={handleCountChild} defaultValue={childcountOptions[0]} options={childcountOptions}/>
-                          {/* <SelectType label="Children" /> */}
-                        </Col>
-                        {childCount.map((item, index) => {
-                          return(
-                      
-                        <Col xs={6} className="mt-3 custom" key={index}>
-                          <span className={Styles.label}>Child age </span>
-                          <Select className="d-inline-block sort-select select-age" onChange={handleCountChildAges} options={childageOptions}/>
-                          {/* <SelectType label="child's age on the date of travel" /> */}
-                        </Col>
-                      )
-                      })}
+              <AccordionType />
 
 
-                      </Row>
-                      <div className="mt-3">
-                        <ButtonType className={`${Styles.applyButton} btntype2`} onClick={setChildAge} name="Apply" />
-                      </div>
-                    </Dropdown.Menu>
-                        </Dropdown>
-                        </Col>
-
-                        <Col xs={6} md={3}> 
-                        
-                          <Button onClick={handleOpen} className={Styles.btntype1} variant="primary"> {show ? 'Close' : 'Check Availability'} </Button>
-                          
-                        </Col>
-                  </Row>
-                  <div className="app">
-                    <div className={Styles.accordian}>
-                      {show && (
-                        <AvailabilityDetails availabiltyShow={availabiltyShow} availabilityDetails={availabilityDetails}/>
-                      )}
-                    </div>
-                  </div>
-              </div> 
+              {/* ************************* Activity Section Start ******************************* */}
 
               <Row>
                 <Col xs={6} md={4}>
@@ -332,7 +256,7 @@ function MyVerticallyCenteredModal(props) {
                     <div className={Styles.sideBarOptions}>
                       <FaWeight /> <span className={Styles.title}> Duration </span>
                       <br></br>
-                      <span className={Styles.SideBarOptionValue}>{duration} Hrs</span>
+                      <span className={Styles.SideBarOptionValue}>10 Hrs</span>
                     </div>
 
                     <div className={Styles.sideBarOptions}>
@@ -347,7 +271,10 @@ function MyVerticallyCenteredModal(props) {
                       <FaMapMarkerAlt /> <span className={Styles.title}> Contact </span>
                       <br></br>
                       <div className={Styles.SideBarOptionValue}>
-                      {productDetails.contact.address} 
+                      4339 Perine Street <br></br>
+                      Chantilly <br></br>
+                      22021 <br></br>
+                      United States <br></br>
                       </div>
                     </div>
 
@@ -355,7 +282,7 @@ function MyVerticallyCenteredModal(props) {
                       <FaMobile />{" "}
                       <span className={Styles.title}> Mobile </span>
                       <br></br>
-                      <span className={Styles.SideBarOptionValue}> {productDetails.contact.phone}</span>
+                      <span className={Styles.SideBarOptionValue}> 9567056624</span>
                     </div>
 
                     <div className={Styles.sideBarOptions}>
@@ -370,7 +297,7 @@ function MyVerticallyCenteredModal(props) {
                       <span className={Styles.title}> Supplier Mail ID </span>
                       <br></br>
                       <div className={Styles.SideBarOptionValue}>
-                      <p> {productDetails.contact.email}</p>
+                      <p> samjo41@gmail.com</p>
                       </div>
                     </div>
 
@@ -385,14 +312,14 @@ function MyVerticallyCenteredModal(props) {
                       <FaWalking />{" "}
                       <span className={Styles.title}> Activity Type </span>
                       <br></br>
-                      <span className={Styles.SideBarOptionValue}>{productDetails.tourDetails.itineraryType}</span>
+                      <div className={Styles.SideBarOptionValue}>A tour or activity that occurs over multiple days, and therefore includes food and accommodation</div>
                     </div>
 
                     <div className={Styles.sideBarOptions}>
                       <FaRoute />{" "}
                       <span className={Styles.title}> Starting and Finishing </span><br></br>
-                      <div className={Styles.SideBarOptionValue}>Starting : {productDetails.tourDetails.startPoint}</div><br></br>
-                      <div className={Styles.SideBarOptionValue}>Finishing: {productDetails.tourDetails.endingPoint}</div>
+                      <div className={Styles.SideBarOptionValue}>Starting : UK</div><br></br>
+                      <div className={Styles.SideBarOptionValue}>Finishing: USA</div>
                     </div>
 
                     <div className={Styles.sideBarOptions}>

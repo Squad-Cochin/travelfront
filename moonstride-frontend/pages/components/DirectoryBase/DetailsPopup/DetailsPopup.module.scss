@@ -1,18 +1,37 @@
 @import "../../../../styles/_config.scss";
+.Popup_title{
+    .price{
+        font-size: 15px;
+        padding: 0px 0 0 0;
+        span{
+            font-size: 20px;
+            font-weight: 600;
+        }
+    }
+}
+
 .Availability{
     background-color: #f1f1f1;
     border-radius: 6px;
     height: 100%;
     margin-bottom: 15px;
     padding: 15px 10px;
+
+    .title{
+        padding: 8px 0;
+        font-size: 17px;
+        font-weight: 600;
+    }
+
     .price{
         font-size: 15px;
-        padding: 15px 20px;
+        padding: 10px 0 0 0;
         span{
             font-size: 20px;
             font-weight: 600;
         }
     }
+   
     .btntype1{
         width: 100%;
         color: $header-bgcolor;
@@ -21,6 +40,7 @@
         height: 100%;
     }
     .btntype1:focus {
+       box-shadow: none;
        outline: none;
        border: none;
      }
@@ -60,17 +80,34 @@
         transition: height 200ms;
     } 
     .accordian_body{
-        padding: 30px 0
+        padding: 15px 0 0 0
     }
     .radioinnerBox{
         border-radius: 4px;
-        border: solid 1px #000;
+        border: solid 1px $box_border-color;
         margin-bottom: 10px;
         width: 100%;
     }
     .radioinnerBox{
         padding: 10px 35px 10px 10px;
         position: relative;
+    }
+    .radioinnerBox_bottom{
+        display: flex;
+        justify-content: space-between;
+
+         .date_fromtext input {
+            height: 40px;
+         }
+         .btntype1{
+            padding: 10px 70px;
+            border-radius: 7px;
+            border: none;
+         }
+         .btntype1:hover{
+            background-color: $event-button-hover ;
+         }
+         
     }
     .checkbox{
         position: absolute;
@@ -90,12 +127,12 @@
         line-height: 1.71;
         color: #2b2b2b;
     }
-    .radioSubhd{
+    .event_date{
         font-size: 15px;
         font-weight: 600;
         line-height: 1.2;
         color: #410f4e;
-        margin: 0;
+        
     }
     .radioSubdesc{
         font-size: 14px;
@@ -194,4 +231,7 @@
         padding: 10px 35px;
     }
    
+}
+.btntype3{
+    float: right;
 }
