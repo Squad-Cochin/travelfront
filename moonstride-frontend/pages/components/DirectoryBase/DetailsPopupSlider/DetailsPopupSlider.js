@@ -106,3 +106,7 @@ export default function SimpleSlider(props) {
     </div>
   );
 }
+
+SimpleSlider.defaultProps = {
+  images : []
+}

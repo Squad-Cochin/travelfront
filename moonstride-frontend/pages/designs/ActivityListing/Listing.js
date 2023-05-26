@@ -134,7 +134,8 @@ const ListingPage = (props) => {
                     "price" : "",
                     "rating" : "No ratings",
                     "ratingCount" : "",
-                    "buttonText" : "Add to quote"
+                    "buttonText" : "Add to quote",
+                    "freeCancellation" : ""
                   };
                   objectData.id = count;
                   if(element.title){
@@ -168,6 +169,9 @@ const ListingPage = (props) => {
                       let ratingCount = element.reviews.numberOfReviews + ' ratings';
                       objectData.ratingCount = ratingCount;
                     }
+                  }
+                  if(element.flags){
+                    objectData.freeCancellation = element.flags.find((element) => element === "FREE_CANCELLATION");
                   }
                   finalData.push(objectData);
                 }
@@ -237,7 +241,7 @@ const ListingPage = (props) => {
         </Container>
       </div>
       <Container>
-      {serachResults == 0 ? <></> : <ActivityFilter searchData={filterdedData} setSortOrder={setSortOrder} setSearchData={setSearchData} serachResults={serachResults} setSortValue={setSortValue} setPage={setPage} page={page} />}
+      <ActivityFilter searchData={filterdedData} setSortOrder={setSortOrder} setSearchData={setSearchData} serachResults={serachResults} setSortValue={setSortValue} setPage={setPage} page={page} />
       </Container>
       {isLoading ? <Loader /> : <ListingComponent searchData={searchData} filterData={filterdedData} setFilterData={setFilterData} limitedArray={limitedArray} limit={limit} setLimit={setLimit} page={page} setPage={setPage} filterValues={filterValues} serachResults={serachResults} setSorting={setSorting} isSorting={isSorting} /> }
     </>

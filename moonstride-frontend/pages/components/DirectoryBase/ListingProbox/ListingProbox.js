@@ -110,7 +110,7 @@ const ListingProbox = (props) => {
                     <div className={Styles.price}>${item.price}</div>
                     <span>per adult</span>
                     <div className={Styles.probox_canceltext}>
-                      Free Cancellation available
+                      {item.freeCancellation == 'FREE_CANCELLATION' ? "Free Cancellation available" : null }
                     </div>
                     <div className={Styles.btn_bar}>
                       <div className="pb-2">
