@@ -69,6 +69,7 @@ const ListingProbox = (props) => {
             <div className={Styles.list_probox} id={item.id}>
               <Row className="g-3">
                 <Col className="d-flex" lg={{ span: 4, order: 1 }} md={{ span: 12, order: 1 }} xs={{ span: 5, order: 1 }}>
+                <div className={Styles.imageSection}>
                   <div className={`position-relative ${Styles.imagebox}`}>
                     <Image 
                       src={item.image}
@@ -80,6 +81,10 @@ const ListingProbox = (props) => {
                       priority={true}
                     />
                   </div>
+                  <div className={Styles.flag}>
+                       Likely to Sell Out
+                  </div>
+                 </div> 
                 </Col>
                 <Col lg={{ span: 5, order: 2 }} md={{ span: 12, order: 2 }} xs={{ span: 12, order: 2 }}>
                   <h2 className="header-type1">

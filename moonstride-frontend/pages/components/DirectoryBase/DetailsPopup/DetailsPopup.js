@@ -18,6 +18,9 @@ import { FaChild } from "react-icons/fa";
 import DetailsPopupSlider from "../DetailsPopupSlider/DetailsPopupSlider";
 import AccordionType from "../../../components/DirectoryBase/AccordionType/AccordionType";
 import Styles from "./DetailsPopup.module.scss";
+import { BsStarFill } from "react-icons/bs";
+import { BsStarHalf } from "react-icons/bs";
+import { IoMdAlert } from "react-icons/io";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -248,7 +251,7 @@ function MyVerticallyCenteredModal(props) {
                   </Col>
                   <Col xs={12} md={6}>
                     <div className={Styles.reviewRating}>
-                        <span className={Styles.reviewRatingValue}>5.0/5</span> (123 ratings)
+                     <span className={Styles.reviewRatingValue}>4.5</span> <BsStarFill /><BsStarFill /><BsStarFill /><BsStarFill /><BsStarHalf /> &nbsp; (93 ratings)
                     </div>
                     </Col>
                  </Row>
@@ -374,6 +377,17 @@ function MyVerticallyCenteredModal(props) {
                   <Col xs={12} md={8}>
                     <h3>About Activity</h3>
                     {description}
+                    <div className={Styles.notification}> 
+                        <div className={Styles.sideBarOptions}>
+                         <div>
+                            <IoMdAlert /> 
+                         </div>
+                         
+                          <div className={Styles.SideBarOptionValue}>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                          </div>
+                        </div>
+                    </div>
                   </Col>
                 </Row>
 

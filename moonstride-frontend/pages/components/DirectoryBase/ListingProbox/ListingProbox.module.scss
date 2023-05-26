@@ -78,4 +78,17 @@
       text-align: left;
     }
 }
+.imageSection{
+  position: relative;
+  .flag{
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    background-color: $secondry-color;
+    padding: 6px; 
+    color: $header-bgcolor;
+    font-weight: 600;
+    border-radius: 6px;
+  }
+}
 }
