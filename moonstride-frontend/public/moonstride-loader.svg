@@ -10,8 +10,11 @@
 @keyframes a3_t { 0% { transform: translate(63.0374px,40.4px) scale(1.2,1.2) translate(-3.1355px,17px); } 25.9259% { transform: translate(63.0374px,40.4px) scale(1.2,1.2) translate(-3.1355px,17px); } 44.4444% { transform: translate(63.0374px,40.4px) scale(1.2,1.2) translate(-3.1355px,-17px); } 81.4814% { transform: translate(63.0374px,40.4px) scale(1.2,1.2) translate(-3.1355px,-17px); } 100% { transform: translate(63.0374px,40.4px) scale(1.2,1.2) translate(-3.1355px,-17px); } }
 @keyframes a3_h { 0% { height: 0px; } 25.9259% { height: 0px; } 44.4444% { height: 34px; } 81.4815% { height: 34px; } 100% { height: 0px; } }
     </style>
+
+
     <ellipse rx="45.4348" ry="45.4348" fill="#ffffff" stroke="none" style="transform: scale(1.04545,1.04545); animation: 2.7s linear both a0_mo; offset-path: path('M50,50C50,50,50,50,50,50'); offset-rotate: 0deg;"/>
-    <rect width="6" height="0" fill="#000000" stroke="none" transform="translate(36.8,59.4038) scale(1.2,1.2) translate(-3,17.1635)" style="animation: 2.7s linear both a1_t, 2.7s linear both a1_h;"/>
-    <rect width="6" height="0" fill="#000000" stroke="none" transform="translate(50.3168,49.8038) scale(1.2,1.2) translate(-3,9.1635)" style="animation: 2.7s linear both a2_t, 2.7s linear both a2_h;"/>
-    <rect width="6.271" height="0" fill="#000000" stroke="none" transform="translate(63.0374,40.4) scale(1.2,1.2) translate(-3.1355,17)" style="animation: 2.7s linear both a3_t, 2.7s linear both a3_h;"/>
+    <rect width="6" height="0" fill="#000000" stroke="none" transform="translate(36.8,59.4038) scale(1.2,1.2) translate(-3,17.1635)" style="animation: 2.7s linear forwards infinite a1_t, 2.7s linear both infinite a1_h;"/>
+    <rect width="6" height="0" fill="#000000" stroke="none" transform="translate(50.3168,49.8038) scale(1.2,1.2) translate(-3,9.1635)" style="animation: 2.7s linear forwards infinite a2_t, 2.7s linear both infinite a2_h;"/>
+    <rect width="6.271" height="0" fill="#000000" stroke="none" transform="translate(50.3168,49.8038) scale(1.2,1.2) translate(-3,9.1635)" style="animation: 2.7s linear forwards infinite a3_t, 2.7s linear both infinite a3_h;"/>
+
 </svg>
