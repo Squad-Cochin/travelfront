@@ -13,16 +13,42 @@ import { Button } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Dropdown from "react-bootstrap/Dropdown";
+import { Multiselect } from "multiselect-react-dropdown";
 import Select,{components} from 'react-select';
+import makeAnimated from 'react-select/animated';
+
 import ButtonType from "../../Button/Button";
 
 // FUNCTION FOR ACCORDIAN TYPE COMPONENT
 function AccordionType(props) {
 
+  const animatedComponents = makeAnimated();
   const [childCount, setchildCount] = useState([]);
   const [searchDetails, setsearchDetails] = useState({});
   const [children, setchildren] = useState(0);
   const [adult, setAdult] = useState(1);
+
+
+  const timeoptions = [
+    { value: '10.00 am', label: '10.00 am' },
+    { value: '10.30 am', label: '10.30 am' },
+    { value: '12.30 am', label: '12.30 am' }
+  ]
+
+  const languageoptions = [
+    { value: 'EN', label: 'EN' },
+    { value: 'SP', label: 'SP' },
+    { value: 'GER', label: 'GER' }
+  ]
+
+  const customerOptions =[
+    { value: 'Luis fonsi (56)', label: 'Luis fonsi (56)' },
+    { value: 'Stive morgan (48)', label: 'Stive morgan (48)' },
+    { value: 'John lithgow (42)', label: 'John lithgow (42)' },
+    { value: 'Ebrahim alkazi (62)', label: 'Ebrahim alkazi (62)' },
+  ]
+
+
   const sortByOptions = [
     { value: "1", label: "1" ,key:"1"},
     { value: "2", label: "2" ,key:"2"},
@@ -170,7 +196,7 @@ additionalInfoHtml += `</u>`;
             <div className={Styles.DetailsContent}> {faqlist.bodycon}</div>
             <div className={Styles.radioinnerBox_bottom}>
                       <Row>
-                            <Col xs={6} md={3}>
+                            <Col xs={6} md={2}>
                               <div className={Styles.event_date}>
                                   <div className="position-relative">
                                   <div className={Styles.date_fromtext}>
@@ -194,47 +220,22 @@ additionalInfoHtml += `</u>`;
                               </div>
                             </Col>           
 
-                    <Col xs={6} md={3}> 
-                      <Dropdown className={Styles.selecttraveller_box}>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                          0 Adults
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                          {/* We are displaying this data in a dropdown. */}
-                          <Row className="g-3">
-                            <Col xs={6}>
-                              <span className={Styles.label}>Adult</span>
-                              <Select class="d-inline-block sort-select" defaultValue={sortByOptions[0]} onChange={handleAdultCount} options={sortByOptions}/>
-                              {/* <SelectType label="Adult" /> */}
-                            </Col>
-                            <Col xs={6}>
-                              <span className={Styles.label}>Children</span>
-                              <Select class="d-inline-block sort-select" onChange={handleCountChild} defaultValue={childcountOptions[0]} options={childcountOptions}/>
-                              {/* <SelectType label="Children" /> */}
-                            </Col>
-                            {childCount.map((item, index) => {
-                              return(
-                          
-                            <Col xs={6} className="mt-3 custom" key={index}>
-                              <span className={Styles.label}>Child age </span>
-                              <Select className="d-inline-block sort-select select-age" onChange={handleCountChildAges} options={childageOptions}/>
-                              {/* <SelectType label="child's age on the date of travel" /> */}
-                            </Col>
-                          )
-                          })}
-
-
-                          </Row>
-                          <div className="mt-3">
-                            <ButtonType className={`${Styles.applyButton} btntype2`} onClick={setChildAge} name="Apply" />
-                          </div>
-                        </Dropdown.Menu>
-                      </Dropdown>
+                    <Col xs={6} md={4}> 
+                       <Select
+                          closeMenuOnSelect={false}
+                          components={animatedComponents}
+                          placeholder={'Select Passengers list'}
+                          // defaultValue={[colourOptions[4], colourOptions[5]]}
+                          isMulti
+                          options={customerOptions}
+                        />
+                   
                     </Col>
 
-                    <Col xs={6} md={3}> 
+                    <Col xs={6} md={2}> 
+                    <Select options={languageoptions} />
                       
-                    <div className={Styles.selecttraveller_box}>
+                    {/* <div className={Styles.selecttraveller_box}>
                         <Dropdown
                            onSelect={eventKey => {
                             const { code, title } = language.find(({ code }) => eventKey === code);
@@ -253,11 +254,18 @@ additionalInfoHtml += `</u>`;
                              ))}
                             </Dropdown.Menu>
                           </Dropdown>
-                      </div>
+                      </div> */}
+
+
                     </Col>
 
+                    <Col xs={6} md={2}> 
+                       <Select options={timeoptions} />
+                      
+                      </Col>
 
-                    <Col xs={6} md={3}>
+
+                    <Col xs={6} md={2}>
                               <div className={Styles.radioSubdesc}>
                                 <button className={Styles.btntype1}>Book</button>
 

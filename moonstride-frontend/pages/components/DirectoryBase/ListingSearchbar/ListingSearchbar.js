@@ -8,12 +8,14 @@
 
 
 import React, { useEffect, useState , Fragment } from "react";
-import Select, {components, MenuProps } from 'react-select';
+import Select, {components, MenuProps, IndicatorSeparatorProps} from 'react-select';
+//import Select, {} from 'react-select';
 import AsyncSelect from 'react-select/async'
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Dropdown from "react-bootstrap/Dropdown";
+import { Multiselect } from "multiselect-react-dropdown";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 //We are displaying the location search input here , We have passed values into the input component so that it can be reused.
@@ -39,6 +41,14 @@ function ActivitySearchWidgetHome(props) {
   
   const { SingleValue, Option } = components;
   const [searchDetails, setsearchDetails] = useState({});
+
+  const customerOptions =[
+    { value: 'Luis fonsi (56)', label: 'Luis fonsi (56)' },
+    { value: 'Stive morgan (48)', label: 'Stive morgan (48)' },
+    { value: 'John lithgow (42)', label: 'John lithgow (42)' },
+    { value: 'Ebrahim alkazi (62)', label: 'Ebrahim alkazi (62)' },
+  ]
+  
   const sortByOptions = [
     { value: "1", label: "1" ,key:"1"},
     { value: "2", label: "2" ,key:"2"},
@@ -69,6 +79,42 @@ function ActivitySearchWidgetHome(props) {
     { value: "11", label: "11" ,key:"11"},
     { value: "12", label: "12" ,key:"12"}
 
+  ]
+
+  const customerList = [
+    {
+      value: 0,
+      text: 'Angular',
+    },
+    {
+      value: 1,
+      text: 'Bootstrap',
+    },
+    {
+      value: 2,
+      text: 'React.js',
+    },
+    {
+      value: 3,
+      text: 'Vue.js',
+    },
+    {
+      label: 'backend',
+      options: [
+        {
+          value: 4,
+          text: 'Django',
+        },
+        {
+          value: 5,
+          text: 'Laravel',
+        },
+        {
+          value: 6,
+          text: 'Node.js',
+        },
+      ],
+    },
   ]
 
   useEffect(() => {
@@ -173,6 +219,20 @@ function ActivitySearchWidgetHome(props) {
     props.setFilterData([]);
     props.page == 0 ? props.setPage(1) : props.setPage(0);
   }
+
+  const indicatorSeparatorStyle = {
+    alignSelf: 'stretch',
+    backgroundColor: customerOptions[2].color,
+    marginBottom: 8,
+    marginTop: 8,
+    width: 1,
+    height:32,
+    borderColor: '#FF0000'
+  };
+
+  const IndicatorSeparator = (innerProps) => {
+     return <span style={indicatorSeparatorStyle} {...innerProps} />;
+    };
 
   // This function is used to toggle the visibility of dropdown used to select the details of adult and children
   const setDropDownVisibility = (e) => {
@@ -292,39 +352,77 @@ function ActivitySearchWidgetHome(props) {
           </Col>
           {/* Adult code comes here */}
           <Col lg={2} md={3} xs={12}>
-            <Dropdown className={Styles.selecttraveller_box}  show={travelerDropShow} onToggle={setDropDownVisibility}>
-              <Dropdown.Toggle variant="success" id="dropdown-basic">
-                {adult} Adults
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                {/* We are displaying this data in a dropdown. */}
-                <Row className="g-3">
-                  <Col xs={6}>
-                    <span className={Styles.label}>Adult</span>
-                    <Select class="d-inline-block sort-select" defaultValue={sortByOptions[(adult-1)]} onChange={handleAdultCount} options={sortByOptions}/>
-                  </Col>
-                  <Col xs={6}>
-                    <span className={Styles.label}>Children</span>
-                    <Select class="d-inline-block sort-select" onChange={handleCountChild} defaultValue={childcountOptions[0]} options={childcountOptions}/>
-                  </Col>
-                  {childCount.map((item, index) => {
-                    return(
+
+          <Select
+            closeMenuOnSelect={false}
+            components={{ IndicatorSeparator }} 
+            styles={{
+              control: (baseStyles, state) => ( 
+              {
+                ...baseStyles,
+                borderColor: '#999999'
+              }),
+              multiValueLabel: (baseStyles, state) => ( 
+                console.log(baseStyles),
+                {
+                  ...baseStyles,
+                  maxWidth: "40px",
+                })
+            }}         
+            isMulti
+            options={customerOptions}
+          />
+          {/* <Dropdown className={Styles.selectuser_box}>
+          <Multiselect
+                  displayValue="key"
+                  
+                  hideSelectedList
+                  onKeyPressFn={function noRefCheck(){}}
+                  onRemove={function noRefCheck(){}}
+                  onSearch={function noRefCheck(){}}
+                  onSelect={function noRefCheck(){}}
+                  options={[
+                  {
+                    cat: 'Group 1',
+                    key: 'Luis fonsi (56)'
+                  },
+                  {
+                    cat: 'Group 2',
+                    key: 'Stive morgan (48)'
+                  },
+                  {
+                    cat: 'Group 3',
+                    key: 'John lithgow (42)'
+                  },
+                  {
+                    cat: 'Group 4',
+                    key: 'Ebrahim alkazi (62)'
+                  },
+                  {
+                    cat: 'Group 5',
+                    key: 'Antonio (38)'
+                  }
+                ]}
+                showCheckbox
+                showArrow
                 
-                  <Col xs={6} className="mt-3 custom" key={index}>
-                    <span className={Styles.label}>Child age </span>
-                    <Select className="d-inline-block sort-select select-age" onChange={handleCountChildAges} options={childageOptions}/>
-                  </Col>
-                )
-                })}
-
-
-                </Row>
-                <div className="mt-3">
-                  <ButtonType className={`${Styles.applyButton} btntype2`} onClick={setChildAge} name="Apply" />
-                </div>
-              </Dropdown.Menu>
-            </Dropdown>
+                placeholder="Passengers list"
+                style={{
+                  chips: {
+                    background: 'yellow'
+                  },
+                  multiselectContainer: {
+                    color: 'black'
+                  },
+                  searchBox: {
+                    padding: '10px'
+                  }
+                }}
+              />
+          </Dropdown>   */}
           </Col>
+
+          
           <Col lg={1} md={3} xs={12}>
               {/* Clicking the search button will submit the data */}
               <ButtonType onClick={handleClick} className={`${Styles.searchButton} btntype1 w-100`} name="Search" />

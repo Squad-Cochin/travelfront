@@ -274,12 +274,7 @@ function MyVerticallyCenteredModal(props) {
                           <span className={Styles.SideBarOptionValue}>{duration} Hrs</span>
                         </div> : null
                       }
-                      {/* <div className={Styles.sideBarOptions}>
-                        <FaRegCalendarCheck />{" "}
-                        <span className={Styles.title}> Language </span>
-                        <br></br>
-                        <span className={Styles.SideBarOptionValue}>English, Spanish</span>
-                      </div> */}
+                   
                       {productDetails.contact.address != "Null" ? 
                         <div className={Styles.sideBarOptions}>
                           <FaMapMarkerAlt /> <span className={Styles.title}> Contact </span>

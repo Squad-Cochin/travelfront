@@ -81,6 +81,7 @@ const ListingProbox = (props) => {
                       priority={true}
                     />
                   </div>
+                    
                   <div className={Styles.flag}>
                        Likely to Sell Out
                   </div>

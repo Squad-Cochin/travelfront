@@ -56,6 +56,16 @@
       background-position: center left 10px;
     }
   }
+  .selectuser_box div div div{
+      border: 1px solid #999;
+      border-radius: 4px;
+      min-height: 50px;
+      
+  }
+  .selectuser_box:nth-child(2){
+
+  }
+  
   .selecttraveller_box {
     :global(.dropdown-toggle){
       &::after{
