@@ -8,32 +8,32 @@
 
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Select,{components} from 'react-select';
+import Select from 'react-select';
+
+// IMPORT PAGES
 import Styles from "./ActivityFilter.module.scss";
 
 
-// FUNCTION FOR ACTIVITY FILTER COMPONENT
+// FUNCTION FOR ACTIVITY FILTER COMPONENT.
 const ActivityFilter = (props) => {
 
   // This function is used to show the sidebar.
   const handleClick = () => {
     document.body.classList.toggle("sidebarActive");
   };
-
+  // Function for sort on the basis select.
   const handleSort = (e) => {
     let value = e.value
-    let data = props.searchData;
     props.setSortValue(value);
     props.page == 0 ? props.setPage(1) : props.setPage(0);
   }
-
+  // Drop down options.
   const sortByOptions = [
     { value: "TRAVELER_RATING:DESCENDING", label: "Customer Rating" ,key:"5"},
     { value: "PRICE:ASCENDING", label: "Price (low to high)" ,key:"1"},
     { value: "PRICE:DESCENDING", label: "Price (high to low)" ,key:"2"}
   ];
   let productCount = props.serachResults
-  
   return (
     <div className={Styles.filterbox}>
       <Row className="align-items-center">

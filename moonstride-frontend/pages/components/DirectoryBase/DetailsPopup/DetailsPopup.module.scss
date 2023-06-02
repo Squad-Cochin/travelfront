@@ -1,3 +1,10 @@
+///////////////////////////////////////////////////////////////////////////////////////
+//                                                                                   //
+//                      FILE FOR STYLE DETAIL POPUP COMPONENT                        //
+//                                                                                   //
+///////////////////////////////////////////////////////////////////////////////////////
+
+
 @import "../../../../styles/_config.scss";
 .Popup_title{
     .price{
@@ -33,8 +40,16 @@
     padding: 27px 0;
 }
 
+.error_messgae {
+    color: $red;
+    font-size: 15px;
+    text-align: center;
+    font-weight: 600;
+    padding: 27px 0;
+}
+
 .Availability{
-    background-color: #f1f1f1;
+    background-color: $ac-type-background-color;
     border-radius: 6px;
     height: 100%;
     margin-bottom: 15px;
@@ -69,7 +84,7 @@
      }
     .selecttraveller_box button{
         width: 100%;
-        border-color: #999;
+        border-color: $button-border-color;
         width: 100%;
         padding: 12px 10px 12px 40px;
         font-size: 16px;
@@ -82,21 +97,15 @@
             :global(.dropdown-menu) {
                 padding: 15px 15px;
                 min-width: 250px;
-                // max-height: 250px;
-                // overflow-x: auto;
                 .label{
                 font-size: 14px;
                 line-height: 20px;
                 font-weight: 600;
-                color: #1d1d1d;
+                color: $button-hover-color;
                 }
                 :global(.css-t3ipsp-control){
                 overflow-y: auto;
                 }
-                // :global(.css-1nmdiq5-menu){
-                //   height: 150px;
-                //   overflow-y: auto;
-                // }
             }
     }
     .accordian{
@@ -113,7 +122,7 @@
     }
     .radioinnerBox{
         padding: 10px 35px 10px 10px;
-        position: relative;
+        position: $r-position;
     }
     .radioinnerBox_bottom{
         display: flex;
@@ -133,7 +142,7 @@
          
     }
     .checkbox{
-        position: absolute;
+        position: $a-position;
         top: 10px;
         right: 12px;
     }
@@ -141,27 +150,27 @@
         font-size: 15px;
         font-weight: 600;
         line-height: 1.2;
-        color: #2b2b2b;
+        color: $ac-type-detailsContent-color;
         margin-bottom: 10px;
     }
     .radioContent{
         font-size: 14px;
         font-weight: normal;
         line-height: 1.71;
-        color: #2b2b2b;
+        color: $ac-type-detailsContent-color;
     }
     .event_date{
         font-size: 15px;
         font-weight: 600;
         line-height: 1.2;
-        color: #410f4e;
+        color: $link-hover-color;
         
     }
     .radioSubdesc{
         font-size: 14px;
         font-weight: normal;
         line-height: 1.71;
-        color: #2b2b2b;
+        color: $ac-type-detailsContent-color;
     }
     .btntype2{
         color: $header-bgcolor;
@@ -185,7 +194,7 @@
        border: none;
      }
      .input_check_box{
-        position: absolute;
+        position: $a-position;
         opacity: 0;
         cursor: pointer;
         right: 10px;
@@ -193,7 +202,7 @@
         z-index: 9;
      }
      .checkmark {
-        position: absolute;
+        position: $a-position;
         top: 3px;
         right: 5px;
         height: 25px;
@@ -207,24 +216,24 @@
         width: 8px;
         height: 8px;
         border-radius: 50%;
-        background: white;
+        background: $header-bgcolor;
    }
       .input_check_box:checked ~ .checkmark {
-        background-color: #2196F3;
+        background-color: $checkbox-checked;
       }
      
 }
 .Modal_close {
     button{
-        position: absolute;
+        position: $a-position;
         top: 30px;
         right: 20px;
-        background-color: #ffffff;
+        background-color: $header-bgcolor;
         opacity: 1;
     }
 }
 .sidebar{
-    background-color: #f1f1f1;
+    background-color: $ac-type-background-color;
     padding: 30px 20px;
     height: 100%;
     
@@ -250,7 +259,7 @@
 .notification{
     .sideBarOptions{
         display: flex;
-        background-color: #f1f1f1;
+        background-color: $ac-type-background-color;
         padding: 10px 10px;
     }
     svg{

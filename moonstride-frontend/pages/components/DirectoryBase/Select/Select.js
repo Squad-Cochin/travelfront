@@ -6,6 +6,8 @@
 
 
 import Form from "react-bootstrap/Form";
+
+// IMPORT PAGES
 import Styles from "./Select.module.scss";
 
 // FUNCTION FOR DROP DOWN COMPONENT
@@ -23,6 +25,7 @@ const SelectType = (props) => {
     </Form.Group>
   );
 };
+//  DEFAULT PROPERTIES OF SELECT TYPE COMPONENT
 SelectType.defaultProps = {
   width: "auto",
   label: "Label",

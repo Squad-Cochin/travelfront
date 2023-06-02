@@ -17,13 +17,13 @@
       padding: 5px 20px;
     }
     .sidebar_header {
-      color: #ffffff;
+      color: $header-bgcolor;
       margin: 0;
       font-size: 16px;
       }
       .reset_lnk {
         font-size: 12px;
-        color: #ffffff;
+        color: $header-bgcolor;
         text-decoration: underline;
         &:hover {
           color: $secondry-color;
@@ -38,25 +38,25 @@
     }
 
   .sidebar_box {
-    border: 1px solid #dfdfdf;
+    border: 1px solid $ac-type-border-top;
     border-radius: 0 0 6px 6px;
     padding: 15px;
     .sidebar_result {
       margin-bottom: 20px;
-      color: #2c2c2c;
+      color: $sidebar-result-color;
       .sidebar_selected_options {
         margin-top: 10px;
         .tag {
           display: inline-block;
           vertical-align: top;
           margin: 0 5px 5px 0;
-          background-color: #ededed;
-          border: 1px solid #e0e0e0;
+          background-color: $sidebar-option-bgcolor;
+          border: 1px solid $sidebar-option-border;
           border-radius: $border-radius;
           padding: 5px 30px 6px 10px;
-          position: relative;
+          position: $r-position;
           .cancel {
-            position: absolute;
+            position: $a-position;
             right: 10px;
             top: 4px;
           }
@@ -90,12 +90,12 @@
     .sidebarinput {
       font-weight: bold;
       font-size: 16px;
-      position: relative;
+      position: $r-position;
       line-height: 20px;
       color: $primary-color;
       &::before {
         content: "";
-        position: absolute;
+        position: $a-position;
         bottom: 17px;
         right: 15px;
         width: 16px;
@@ -121,7 +121,7 @@
         line-height: 20px;
         font-weight: bold;
         color: $primary-color;
-        position: relative;
+        position: $r-position;
         margin-bottom: 15px;
         &:not(.collapsed)::after {
           background-image: var(--bs-accordion-btn-icon);
@@ -135,6 +135,4 @@
       padding: 0;
     }  
   }
-
-  
 }

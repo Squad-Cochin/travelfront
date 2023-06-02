@@ -1,0 +1,74 @@
+///////////////////////////////////////////////////////////////////////////////////////
+//                                                                                   //
+//                     FILE FOR STYLE AVAILABILITY FILTER COMPONENT                  //
+//                                                                                   //
+///////////////////////////////////////////////////////////////////////////////////////
+
+
+@import "../../../../styles/_config.scss";
+
+.radioinnerBox_bottom{
+    margin-top: 10px;
+
+    .selecttraveller_box {
+        :global(.dropdown-toggle){
+          &::after{
+            position: $a-position;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 10px;
+          }
+        }
+        :global(.dropdown-menu) {
+          padding: 15px 15px;
+          min-width: 250px;
+          .label{
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 600;
+            color: $button-hover-color;
+          }
+          :global(.css-t3ipsp-control){
+            overflow-y: auto;
+          }
+        }
+        button{
+            width: 100%;
+            padding: 9px 10px 9px;
+            background-color: $header-bgcolor;
+        }
+      }
+
+    .date_fromtext input {
+        height: 40px;
+    }
+    .btntype1{
+        padding: 0px 40px;
+        border-radius: 7px;
+        border: none;
+        color: $header-bgcolor;
+        background-color: $secondry-color;
+        border-color: $secondry-color;
+        height: 40px;
+        font-size: 14px;
+        float: right;
+        
+    }
+    .btntype_inactive{           
+        pointer-events: none;
+        opacity: 0.4;
+        cursor: not-allowed;
+        padding: 0px 40px;
+        border-radius: 7px;
+        border: none;
+        color: $header-bgcolor;
+        background-color: $secondry-color;
+        border-color: $secondry-color;
+        height: 40px;
+        font-size: 14px;
+        float: right;
+    }
+    .btntype1:hover{
+        background-color:  $button-color ;
+     }
+}   

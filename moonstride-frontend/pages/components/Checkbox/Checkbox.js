@@ -9,7 +9,7 @@
 //We installed react-bootstrap and used the form component from the library.
 import Form from "react-bootstrap/Form";
 
-//Css page 
+// IMPORT PAGES
 import Styles from "./Checkbox.module.scss";
 
 // FUNCTION FOR CHECKBOX COMPONENT (DEFAULT)
@@ -34,6 +34,7 @@ const CheckboxTypeCustom = (props) => {
   );
 };
 
+// DEFAULT PROPERTIES FOR CHECKBOXTYPE
 CheckboxType.defaultprops = {
   type: "checkbox",
   label: "Label",
@@ -48,6 +49,7 @@ CheckboxType.defaultprops = {
   onchange: () => {}
 };
 
+// DEFAULT PROPERTIES FOR CHECKBOXTYPECUSTOM
 CheckboxTypeCustom.defaultprops = {
   title: "Select",
   name: "",

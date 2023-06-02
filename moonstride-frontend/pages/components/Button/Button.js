@@ -6,6 +6,8 @@
 
 
 import Button from "react-bootstrap/Button";
+
+// IMPORT PAGES
 import Styles from "./Button.module.scss";
 
 // FUNCTION FOR A BUTTON COMPONENT
@@ -26,6 +28,7 @@ const ButtonType = (props) => {
   );
 };
 
+// DEFAULT PROPERTIES FOR BUTTON TYPE
 ButtonType.defaultProps = {
   width: "auto",
   icon: "",

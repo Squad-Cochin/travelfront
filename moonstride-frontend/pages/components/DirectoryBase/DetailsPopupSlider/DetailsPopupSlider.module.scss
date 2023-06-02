@@ -1,18 +1,20 @@
+///////////////////////////////////////////////////////////////////////////////////////
+//                                                                                   //
+//                  FILE FOR STYLE DETAIL POPUP SLIDER COMPONENT                     //
+//                                                                                   //
+///////////////////////////////////////////////////////////////////////////////////////
+
+
+
 @import "../../../../styles/_config.scss";
 .Carousel_slider{
    margin-top: 20px;
     > div + button{
-      background-color: red;
+      background-color: $red;
 
     }
-   // button:nth-of-type(1){
-   //    display: none;
-   // }
-   // button:nth-of-type(2){
-   //    display: none;
-   // }
    .slider{
-    color: red;
+    color: $red;
     width: 230px;
     height: 157px;
     padding: 5px;

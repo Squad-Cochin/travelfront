@@ -7,30 +7,32 @@
 
 
 import React, { useState } from "react";
-//We installed react-bootstrap and used the Accordion component from the library
 import Accordion from "react-bootstrap/Accordion";
-//* This component shows the  title and search bar under the price range. We have passed values into the input component so that it can be reused.
-import InputType from "../Input/Input";
-// * This page is for reusing a checkbox input.
+import 'react-range-slider-input/dist/style.css';
+import { Form } from "react-bootstrap";
+
+// IMPORT PAGES
+import Sidebar_booking_details from '../SidebarBookingItems/SidebarBookingItems'
 import CheckboxType, { CheckboxTypeCustom }   from "../../Checkbox/Checkbox";
-// *Slide bar css page 
 import Styles from "./Sidebar.module.scss";
 // *This is an NPM package for displaying a price range
 import RangeSlider from '../../../../node_modules/react-range-slider-input/dist/components/RangeSlider';
-import 'react-range-slider-input/dist/style.css';
-import { Form } from "react-bootstrap";
-import Sidebar_booking_details from '../SidebarBookingItems/SidebarBookingItems'
 
+// SIDEBAR COMPONENT FUNCTION
 const Sidebar = (props) => {
+  
   // *This function is used to close the sidebar
   const closeIcon = () => {
     document.body.classList.toggle("sidebarActive");
   };
-  const [rangeMinValue, setrangeMinValue] = useState(0/*Math.min(...props.searchData.map(obj => obj.price))*/);
-  const [rangeMaxValue, setrangeMaxValue] = useState(500/*Math.max(...props.searchData.map(obj => obj.price))*/);
+
+  const [rangeMinValue, setrangeMinValue] = useState(0/*Math.min(...props.searchdata.map(obj => obj.price))*/);
+  const [rangeMaxValue, setrangeMaxValue] = useState(500/*Math.max(...props.searchdata.map(obj => obj.price))*/);
   const [appliedFilters, setappliedFilters] = useState([]);
   var valuesArray = [];
   var filtersArray = [];
+
+  // FUNCTION TO APPLAY FILTER
   const filterResult = (e) => {
     let checkBoxArray = document.querySelectorAll(".checkbox-filter input[type='checkbox']");
     let filteredArray = Array.from(checkBoxArray).filter((value) => {
@@ -40,7 +42,6 @@ const Sidebar = (props) => {
     let filteredArrayRadio = Array.from(radioBoxArray).filter((value) => {
       return value.checked  === true
     });
-
     let filterValuesArray = filteredArray.concat(filteredArrayRadio);
     filterValuesArray.forEach((item) => {
       valuesArray.push(item.value);
@@ -50,8 +51,9 @@ const Sidebar = (props) => {
     setappliedFilters(filtersArray);
     props.setFilterData(valuesArray);
     props.page == 0 ? props.setPage(1) : props.setPage(0);
-
   }
+
+  // FUNCTION FOR RESET FILTERS
   const resetFilters = () => {
     setappliedFilters([]);
     props.setFilterData([]);
@@ -59,16 +61,19 @@ const Sidebar = (props) => {
     setrangeMinValue(0);
     props.page == 0 ? props.setPage(1) : props.setPage(0);
   }
+
+  // PRICE RANGE SILIDER
   const changeFilterSlide = (e) => {
       setrangeMaxValue(e[1]);
       setrangeMinValue(e[0]);
   }
 
+  // CHECKBOX FUNCTIONALITY
   const changeChekbox = () => {}
 
   return (
     <aside>
-      <Sidebar_booking_details />
+      <Sidebar_booking_details cartData={props.cartData} setcartdata={props.setcartdata}/>
       <div className={Styles.sidebar_section}>
         <div className={`${Styles.sidebar_header_wrapper} d-flex justify-content-between align-items-center`}>
           <h2 className={`clearfix ${Styles.sidebar_header}`}>Filter</h2>
@@ -123,8 +128,7 @@ const Sidebar = (props) => {
                     {nav.title}
                   </Accordion.Header>
 
-                  <Accordion.Body className={Styles.sidebar_data}>
-                    
+                  <Accordion.Body className={Styles.sidebar_data}>   
                     {nav.sublinks.map((sublink) => {
                        let checked = false
                        if(props.filterValues.indexOf(sublink.value) !== -1){
@@ -169,6 +173,8 @@ const Sidebar = (props) => {
   );
 };
 export default Sidebar;
+
+// DEFAULT SIDEBAR PROPERTIES
 Sidebar.defaultProps = {
   sidebarconfig : [
     {
@@ -247,7 +253,7 @@ Sidebar.defaultProps = {
       ],
     },
   ],
-  searchData : [],
+  searchdata : [],
   page : 0,
   filterValues: []
 }

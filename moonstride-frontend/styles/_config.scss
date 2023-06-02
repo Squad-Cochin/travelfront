@@ -1,3 +1,10 @@
+///////////////////////////////////////////////////////////////////////////////////////
+//                                                                                   //
+//         In side this file there will be commen style for the project.             //
+//                                                                                   //
+///////////////////////////////////////////////////////////////////////////////////////
+
+
 @import "./mixins";
 @import "./variables";
 @import "./fonts";
@@ -14,3 +21,8 @@ $f-normal: 400;
 
 /* Border Radius */
 $border-radius: 4px;
+
+$chk-margin-bottom: 10px;
+$r-position: relative;
+$a-position: absolute;
+$ac-type-margin-bottom: 50px;

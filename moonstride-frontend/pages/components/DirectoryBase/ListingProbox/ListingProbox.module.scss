@@ -9,7 +9,7 @@
 .list_probox {
   margin-bottom: 20px;
   padding-bottom: 20px;
-  border-bottom: 1px solid #dfdfdf;
+  border-bottom: 1px solid $ac-type-border-top;
   .imagebox {
     overflow: hidden;
       img{
@@ -18,15 +18,15 @@
     > span {
       display: block !important;
       &.favourite_list {
-        background-color: #ffffff;
-        box-shadow: 0px 0px 6px rgba($color: #000000, $alpha: 0.5);
-        border-radius: 50%;  
+        background-color: $header-bgcolor;
+        box-shadow: 0px 0px 6px rgba($color: $accent-color, $alpha: 0.5);
+        border-radius: 50%;
         width: 37px;
         height: 37px;
         display: flex !important;
         align-items: center;
         justify-content: center;
-        position: absolute;
+        position: $a-position;
         left: 10px;
         top: 10px;
       }
@@ -36,7 +36,6 @@
         }
       }
     }
-
   }
   :global(.header-type1) {
     margin: 0px 0 10px;
@@ -61,7 +60,7 @@
       color: $primary-color;
     }
     .probox_canceltext {
-      color: green;
+      color: $canceltext;
     }
     .btn_bar {
       margin-top: 5px;
@@ -80,9 +79,9 @@
     }
 }
 .imageSection{
-  position: relative;
+  position: $r-position;
   .flag{
-    position: absolute;
+    position: $a-position;
     left: 10px;
     top: 10px;
     background-color: $secondry-color;
@@ -90,6 +89,7 @@
     color: $header-bgcolor;
     font-weight: 600;
     border-radius: 6px;
+    font-size: 11px;
   }
 }
 }

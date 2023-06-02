@@ -4,9 +4,10 @@
 //                                                                                   //
 ///////////////////////////////////////////////////////////////////////////////////////
 
+@import "../../../styles/_config.scss";
 
 .listingpage {
   padding: 20px 0 20px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #dfdfdf;
+  background-color: $header-bgcolor;
+  border-bottom: 1px solid $ac-type-border-top;
 }

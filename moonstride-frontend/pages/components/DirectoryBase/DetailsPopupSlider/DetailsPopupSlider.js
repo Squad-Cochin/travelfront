@@ -1,12 +1,21 @@
+///////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                           //
+//                       COMPONENT FOR SHOWING DETAILS POPUP SLIDER                          //
+//                                                                                           //
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+
 import { useState } from 'react';
 import ReactSimplyCarousel from 'react-simply-carousel';
-import Styles from "./DetailsPopupSlider.module.scss";
 import Image from 'next/image';
 
+// IMPORT PAGES
+import Styles from "./DetailsPopupSlider.module.scss";
 
+// DEFAULT COMPONENT FOR POPUP SLIDER
 export default function SimpleSlider(props) {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
-
+  // IMAGE LOADER 
   const imageLoader = ({ src, width, quality }) => {
     return `${src}`;
   };
@@ -107,6 +116,7 @@ export default function SimpleSlider(props) {
   );
 }
 
+// DEFAULT PROPERTY FOR SIMPLE SLIDER
 SimpleSlider.defaultProps = {
   images : []
 }

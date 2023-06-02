@@ -8,32 +8,39 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Header from "../../components/DirectoryBase/Header/Header";
 import Head from "next/head";
+import React, { useState, useEffect } from "react";
+import Image from "next/image";;
+
+// IMPORT PAGES
+import loadingimage from "../../../public/moonstride-loader.svg";
+import { tourPackages } from "../../api/tourPackages";
 import ListingSearchbar from "../../components/DirectoryBase/ListingSearchbar/ListingSearchbar";
 import ActivityFilter from "../../components/DirectoryBase/ActivityFilter/ActivityFilter";
 import ListingProbox from "../../components/DirectoryBase/ListingProbox/ListingProbox";
 import Sidebar from "../../components/DirectoryBase/Sidebar/Sidebar";
 import ButtonType from "../../components/Button/Button";
 import Styles from "./Listing.module.scss";
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import loadingimage from "../../../public/moonstride-loader.svg"
-import { tourPackages } from "../../api/tourPackages";
+import Header from "../../components/DirectoryBase/Header/Header";
 
 // FUNCTION FOR SHOWING LISTING PAGE COMPONENT
 const ListingPage = (props) => {
-
   const [searchData, setSearchData] = useState([]);
   const [filterValues, setFilterData] = useState([]);
   const [sortOrder, setSortOrder] = useState("");
+  const [searchFromMoonstride, setSearchFromMoonstride] = useState(true);
   const [serachResults, setserachResults] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isSorting, setSorting] = useState(false);
   const [headerValue, setheaderValue] = useState('Moonstride');
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(0);
+  const [cartData, setcartdata] = useState([]);
   const [sortValue, setSortValue] = useState('TRAVELER_RATING:DESCENDING');
+  const [personsearch, setPersonsearch] = useState(false);
+  const [filterboxleft, setFilterboxLeft] = useState(true);
+
+  // USEFFECT FOR RE RENDER ON THE BASIS OF FILTER
   useEffect(() => {
     let filters = {};
     let specials = [];
@@ -86,7 +93,32 @@ const ListingPage = (props) => {
         }
         filters.flags = specials;
       }
-      let searchedData = JSON.parse(sessionStorage.getItem("searchdata")) || [];
+      let searchedData;
+      if(props.searchdata.moonstrideSearch == 'Y' && searchFromMoonstride){
+        searchedData = props.searchdata
+        if(searchedData.flagPassengerNames){
+          setPersonsearch(true)
+          let adultCount = 0;
+          let childCount = 0;
+          for(let countPassenger = 0; countPassenger < searchedData.passengerNames.length ; countPassenger++){
+            if(searchedData.passengerNames[countPassenger].age > 18){
+              adultCount++;
+            }
+            else{
+              childCount++;
+            }
+          }
+          searchedData.passengerDetails.adult = adultCount;
+          searchedData.passengerDetails.child = childCount;
+        } 
+        sessionStorage.setItem("searchdata", JSON.stringify(searchedData));
+      }
+      else{
+        searchedData = JSON.parse(sessionStorage.getItem("searchdata")) || [];
+        if(searchedData.flagPassengerNames){
+          setPersonsearch(true)
+        } 
+      }
       let searchValues = {...searchedData, filters : filters }
       if(page <= 0){
         searchValues.page = 1;
@@ -132,10 +164,12 @@ const ListingPage = (props) => {
                     "time" : "",
                     "text" : "",
                     "price" : "",
+                    "label" : "",
                     "rating" : "No ratings",
                     "ratingCount" : "",
                     "buttonText" : "Add to quote",
-                    "freeCancellation" : ""
+                    "freeCancellation" : "",
+                    "likelyToSell" : ""
                   };
                   objectData.id = count;
                   if(element.title){
@@ -172,6 +206,7 @@ const ListingPage = (props) => {
                   }
                   if(element.flags){
                     objectData.freeCancellation = element.flags.find((element) => element === "FREE_CANCELLATION");
+                    objectData.likelyToSell = element.flags.find((element) => element === "LIKELY_TO_SELL_OUT");
                   }
                   finalData.push(objectData);
                 }
@@ -213,6 +248,7 @@ const ListingPage = (props) => {
    
   }, [filterValues, page]);
 
+  // USEFFECT FOR RE RENDER ON THE BASIS OF SEARCH DATA 
   useEffect(() => {
     let searchedData = JSON.parse(sessionStorage.getItem("searchdata")) || [];
     if(searchedData.searchTerm){
@@ -220,6 +256,12 @@ const ListingPage = (props) => {
       setheaderValue(headerValue);
     }
   }, [searchData]);
+
+  // USEFFECT FOR TAKING CART DATA FROM SESSION ON THE BASIS OF CART ITEM
+  useEffect(() => {
+    const data = JSON.parse(sessionStorage.getItem('cart')) || [];
+    setcartdata(data);
+  }, []);
 
   let filterdedData = [];
   filterdedData = searchData;
@@ -237,19 +279,28 @@ const ListingPage = (props) => {
       <Header />
       <div className={Styles.listingpage}>
         <Container>
-          <ListingSearchbar template="home" searchData={searchData} setSearchData={setSearchData} setIsLoading={setIsLoading} setserachResults={setserachResults} setPage={setPage} page={page} setFilterData={setFilterData}/>
+          <ListingSearchbar template="home" searchdata={searchData} setsearchdata={setSearchData} setIsLoading={setIsLoading} setserachResults={setserachResults} setPage={setPage} page={page} setFilterData={setFilterData} setSearchFromMoonstride={setSearchFromMoonstride} personsearch={personsearch}/>
         </Container>
       </div>
       <Container>
-      <ActivityFilter searchData={filterdedData} setSortOrder={setSortOrder} setSearchData={setSearchData} serachResults={serachResults} setSortValue={setSortValue} setPage={setPage} page={page} />
+      <ActivityFilter searchdata={filterdedData} setSortOrder={setSortOrder} setsearchdata={setSearchData} serachResults={serachResults} setSortValue={setSortValue} setPage={setPage} page={page} />
       </Container>
-      {isLoading ? <Loader /> : <ListingComponent searchData={searchData} filterData={filterdedData} setFilterData={setFilterData} limitedArray={limitedArray} limit={limit} setLimit={setLimit} page={page} setPage={setPage} filterValues={filterValues} serachResults={serachResults} setSorting={setSorting} isSorting={isSorting} /> }
+      {isLoading ? <Loader /> : <ListingComponent searchdata={searchData} filterData={filterdedData} setFilterData={setFilterData} limitedArray={limitedArray} limit={limit} setLimit={setLimit} page={page} setPage={setPage} filterValues={filterValues} serachResults={serachResults} setSorting={setSorting} isSorting={isSorting} cartData={cartData} setcartdata={setcartdata} personsearch={personsearch} filterboxleft={filterboxleft}/> }
     </>
   );
 };
 
 export default ListingPage;
 
+// DEFAULT LISTING PAGE PROPERTIES
+ListingPage.defaultProps = {
+  searchdata : {
+    
+    moonstrideSearch : "N"
+  }
+}
+
+// FINCTION FOR LOADER
 function Loader(){
     return( 
       <Container>
@@ -262,8 +313,9 @@ function Loader(){
     )
 }
 
+// FUNCTION FOR LISTING DATA
 function ListingComponent(props){
-  
+  // FUNCTION FOR SET PAGE LIMIT
   const setnewLimit = () => {
     if(props.page == 1 || props.page == 0){
       props.setPage(2);
@@ -277,15 +329,15 @@ function ListingComponent(props){
   if(props.serachResults > 0){
     return (
       <Container> 
-          <Row>
+          <Row className={props.filterboxleft ? `flex-row` : `flex-row flex-row-reverse`}>
             <Col xl={3} lg={4}>
             <div className={`pageSidebar`}>
-              {props.searchData.length == 0 ? <></> : <Sidebar searchData={props.searchData} filterData={props.filterData} setFilterData={props.setFilterData} filterValues={props.filterValues} setPage={props.setPage} page={props.page} />}  
+              {props.searchdata.length == 0 ? <></> : <Sidebar searchdata={props.searchdata} filterData={props.filterData} setFilterData={props.setFilterData} filterValues={props.filterValues} setPage={props.setPage} page={props.page} cartData={props.cartData} setcartdata={props.setcartdata}/>}  
             </div>
             </Col>
             <Col xl={9} lg={8}>
               <Row>
-                {props.limitedArray.length == 0 ? <></> : <ListingProbox boxData = {props.limitedArray}/>}
+                {props.limitedArray.length == 0 ? <></> : <ListingProbox boxData = {props.limitedArray} cartData={props.cartData} setcartdata={props.setcartdata} personsearch={props.personsearch}/>}
                 <div className="text-center mb-3">
                   {props.serachResults == 0 || props.serachResults == props.limitedArray.length ? <></> : <ButtonType className="btntype2" onClick={setnewLimit} name={props.isSorting ? `Loading...`: `Show More`} />}
                 </div>
@@ -301,7 +353,7 @@ function ListingComponent(props){
           <Row>
             <Col xl={3} lg={4}>
             <div className={`pageSidebar`}>
-              <Sidebar searchData={props.searchData} filterData={props.filterData} setFilterData={props.setFilterData} filterValues={props.filterValues} setPage={props.setPage} page={props.page} />  
+              <Sidebar searchdata={props.searchdata} filterData={props.filterData} setFilterData={props.setFilterData} filterValues={props.filterValues} setPage={props.setPage} page={props.page} cartData={props.cartData} setcartdata={props.setcartdata} />  
                 
             </div>
             </Col>

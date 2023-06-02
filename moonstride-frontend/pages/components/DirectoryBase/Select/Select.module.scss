@@ -8,11 +8,11 @@
 @import "../../../../styles/_config.scss";
 .search_formbox {
   .form-select {
-    border-color: #666;
+    border-color: $select-bgcolor;
     padding-left: 40px;
     font-size: 16px;
     line-height: 19px;
     font-weight: 600;
-    color: #333;
+    color: $select-color;
   }
 }

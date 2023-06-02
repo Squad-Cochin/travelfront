@@ -9,12 +9,12 @@
 @import "../../../../styles/_config.scss";
 
 .listingSearchbar {
-  background-color: #ffffff;
+  background-color: $header-bgcolor;
   .searchInput {
-    position: relative;
+    position: $r-position;
     &::before {
       content: "";
-      position: absolute;
+      position: $a-position;
       top: 50%;
       left: 15px;
       transform: translateY(-50%);
@@ -26,13 +26,13 @@
     }
   }
   .form-control {
-    border: 1px solid black;
+    border: 1px solid $accent-color;
   }
   :global(.form-select){
     height: 35px;
   }
   .date_fromtext {
-    position: absolute;
+    position: $a-position;
     left: 40px;
     top: 5px;
     z-index: 1;
@@ -46,7 +46,7 @@
   }
   :global(.dropdown) {
     button {
-      border-color: #999;
+      border-color: $button-border-color;
       width: 100%;
       padding: 12px 10px 12px 40px;
       font-size: 16px;
@@ -57,19 +57,14 @@
     }
   }
   .selectuser_box div div div{
-      border: 1px solid #999;
-      border-radius: 4px;
-      min-height: 50px;
-      
+    border: 1px solid $button-border-color;
+    border-radius: 4px;
+    min-height: 50px;
   }
-  .selectuser_box:nth-child(2){
-
-  }
-  
   .selecttraveller_box {
     :global(.dropdown-toggle){
       &::after{
-        position: absolute;
+        position: $a-position;
         top: 50%;
         transform: translateY(-50%);
         right: 10px;
@@ -82,7 +77,7 @@
         font-size: 14px;
         line-height: 20px;
         font-weight: 600;
-        color: #1d1d1d;
+        color: $button-hover-color;
       }
       :global(.css-t3ipsp-control){
         overflow-y: auto;
@@ -96,25 +91,25 @@
 }
 /* car search section */
 .listingCarHeader{
-  border-bottom: 1px solid #dfdfdf;
+  border-bottom: 1px solid $ac-type-border-top;
 .listingCarSearch{
   margin:5px 0;
   
   .searchCriteria{
     font-size: 14px;
     line-height: 35px;
-    color:#2b2b2b;
+    color:$ac-type-detailsContent-color;
   }
   .location{
-    position: relative;
+    position: $r-position;
     padding:8px;
     padding-left: 40px;
-    border: 1px solid #999;
+    border: 1px solid $button-border-color;
     border-radius: $border-radius;
     .locationTxt{
       font-size: 13px;
       line-height: 17px;
-      color: #1d1d1d;
+      color: $button-hover-color;
       display: block;
     }
     .locationName{
@@ -128,7 +123,7 @@
       background-size: contain;
       height: 20px;
       width: 14px;
-      position: absolute;
+      position: $a-position;
       vertical-align: middle;
       display: inline-block;
       background-repeat: no-repeat;
@@ -153,7 +148,7 @@
   }
   .pickupDate, .pickupTime{
     .pickupDateDiv, .pickupTimeDiv{
-      position: relative;
+      position: $r-position;
       :global(.react-datepicker__input-container) {
         input {
           padding: 20px 10px 5px 40px;
@@ -162,7 +157,7 @@
         }
       }
       .date_fromtext {
-        position: absolute;
+        position: $a-position;
         left: 40px;
         top: 5px;
         z-index: 1;
@@ -180,7 +175,7 @@
     margin-top: 5px;
     :global(.form-check .form-check-label) {
       font-size: 14px;
-      color: #2b2b2b;
+      color: $ac-type-detailsContent-color;
     }
   }
 }

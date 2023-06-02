@@ -6,9 +6,11 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 import axios from 'axios';
+
+// IMPORT PAGES
 import { API_BASE_URL } from '../../config';
 
-// FUNCTION FOR SEARCH TOUR PACKAGES
+// FUNCTION FOR GET SEARCH OPTIONS
 async function locationOptions(inputValue){
 	   try{
 			const data = {
@@ -24,7 +26,6 @@ async function locationOptions(inputValue){
 			}
 	   }
 	   catch(error){
-			console.error(error);
 			 let errorItems = []
 			 return errorItems; 
 	   }
