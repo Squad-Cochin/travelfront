@@ -46,7 +46,7 @@ const ListingProbox = (props) => {
           <Col lg={12} md={6} key={index}>
             <div className={Styles.list_probox} id={item.id}>
               <Row className="g-3">
-                <Col className="d-flex" lg={{ span: 4, order: 1 }} md={{ span: 12, order: 1 }} xs={{ span: 5, order: 1 }}>
+                <Col className="d-flex" lg={{ span: 4, order: 1 }} md={{ span: 12, order: 1 }} xs={{ span: 12, order: 1 }}>
                   <div className={Styles.imageSection}>
                     <div className={`position-relative ${Styles.imagebox}`}>
                       <Image 

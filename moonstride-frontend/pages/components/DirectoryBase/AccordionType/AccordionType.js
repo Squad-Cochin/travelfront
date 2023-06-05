@@ -23,15 +23,15 @@ function AccordionType(props) {
       <Accordion.Header>  
         <div className={Styles.Availability}>        
           <Row>
-            <Col xs={6} md={7}>
+            <Col  md={7} xs={12}>
                 <div className={Styles.title}>{faqlist.title}</div>
             </Col>
-            <Col xs={6} md={2}>
+            <Col md={2} xs={12}>
               <div className={Styles.price}>
                 <span className={Styles.value}> ${faqlist.priceSummary.recommendedRetailPrice}</span>
               </div>
             </Col>
-            <Col xs={6} md={3}> 
+            <Col md={3} xs={12}> 
               <Button className={Styles.btntype1} variant="primary"> Choose</Button>
             </Col>
           </Row>

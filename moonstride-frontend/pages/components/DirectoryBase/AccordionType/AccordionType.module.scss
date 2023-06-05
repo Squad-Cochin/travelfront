@@ -80,9 +80,17 @@
                 }
             }
         }
-    }
-   
+    }   
 }
+@media (max-width: 400px) {
+    .accordiontype{
+       margin-bottom: 12px;
+    }
+    .btntype1{
+        margin-top: 20px;
+    }
+ 
+ } 
 .accordionPlus{
     background-color: $ac-type-background-color;
     margin-bottom: 10px;

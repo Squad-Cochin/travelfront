@@ -256,6 +256,15 @@
     }
 
 }
+@media (max-width: 400px) {
+    .sidebar{
+       margin-bottom: 12px;
+    }
+    .activityDetails{
+        margin-top: 20px;
+    }
+ 
+ } 
 .notification{
     .sideBarOptions{
         display: flex;

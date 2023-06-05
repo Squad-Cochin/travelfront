@@ -92,6 +92,8 @@ export default function SimpleSlider(props) {
        
             infiniteLoop: true,
           },
+        
+         
         ]}
         
         speed={200}
