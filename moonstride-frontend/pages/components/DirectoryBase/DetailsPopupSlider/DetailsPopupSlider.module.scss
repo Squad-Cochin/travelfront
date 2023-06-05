@@ -12,7 +12,7 @@
     > div + button{
       background-color: $red;
 
-    }
+    }  
    .slider{
     color: $red;
     width: 230px;
@@ -21,6 +21,15 @@
    }
    .slider img{
       max-width: 100%;
+   }
+
+   @media (max-width: 400px) {
+      div {
+         div:nth-child(4) {
+           flex-wrap: wrap;
+          }
+       }
+
    }
   
 }
